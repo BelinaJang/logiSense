@@ -22,11 +22,17 @@ summary(glm_model)
 ```
 
 ```{r}
-ilr <- function(variable_interest, variable_type, outcome, covariates, data) {
+ilr <- function(formula, variable_interest, variable_type, data) {
   
-  formula <- as.formula(paste(outcome, "~", variable_interest, "+", paste(covariates, collapse = "+")))
+  #formula <- as.formula(paste(outcome, "~", variable_interest, "+", paste(covariates, collapse = "+")))
   
   model <- glm(formula, data = data, family = binomial)
+  
+  variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+  
+  # outcome variable
+  outcome <- as.character(variables_list[[1]])
+
   
   # Extract results for the variable of interest
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
@@ -77,11 +83,16 @@ ilr <- function(variable_interest, variable_type, outcome, covariates, data) {
 }
 ```
 
+```{r}
+# continuous test
+result <- ilr(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="age", variable_type="continuous")
+
+result
+```
 
 ```{r}
-
-result <- ilr(data=test_data, outcome="stroke", variable_interest="gender", variable_type="categorical",
-              covariates=c("gender", "age", "hypertension", "heart_disease", "avg_glucose_level", "smoking_status"))
+# categorical test
+result <- ilr(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="gender", variable_type="categorical")
 
 result
 ```
