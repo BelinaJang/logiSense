@@ -1,0 +1,90 @@
+---
+title: "functiondraft"
+author: "Jingxuan He"
+date: "2024-11-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(broom)
+```
+
+```{r}
+library(here)
+test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
+
+glm_model <- glm(stroke ~ gender + age + hypertension + heart_disease +
+                   avg_glucose_level + smoking_status, family = binomial, data = test_data)
+summary(glm_model)
+```
+```{r}
+ilr <- function(variable_interest, variable_type, outcome, covariates, data) {
+  
+  formula <- as.formula(paste(outcome, "~", variable_interest, "+", paste(covariates, collapse = "+")))
+  
+  model <- glm(formula, data = data, family = binomial)
+  
+  # Extract results for the variable of interest
+  result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
+  vi_result <- result[result$term == variable_interest, ]
+  
+  estimate <- vi_result$estimate
+  ci_lower <- vi_result$conf.low
+  ci_upper <- vi_result$conf.high
+  p_value <- vi_result$p.value
+  
+
+  if (variable_type == "continuous") {
+    interpretation <- paste0(
+      "For each one-unit increase in '", variable_interest, "', the odds of '", outcome,
+      "' are multiplied by ", round(estimate, 2), 
+      " (95% CI: ", round(ci_lower, 2), " - ", round(ci_upper, 2), ")."
+    )
+  } else if (variable_type == "categorical") {
+    reference_level <- levels(data[[variable_interest]])[1]
+    category <- gsub(paste0(variable_interest, ""), "", term)
+    interpretation <- paste0(
+      "Compared to the reference category '", reference_level, "' of '", variable_interest, "', the odds of '", 
+      outcome, "' for the category '", category, 
+      "' are multiplied by ", round(estimate, 2), 
+      " (95% CI: ", round(ci_lower, 2), " - ", round(ci_upper, 2), ")."
+    )
+  } else {
+    stop("Variable type must be either 'continuous' or 'categorical'.")
+  }
+  
+  # p-value 
+  p_interpretation <- if (p_value < 0.05) {
+    "This result is statistically significant at 5% significance level."
+  } else {
+    "This result is not statistically significant at 5% significance level."
+  }
+  
+  # Combine all the interpretations
+  final_output <- paste(interpretation, p_interpretation)
+  
+  # Return the output
+  list(
+    Interpretation = final_output,
+    Estimate = estimate,
+    CI = c(Lower = ci_lower, Upper = ci_upper),
+    P_value = p_value
+  )
+}
+```
+
+
+```{r}
+
+result <- ilr(data=test_data, outcome="stroke", variable_interest="gender", variable_type="categorical",
+              covariates=c("gender", "age", "hypertension", "heart_disease", "avg_glucose_level", "smoking_status"))
+
+result
+```
+
+
+
