@@ -11,16 +11,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(broom)
+library(here)
 ```
 
 ```{r}
-library(here)
 test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
 
 glm_model <- glm(stroke ~ gender + age + hypertension + heart_disease +
                    avg_glucose_level + smoking_status, family = binomial, data = test_data)
 summary(glm_model)
 ```
+
 ```{r}
 ilr <- function(variable_interest, variable_type, outcome, covariates, data) {
   
@@ -77,14 +78,18 @@ ilr <- function(variable_interest, variable_type, outcome, covariates, data) {
 }
 ```
 
-
 ```{r}
-
-result <- ilr(data=test_data, outcome="stroke", variable_interest="gender", variable_type="categorical",
+# continuous variable test
+result <- ilr(data=test_data, outcome="stroke", variable_interest="age", variable_type="continuous",
               covariates=c("gender", "age", "hypertension", "heart_disease", "avg_glucose_level", "smoking_status"))
 
 result
 ```
 
+```{r}
+# categorical variable test
+result <- ilr(data=test_data, outcome="stroke", variable_interest="gender", variable_type="categorical",
+              covariates=c("gender", "age", "hypertension", "heart_disease", "avg_glucose_level", "smoking_status"))
 
-
+result
+```
