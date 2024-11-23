@@ -37,6 +37,8 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   
   # Extract results for the variable of interest
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
+  terms <- result$term
+  
 
   if (variable_type == "continuous") {
     vi_result <- result[result$term == variable_interest, ]
@@ -109,6 +111,135 @@ ilr <- function(formula, variable_interest, variable_type, data) {
 }
 ```
 
+```{r}
+#revised to handle interaction terms
+ilr <- function(formula, variable_interest, variable_type, data) {
+  library(broom)
+  
+  model <- glm(formula, data = data, family = binomial)
+  
+  variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+  outcome <- as.character(variables_list[[1]])
+  cat("Outcome variable: ", outcome, "\n")
+  
+  result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
+  
+  interpretation <- ""
+  
+  if (variable_type == "continuous") {
+    vi_result <- result[result$term == variable_interest, ]
+    if (nrow(vi_result) == 0) {
+      stop("Variable of interest not found in the model.")
+    }
+    
+    estimate <- vi_result$estimate
+    ci_lower <- vi_result$conf.low
+    ci_upper <- vi_result$conf.high
+    p_value <- vi_result$p.value
+    
+    p_interpretation <- if (p_value < 0.05) {
+      paste0("This result is statistically significant at 5% significance level (p-value:
+             ",signif(p_value, 4), ").")
+    } else {
+      paste0("This result is not statistically significant at 5% significance level
+             (p-value: ", signif(p_value, 4), ").")
+    }
+    
+    interpretation <- paste0(
+      "For each one-unit increase in '", variable_interest, ",' the odds of '", outcome,
+      "' are multiplied by ", signif(estimate, 4),
+      " (95% CI: ", signif(ci_lower, 4), " - ", signif(ci_upper, 4), "). ",
+      p_interpretation, "\n"
+    )
+    
+  } else if (variable_type == "categorical") {
+    data[[variable_interest]] <- factor(data[[variable_interest]])
+    levels <- levels(data[[variable_interest]])
+    reference_level <- levels[1]
+    cat("Reference level: ", reference_level, "\n")
+    
+    for (comparison_level in levels[-1]) {
+      term_name <- paste0(variable_interest, comparison_level)
+      vi_result <- result[result$term == term_name, ]
+      if (nrow(vi_result) > 0) {
+        estimate <- vi_result$estimate
+        ci_lower <- vi_result$conf.low
+        ci_upper <- vi_result$conf.high
+        p_value <- vi_result$p.value
+        
+        ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower,
+                                                                                 4))
+        ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper,
+                                                                                 4))
+        
+        p_interpretation <- if (p_value < 0.05) {
+          paste0("This result is statistically significant at 5% significance level
+                 (p-value: ", signif(p_value, 4), "). ")
+        } else {
+          paste0("This result is not statistically significant at 5% significance level
+                 (p-value: ", signif(p_value, 4), "). ")
+        }
+        
+        interpretation <- paste0(
+          interpretation,
+          "Compared to the reference level '", reference_level, "' of '",
+          variable_interest, 
+          ",' the odds of '", outcome, "' for the level '", comparison_level, 
+          "' are multiplied by ", signif(estimate, 4),
+          " (95% CI: ", ci_lower, " - ", ci_upper, "). ",
+          p_interpretation, "\n"
+        )
+      }
+    }
+  } else {
+    stop("Variable type must be either 'continuous' or 'categorical.'")
+  }
+  
+  # Check for interaction terms involving the variable of interest
+  interaction_terms <- result[grepl(paste0("^", variable_interest, "|:",
+                                           variable_interest, "$"), result$term), ]
+  
+  if (nrow(interaction_terms) > 0) {
+    interpretation <- paste0(interpretation, "\nInteraction Effects:\n")
+    
+    for (i in 1:nrow(interaction_terms)) {
+      interaction_term <- interaction_terms$term[i]
+      estimate <- interaction_terms$estimate[i]
+      ci_lower <- interaction_terms$conf.low[i]
+      ci_upper <- interaction_terms$conf.high[i]
+      p_value <- interaction_terms$p.value[i]
+      
+      ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower,
+                                                                               4))
+      ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper,
+                                                                               4))
+      
+      p_interpretation <- if (p_value < 0.05) {
+        paste0("This interaction is statistically significant at 5% significance level
+               (p-value: ", signif(p_value, 4), ").")
+      } else {
+        paste0("This interaction is not statistically significant at 5% significance level
+               (p-value: ", signif(p_value, 4), ").")
+      }
+      
+      interpretation <- paste0(
+        interpretation,
+        "The interaction term '", interaction_term, 
+        "' modifies the effect of '", variable_interest, "' on '", outcome, 
+        ".' The odds are multiplied by ", signif(estimate, 4), 
+        " (95% CI: ", ci_lower, " - ", ci_upper, "). ",
+        p_interpretation, "\n"
+      )
+    }
+  }
+  
+  return(interpretation)
+}
+
+
+```
+```
+
 ```{r warning=FALSE}
 # categorical test
 result <- ilr(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="gender", variable_type="categorical")
@@ -126,5 +257,11 @@ result
 ```{r}
 # double checking!
 glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, family=binomial)
+```
+
+```{r}
+#interaction test
+ilr(formula=stroke~gender*age,data=test_data, variable_interest="gender", variable_type="categorical")
+
 ```
 
