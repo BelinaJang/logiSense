@@ -38,32 +38,55 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   
   # Extract results for the variable of interest
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
-  vi_result <- result[result$term == variable_interest, ]
-  print(vi_result)
-  
-  estimate <- vi_result$estimate
-  ci_lower <- vi_result$conf.low
-  ci_upper <- vi_result$conf.high
-  p_value <- vi_result$p.value
   
 
   if (variable_type == "continuous") {
+    vi_result <- result[result$term == variable_interest, ]
+    print(vi_result)
+  
+    estimate <- vi_result$estimate
+    ci_lower <- vi_result$conf.low
+    ci_upper <- vi_result$conf.high
+    p_value <- vi_result$p.value
+  
     interpretation <- paste0(
       "For each one-unit increase in '", variable_interest, "', the odds of '", outcome,
-      "' are multiplied by ", round(estimate, 2), 
-      " (95% CI: ", round(ci_lower, 2), " - ", round(ci_upper, 2), ")."
+      "' are multiplied by ", round(estimate, 3),
+      " p-value: ", p_value,
+      " (95% CI: ", round(ci_lower, 3), " - ", round(ci_upper, 3), ")."
     )
   } else if (variable_type == "categorical") {
-    reference_level <- levels(data[[variable_interest]])[1]
-    category <- gsub(paste0(variable_interest, ""), "", term)
+    data[[variable_interest]] <- factor(data[[variable_interest]])
+    
+    levels <- levels(data[[variable_interest]])
+    
+    # first level is the reference level ??
+    reference_level <- levels[1]
+    #print("reference level", reference_level)
+    
+    # need a loop for each levels other than reference_level
+    # let's use the first comparison level for now
+    
+    comparison_level <- levels[2]
+    #print("comparison_level", comparison_level)
+    
+    vi_result <- result[result$term == paste0(variable_interest,comparison_level), ]
+    print(vi_result)
+  
+    estimate <- vi_result$estimate
+    ci_lower <- vi_result$conf.low
+    ci_upper <- vi_result$conf.high
+    p_value <- vi_result$p.value
+    
     interpretation <- paste0(
-      "Compared to the reference category '", reference_level, "' of '", variable_interest, "', the odds of '", 
-      outcome, "' for the category '", category, 
-      "' are multiplied by ", round(estimate, 2), 
-      " (95% CI: ", round(ci_lower, 2), " - ", round(ci_upper, 2), ")."
+      "Compared to the reference level '", reference_level, "' of '", variable_interest, "', the odds of '", 
+      outcome, "' for the level '", comparison_level, 
+      "' are multiplied by ", round(estimate, 3),
+      " p-value: ", round(p_value, 3),
+      " (95% CI: ", round(ci_lower, 3), " - ", round(ci_upper, 3), ")."
     )
   } else {
-    stop("Variable type must be either 'continuous' or 'categorical'.")
+    stop("Variable type must be either 'continuous' or 'categorical.'")
   }
   
   # p-value 
@@ -87,6 +110,16 @@ ilr <- function(formula, variable_interest, variable_type, data) {
 ```
 
 ```{r}
+# categorical test
+result <- ilr(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="gender", variable_type="categorical")
+
+result
+
+glm(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, family=binomial)
+
+```
+
+```{r}
 # continuous test
 result <- ilr(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="age", variable_type="continuous")
 
@@ -96,13 +129,6 @@ result
 ```{r}
 # double checking!
 glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, family=binomial)
-```
-
-```{r}
-# categorical test
-result <- ilr(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="gender", variable_type="categorical")
-
-result
 ```
 
 
