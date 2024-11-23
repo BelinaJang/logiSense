@@ -24,21 +24,18 @@ summary(glm_model)
 ```{r}
 ilr <- function(formula, variable_interest, variable_type, data) {
   
-  #formula <- as.formula(paste(outcome, "~", variable_interest, "+", paste(covariates, collapse = "+")))
-  
   model <- glm(formula, data = data, family = binomial)
-  print(model)
+  #print(model)
   
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
-  print(variables_list)
+  #print(variables_list)
   
   # outcome variable
   outcome <- as.character(variables_list[[1]])
-  print(outcome)
+  cat("outcome variable: ", outcome)
   
   # Extract results for the variable of interest
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
-  
 
   if (variable_type == "continuous") {
     vi_result <- result[result$term == variable_interest, ]
@@ -58,33 +55,36 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   } else if (variable_type == "categorical") {
     data[[variable_interest]] <- factor(data[[variable_interest]])
     
+    # levels of variable of interest
     levels <- levels(data[[variable_interest]])
     
-    # first level is the reference level ??
+    # first level is the reference level
     reference_level <- levels[1]
-    #print("reference level", reference_level)
+    cat("reference level", reference_level)
     
-    # need a loop for each levels other than reference_level
-    # let's use the first comparison level for now
+    # empty string to store interpretations
+    interpretation <- ""
     
-    comparison_level <- levels[2]
-    #print("comparison_level", comparison_level)
+    for (comparison_level in levels[-1]) {
+      cat("comparison_level: ", comparison_level)
+      
+      vi_result <- result[result$term == paste0(variable_interest,comparison_level), ]
+      print(vi_result)
     
-    vi_result <- result[result$term == paste0(variable_interest,comparison_level), ]
-    print(vi_result)
-  
-    estimate <- vi_result$estimate
-    ci_lower <- vi_result$conf.low
-    ci_upper <- vi_result$conf.high
-    p_value <- vi_result$p.value
-    
-    interpretation <- paste0(
-      "Compared to the reference level '", reference_level, "' of '", variable_interest, "', the odds of '", 
-      outcome, "' for the level '", comparison_level, 
-      "' are multiplied by ", round(estimate, 3),
-      " p-value: ", round(p_value, 3),
-      " (95% CI: ", round(ci_lower, 3), " - ", round(ci_upper, 3), ")."
-    )
+      estimate <- vi_result$estimate
+      ci_lower <- vi_result$conf.low
+      ci_upper <- vi_result$conf.high
+      p_value <- vi_result$p.value
+      
+      interpretation = paste0(
+        interpretation,
+        "Compared to the reference level '", reference_level, "' of 'variable: ", variable_interest,
+        "', the odds of '", outcome, "' for the level '", comparison_level, 
+        "' are multiplied by ", round(estimate, 3),
+        " p-value: ", round(p_value, 3),
+        " (95% CI: ", round(ci_lower, 3), " - ", round(ci_upper, 3), "). "
+      )
+    }
   } else {
     stop("Variable type must be either 'continuous' or 'categorical.'")
   }
@@ -130,6 +130,3 @@ result
 # double checking!
 glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, family=binomial)
 ```
-
-
-
