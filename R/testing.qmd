@@ -88,17 +88,17 @@ ilr <- function(formula, variable_interest, variable_type, data) {
       
       # p-value interpretation
       p_interpretation <- if (p_value < 0.05) {
-        paste0("This result is statistically significant at 5% significance level (p-value: ", p_value, "). ")
+        paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
       } else {
-        paste0("This result is not statistically significant at 5% significance level (p-value: ", p_value, "). ")
+        paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
       }
       
       interpretation = paste0(
         interpretation,
         "Compared to the reference level '", reference_level, "' of 'variable: ", variable_interest,
         ",' the odds of '", outcome, "' for the level '", comparison_level, 
-        "' are multiplied by ", round(estimate, 3),
-        " (95% CI: ", round(ci_lower, 3), " - ", round(ci_upper, 3), "). ",
+        "' are multiplied by ", signif(estimate, 4),
+        " (95% CI: ", signif(ci_lower, 4), " - ", signif(ci_upper, 4), "). ",
         p_interpretation
       )
     }
