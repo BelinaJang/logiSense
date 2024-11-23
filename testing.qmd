@@ -27,16 +27,19 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   #formula <- as.formula(paste(outcome, "~", variable_interest, "+", paste(covariates, collapse = "+")))
   
   model <- glm(formula, data = data, family = binomial)
+  print(model)
   
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+  print(variables_list)
   
   # outcome variable
   outcome <- as.character(variables_list[[1]])
-
+  print(outcome)
   
   # Extract results for the variable of interest
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
   vi_result <- result[result$term == variable_interest, ]
+  print(vi_result)
   
   estimate <- vi_result$estimate
   ci_lower <- vi_result$conf.low
@@ -88,6 +91,11 @@ ilr <- function(formula, variable_interest, variable_type, data) {
 result <- ilr(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="age", variable_type="continuous")
 
 result
+```
+
+```{r}
+# double checking!
+glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, family=binomial)
 ```
 
 ```{r}
