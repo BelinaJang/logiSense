@@ -1,5 +1,0 @@
----
-title: "R Package Presentation"
-format: html
-editor: visual
----
