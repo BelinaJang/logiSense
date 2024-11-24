@@ -1,0 +1,130 @@
+---
+title: "testing"
+format: pdf
+editor: visual
+execute:
+  warning: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(broom)
+library(here)
+```
+
+```{r}
+test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
+
+glm_model <- glm(stroke ~ gender + age + hypertension + heart_disease +
+                   avg_glucose_level + smoking_status, family = binomial, data = test_data)
+summary(glm_model)
+```
+
+```{r warning=FALSE}
+ilr <- function(formula, variable_interest, variable_type, data) {
+  
+  model <- glm(formula, data = data, family = binomial)
+  #print(model)
+  
+  variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+  #print(variables_list)
+  
+  # outcome variable
+  outcome <- as.character(variables_list[[1]])
+  cat("outcome variable: ", outcome, "\n")
+  
+  # Extract results for the variable of interest
+  result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
+
+  if (variable_type == "continuous") {
+    vi_result <- result[result$term == variable_interest, ]
+    print(vi_result)
+  
+    estimate <- vi_result$estimate
+    ci_lower <- vi_result$conf.low
+    ci_upper <- vi_result$conf.high
+    p_value <- vi_result$p.value
+    
+    # p-value interpretation
+    p_interpretation <- if (p_value < 0.05) {
+      paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
+    } else {
+      paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
+    }
+    
+    interpretation <- paste0(
+      "For each one-unit increase in '", variable_interest, ",' the odds of '", outcome,
+      "' are multiplied by ", signif(estimate, 4),
+      " (95% CI: ", signif(ci_lower, 4), " - ", signif(ci_upper, 4), "). ",
+      p_interpretation
+    )
+  
+  } else if (variable_type == "categorical") {
+    data[[variable_interest]] <- factor(data[[variable_interest]])
+    
+    # levels of variable of interest
+    levels <- levels(data[[variable_interest]])
+    
+    # first level is the reference level
+    reference_level <- levels[1]
+    cat("reference level", reference_level, "\n")
+    
+    # empty string to store interpretations
+    interpretation <- ""
+    
+    for (comparison_level in levels[-1]) {
+      cat("comparison_level: ", comparison_level, "\n")
+      
+      vi_result <- result[result$term == paste0(variable_interest,comparison_level), ]
+      print(vi_result)
+    
+      estimate <- vi_result$estimate
+      ci_lower <- vi_result$conf.low
+      ci_upper <- vi_result$conf.high
+      p_value <- vi_result$p.value
+      
+      # p-value interpretation
+      p_interpretation <- if (p_value < 0.05) {
+        paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
+      } else {
+        paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
+      }
+      
+      interpretation = paste0(
+        interpretation,
+        "Compared to the reference level '", reference_level, "' of 'variable: ", variable_interest,
+        ",' the odds of '", outcome, "' for the level '", comparison_level, 
+        "' are multiplied by ", signif(estimate, 4),
+        " (95% CI: ", signif(ci_lower, 4), " - ", signif(ci_upper, 4), "). ",
+        p_interpretation
+      )
+    }
+  } else {
+    stop("Variable type must be either 'continuous' or 'categorical.'")
+  }
+  
+  return(interpretation)
+}
+```
+
+```{r warning=FALSE}
+# categorical test
+result <- ilr(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="gender", variable_type="categorical")
+
+result
+```
+
+```{r warning=FALSE}
+# continuous test
+result <- ilr(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="age", variable_type="continuous")
+
+result
+```
+
+```{r}
+# double checking!
+glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, family=binomial)
+```
