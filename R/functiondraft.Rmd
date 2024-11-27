@@ -233,12 +233,12 @@ ilr <- function(formula, variable_interest, variable_type, data) {
     }
   }
   
-  return(interpretation)
+  return(cat(interpretation))
 }
 
 
 ```
-```
+
 
 ```{r warning=FALSE}
 # categorical test
@@ -262,6 +262,5 @@ glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_statu
 ```{r}
 #interaction test
 ilr(formula=stroke~gender*age,data=test_data, variable_interest="gender", variable_type="categorical")
-
 ```
 
