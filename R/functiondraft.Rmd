@@ -263,4 +263,14 @@ glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_statu
 #interaction test
 ilr(formula=stroke~gender*age,data=test_data, variable_interest="gender", variable_type="categorical")
 ```
+```{r}
+# verify
+glmfit <- summary(glm(stroke~gender*age,data=test_data,family=binomial))
+glmfit
+
+int_male <- coef(glmfit)[5][1]
+int_other <- coef(glmfit)[6][1]
+
+cat("interaction OR male: ", exp(int_male), "\ninteraction OR other: ", exp(int_other))
+```
 
