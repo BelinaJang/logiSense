@@ -126,7 +126,85 @@ Correct interpretation:
 
 > `lrfd` is a gdofidjfoidfjdofjdofjdofjdjfodifj 
 
-
 hefdl
 
+---
 
+# Purpose
+To address this, we developed an R package designed to help non-statisticians accurately interpret the logistic regression models they create, which will help to close the gap in understanding. 
+
+---
+
+# Strengths 
+
+- Overview of Similar Packages
+
+- `modelsummary`  
+  - Presents coefficients in human-readable formats.  
+  - Directly interprets logistic regression outputs, including odds ratios.
+
+- `sjPlot` 
+  - Displays odds ratios, significance stars, and confidence intervals.  
+  - Outputs publication-ready tables and visualizations.
+
+- `gtsummary` 
+  - Converts logistic regression coefficients to odds ratios.  
+  - Customizable labels, formats, and output styles.
+
+- `performance` 
+  - Assesses model performance and diagnostics.
+
+---
+
+## What Sets Our Package Apart?
+
+- Gap in the existing packages:
+  - While existing packages address **model performance** and **visualization**, **No existing package** designed for comprehensive and direct interpretation of regression results.
+  
+- `lrfd` Focus on **direct interpretation** of regression results.
+  - Simplifies statistical output for non-technical users.
+  - Bridges the gap between technical output and research insights .
+
+---
+
+## Comparison Table
+
+| Feature                      | modelsummary | sjPlot  | gtsummary | performance | **Our Package** |
+|------------------------------|--------------|---------|-----------|-------------|------------------|
+| Human-readable coefficients | ✅           | ✅      | ✅        | ❌          | ✅               |
+| Odds ratio interpretation    | ✅           | ✅      | ✅        | ❌          | ✅               |
+| Publication-ready outputs    | ❌           | ✅      | ✅        | ❌          | ✅               |
+| Model performance diagnostics| ❌           | ❌      | ❌        | ✅          | ❌               |
+| Direct interpretation tools  | ❌           | ❌      | ❌        | ❌          | ✅               |
+
+---
+
+# Future Directions
+
+## Expanding Variable Types
+
+- `lrfd` currently supports **continuous** and **binary** variables.
+
+-  It could expand to   **categorical variables** with multiple levels.  
+
+---
+
+## More Complex Interactions
+
+- `lrfd` only supports logistic regression with two-way interaction  
+
+- Future improvement: support for **higher-order interactions** between variables
+  
+---
+
+## Beyond Logistic Regression
+
+- Potential extensions:  
+  - **poisson regression** for count data 
+  - **logistic regression** for multinomial response variables
+  
+---
+
+# Challenges
+
+- If the package is not complete, what more needs to be done?
