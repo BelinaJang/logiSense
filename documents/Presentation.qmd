@@ -17,7 +17,7 @@ execute:
   echo: true
 ---
 
-<h1> `MODEL_NAME` - Interpreting Logistic Regression Results </h1>
+<h1> `logiSense` - Interpreting Logistic Regression Results </h1>
 
 <h2> Challenges and Solutions for Non-Statisticians </h2>
 
@@ -42,6 +42,8 @@ execute:
   <a href="https://github.com/BelinaJang/lrfd">github.com/BelinaJang/lrfd</a>
 </h3>
 
+
+![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/logiSense-logo.png){.absolute top=600 left=1150 width="500"}
 
 # Introduction
 
