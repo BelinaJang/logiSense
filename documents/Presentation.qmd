@@ -1,5 +1,132 @@
 ---
-title: "R Package Presentation"
-format: html
-editor: visual
+format: 
+  revealjs:
+    theme: "white"
+    slide-number: c/t
+    code-copy: true
+    center-title-slide: false
+    include-in-header: heading-meta.html
+    code-link: true
+    code-overflow: wrap
+    highlight-style: a11y
+    height: 1080
+    width: 1920
+execute: 
+  eval: true
+  echo: true
 ---
+
+<h1> `MODEL_NAME` - Interpreting Logistic Regression Results </h1>
+
+<h2> Challenges and Solutions for Non-Statisticians </h2>
+
+<div style="height: 10px;"></div>
+
+<hr>
+
+<div style="height: 20px;"></div>
+
+<h3> Anna (Jingxuan) He, Belina Jang, Vanessa Liao, Tina (Zhaoyu) Tan, & Victoria Truong </h3>
+
+<div style="height: 10px;"></div>
+
+<h4> December 2, 2024 </h4>
+<br>
+
+<h3>
+  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
+       style="width: 60px; vertical-align: middle; margin-right: 5px;">
+  <a href="https://github.com/BelinaJang/lrfd">github.com/BelinaJang/lrfd</a>
+</h3>
+
+
+# Introduction & Motivation
+
+The general logistic regression formula is:
+
+$$
+\text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_kX_k
+$$
+
+. . .
+
+Where:
+
+. . .
+
+-   $p$ is the probability of the outcome occurring.
+-   $\text{logit}(p)$ is the log-odds of the probability.
+-   $\beta\_0$ is the intercept.
+-   $\beta\_1, \beta\_2, \dots, \beta\_k$ are the coefficients of the predictor variables $X_1, X_2, \dots, X_k$.
+-   $X_1, X_2, \dots, X_k$ are the predictor variables.
+
+. . .
+
+# Introduction
+
+- Essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
+
+
+
+# Motivation
+
+- Challenging to interpret because they are in the <b> log-odds </b> scale
+
+. . .
+
+- Conducted a literature review and found a letter by Rajeev Kumar Malhotra that highlighted critical errors in interpreting the results of logistic regression
+
+. . .
+
+<div style="height: 40px;"></div>
+
+
+- Several occurrences of the misinterpretation of odds ratios (OR)
+
+
+<ul style="list-style-type: none; padding-left: 40px;">
+  <li style="text-indent: -15px; margin-bottom: 40px;">
+    &#8594; Treated ORs as direct probabilities or relative risk (RR)
+  </li>
+  <li style="text-indent: -15px; margin-bottom: 40px;">
+    <li style="text-indent: -15px; margin-bottom: 40px;">
+    &#8594; Can lead to exaggerated conclusions about the strength of associations, particularly for common outcomes
+</ul>
+
+. . .
+
+# Odds Ratio Misinterpreted as Relative Risk: Rampure et al. (2019)
+
+- Authors examined a common outcome of alcohol relapse (prevalence = 55.4\%)
+
+
+
+![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper1.png){style="display: block; margin: 0 auto; width: 80%"}
+
+Misinterpretation:
+
+> "People with a high level of craving have 1.8 times the chance of relapse compared to low craving."
+
+The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
+
+
+
+Correct interpretation:
+
+> “The odds of relapse among people with a high level of craving are 1.8 times greater than the odds of relapse among those with a low level of craving.”
+
+
+# Odds Ratio Misinterpreted as Relative Risk: Madasu et al. (2019)
+
+
+![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper2.png){style="display: block; margin: 0 auto; width: 80%"}
+
+
+# `lrfd`
+
+> `lrfd` is a gdofidjfoidfjdofjdofjdofjdjfodifj 
+
+
+hefdl
+
+
