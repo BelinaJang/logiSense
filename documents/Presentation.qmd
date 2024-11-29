@@ -36,7 +36,7 @@ execute:
 <h3>
   <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
        style="width: 60px; vertical-align: middle; margin-right: 5px;">
-  <a href="https://github.com/BelinaJang/lrfd">github.com/BelinaJang/lrfd</a>
+  <a href="https://github.com/BelinaJang/logiSense">github.com/BelinaJang/logiSense</a>
 </h3>
 
 
@@ -47,6 +47,23 @@ execute:
 ![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/introduction.png){fig-align="center" height="800"}
   
 ## Logistic Regression Formula
+  
+
+$$
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{k} \beta_i X_i 
+$$
+Where:
+
+- $\text{logit}(p)$ is the log-odds of the probability $p$
+- $p$ is the probability of the outcome occurring  
+- $\beta_0$ is the intercept
+- $\beta_i$ is the coefficient of the predictors
+- $X_i$ is the predictor variable $(i = 1, 2, \dots, k)$
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+## Logistic Regression Formula (with One Two-Way Interaction)
   
 
 $$
@@ -62,6 +79,7 @@ Where:
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
+
 <div style="color: magenta;">
 For two-way interaction:
 
@@ -69,14 +87,14 @@ For two-way interaction:
 - $\beta_{ij}$ is the coefficient for the interaction term between $X_i$ and $X_j$  
 - $X_i \cdot X_j$ is the interaction term of predictors $X_i$ and $X_j$  
 </div>
-  
+
+
+
 
 
 # Motivation
 
 - Challenging to interpret because they are in the <b> log-odds </b> scale
-
-. . .
 
 - Conducted a literature review and found a letter by Rajeev Kumar Malhotra that highlighted critical errors in interpreting the results of logistic regression
 
@@ -104,9 +122,7 @@ For two-way interaction:
 - Authors examined a common outcome of alcohol relapse (prevalence = 55.4\%)
 
 
-
-![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/paper1.png){style="display: block; margin: 0 auto; width: 80%"}
-
+![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper1.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
 #
 
@@ -123,12 +139,9 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 
 <br><br>
 
+. . .
 
 <span style="font-size: 90px;">Correct Interpretation: </span>
-
-
-> “The odds of relapse among people with a high level of craving are 1.8 times greater than the odds of relapse among those with a low level of craving.”
-
 
 <div style="border: 2px solid black; background-color: #e6ffee; padding: 15px; font-size: 50px; border-radius: 5px;">
   “The odds of relapse among people with a high level of craving are 1.8 times greater than the odds of relapse among those with a low level of craving.”
@@ -141,7 +154,7 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 <br><br>
 
 
-![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/paper2.png){style="display: block; margin: 0 auto; width: 80%"}
+![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper2.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
 #
 
@@ -220,20 +233,54 @@ We have two functions:
 - Provides logistic regression interpretation for models with only **one** interaction term
 
 
-# Page for Parameters 
+# Arguments
 
+<span style="font-size: 60px;">`logis`:</span>
+
+  |  **Parameter**    | **Definition**                           | **Type** |
+  |-------------------|------------------------------------------|----------|
+  | formula           | Description of the model to be fitted    | formula  |
+  | data              | Name of the data                         | data frame |
+  | variable_interest | Variable name interested for interpretation | character |
+  | variable_type     | Variable type interested for interpretation | character |
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="font-size: 60px;">`logint`:</span>
+
+  |  **Parameter**    | **Definition**                           | **Type** |
+  |-------------------|------------------------------------------|----------|
+  | formula           | Description of the model to be fitted    | formula |
+  | data              | Name of the data                         | data frame |
+  | categorical_var   | Categorical variable name interested for interpretation | character |
+  | continuous_var    | Continuous variable name interested for interpretation | character |
+
+
+
+## Example: Using `logiSense` with Stroke Prediction Dataset
+
+- Used a Kaggle dataset on stroke prediction as a demo.
+
+| **Variable Name**      | **Type**         |
+|-------------------------|------------------|
+| ID                     | Numeric/Integer  |
+| Gender                 | Categorical      |
+| Age                    | Numeric          |
+| Hypertension           | Binary           |
+| Heart Disease          | Binary           |
+| Ever Married           | Categorical      |
+| Work Type              | Categorical      |
+| Residence Type         | Categorical      |
+| Avg Glucose Level      | Numeric          |
+| BMI                    | Numeric          |
+| Smoking Status         | Categorical      |
+| Cancer                 | Binary           |
 
 
 # How to Use `logiSense`: Sample Data 
 
-
-
-
-
-
-
-
-
+```{r}
+```
 
 
 # Existing Packages
@@ -241,19 +288,23 @@ We have two functions:
 <span style="font-size: 70px;">Overview of Similar Packages</span>
 
 
+<span style="font-size: 40px;">`modelsummary`:</span>
 
-- `modelsummary`  
 - Presents coefficients in human-readable formats.  
 - Directly interprets logistic regression outputs, including odds ratios.
 
-- `sjPlot` 
+<span style="font-size: 40px;">`sjPlot`:</span>
+
 - Displays odds ratios, significance stars, and confidence intervals.  
 - Outputs publication-ready tables and visualizations.
 
-- `gtsummary` 
-- Converts logistic regression coefficients to odds ratios. - Customizable labels, formats, and output styles.
+<span style="font-size: 40px;">`gtsummary`:</span>
 
-- `performance` 
+- Converts logistic regression coefficients to odds ratios.
+- Customizable labels, formats, and output styles.
+
+<span style="font-size: 40px;">`performance`:</span>
+
 - Assesses model performance and diagnostics.
 
 
@@ -273,53 +324,86 @@ We have two functions:
 
 ## Comparison Table
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+**Table 1.** Comparison of existing packages with logiSense.
+
 | Feature                      | `modelsummary` | `sjPlot`  | `gtsummary` | `performance` | `logiSense` |
 |------------------------------|--------------|---------|-----------|-------------|------------------|
-| Human-readable coefficients | ✅           | ✅      | ✅        | ❌          | ✅               |
+| Human-readable coefficients  | ✅           | ✅      | ✅        | ❌          | ✅               |
 | Odds ratio interpretation    | ✅           | ✅      | ✅        | ❌          | ✅               |
-| Publication-ready outputs    | ❌           | ✅      | ✅        | ❌          | ✅               |
+| User-friendly outputs        | ❌           | ✅      | ✅        | ❌          | ✅               |
 | Model performance diagnostics| ❌           | ❌      | ❌        | ✅          | ❌               |
 | Direct interpretation tools  | ❌           | ❌      | ❌        | ❌          | ✅               |
 
 
-# Future Directions
-  
-&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-<span style="font-size: 70px;">1. Expanding Variable Types </span>
-  
-- `logiSense` currently supports **continuous** and **binary** variables.
-
--  It could expand to   **categorical variables** with multiple levels.  
-
-&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-<span style="font-size: 70px;">2. More Complex Interactions </span>
-
-
-- `logiSense` only supports logistic regression with two-way interaction  
-
-- Future improvement: support for **higher-order interactions** between variables
-
-
-# Beyond Logistic Regression
-<span style="font-size: 70px;">Potential Extensions:</span>
-  
-- **Poisson regression** for count data 
-- **Logistic regression** for multinomial response variables
-
-
 # Challenges
 
-- If the package is not complete, what more needs to be done?
+- We originally underestimated the challenges associated with generating different interpretations for different variable types.
 
 
-# References
+# Remaining Work
+
+- Implementation of interaction interpretations:
+  - Currently limited to **continuous by categorical interactions**.
+  - Need to add interpretations for:
+    - **Continuous by continuous interactions.**
+    - **Categorical by categorical interactions.**
+- Conduct more rigorous tests.
+- Complete the documentation.
+
+
+
+# Future Directions
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+| **Feature**                  | **Currently Supports**                                     | **Future Goals**                                                |
+|-------------------------------|----------------------------------------------------------|-----------------------------------------------------------------|
+| **Enhanced Functionality**   | Models with overall effects and one two-way interaction   | Extend to handle a broader range of models                     |
+| **Automatic Variable Type Detection** | Manual input of variable types                        | Implement automatic detection for improved usability           |
+| **More Complex Interactions**| Logistic regression with two-way interaction             | Support for higher-order interactions between variables         |
+| **Beyond Logistic Regression**| Only logistic regression                                 | Extend to Poisson regression and multinomial logistic regression|
+
+
+
+
+## Beyond Logistic Regression
+
+- Potential extensions:  
+  - **poisson regression** for count data 
+  - **logistic regression** for multinomial response variables
+
+
+
+## References
   
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
+<em>Analytics Vidhya.</em> (n.d.) <em>McKinsey analytics online hackathon</em>. Retrieved November 29, 2024, from<a href="https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/">https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/</a>
+</div>
+
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
+Luo, S., & Ren, H. (2020). <em>A novel framework for ...</em>. In <em>Proceedings of the IEEE Conference on Machine Learning Applications</em> (pp. 1–7). IEEE. <a href="https://doi.org/10.1109/9264165">https://doi.org/10.1109/9264165</a>
+</div>
+
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
+Putra, L. (n.d.). <em>Working during COVID-19 epidemic concept: Portrait of stressed man doctor cartoon character wearing working uniform feeling stressed with laptop and paper in front of him</em> Vecteezy. <a href="https://www.vecteezy.com/vector-art/15708435-working-during-covid-19-epidemic-concept-portrait-of-stressed-man-doctor-cartoon-character-wearing-working-uniform-feeling-stressed-with-laptop-and-paper-in-front-of-him">https://www.vecteezy.com/vector-art/15708435-working-during-covid-19-epidemic-concept-portrait-of-stressed-man-doctor-cartoon-character-wearing-working-uniform-feeling-stressed-with-laptop-and-paper-in-front-of-him</a>
+</div>
   
+
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
+Phil. (2021, October 27). <em>Logistic regression output advice</em>. Stack Overflow. <a href="https://stackoverflow.com/questions/69736261/logistic-regression-output-advice">https://stackoverflow.com/questions/69736261/logistic-regression-output-advice</a>
+</div>
+
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
+Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset/data">https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset/data</a>
+</div>
+
+
 # Contributions
+
+
+
   
   
 # Thank you page
