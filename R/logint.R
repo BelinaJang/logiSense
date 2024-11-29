@@ -1,3 +1,15 @@
+#' @title Logistic Regression Interpretation for One Two-Way Interaction
+#' @description A function that returns an interpretation
+#' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
+#' @param continuous_var name of the continuous variable in the interaction of interest
+#' @param categorical_var name of the categorical variable in the interaction of interest
+#' @param data The name of the dataset
+#' @return string object delineating interpretation of interaction effects
+#' @examples
+#' library(broom)?
+#' logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
+#' @export
+
 logint <- function(formula, continuous_var, categorical_var, data) {
 
   model <- glm(formula, data = data, family = binomial)
