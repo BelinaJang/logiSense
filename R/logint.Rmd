@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(broom)
 library(here)
 test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
+# convert the type of bmi to numeric
+test_data$bmi <- as.numeric(test_data$bmi)
 ```
 
 
@@ -87,12 +89,12 @@ logint <- function(formula, continuous_var, categorical_var, data) {
 
 
 ```{r}
-model <- glm(stroke ~ gender*age, family = binomial, data = test_data)
+model <- glm(stroke ~ work_type*age, family = binomial, data = test_data)
 summary(model)
 ```
 
 ```{r}
-output <- logint(stroke ~ gender*age, continuous_var = "age", categorical_var = "gender", data=test_data)
+output <- logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
 
 cat(output, sep = "\n")
 ```
