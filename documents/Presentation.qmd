@@ -65,7 +65,6 @@ Where:
 
 ## Logistic Regression Formula (with One Two-Way Interaction)
   
-
 $$
 \text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{k} \beta_i X_i + \color{magenta}{\beta_{ij}(X_i \cdot X_j)}
 $$
@@ -87,9 +86,6 @@ For two-way interaction:
 - $\beta_{ij}$ is the coefficient for the interaction term between $X_i$ and $X_j$  
 - $X_i \cdot X_j$ is the interaction term of predictors $X_i$ and $X_j$  
 </div>
-
-
-
 
 
 # Motivation
@@ -117,10 +113,8 @@ For two-way interaction:
 
 . . .
 
-# Odds Ratio Misinterpreted as Relative Risk: Rampure et al. (2019)
-
-- Authors examined a common outcome of alcohol relapse (prevalence = 55.4\%)
-
+# Odds Ratio Misinterpreted as Relative Risk
+<span style="font-size: 70px;">Example 2: Rampure et al. (2019) </span>
 
 ![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper1.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
@@ -153,7 +147,6 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 
 <br><br>
 
-
 ![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper2.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
 #
@@ -167,7 +160,6 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 <br><br>
 
 . . .
-
 
 <span style="font-size: 90px;">Correct Interpretation:</span>
   
@@ -209,7 +201,6 @@ loop autoplay>
 
 
 # `logiSense`
-
 
 > `logiSense` is an R package for making sense of logistic regression results and helping users interpret results 
 
@@ -256,7 +247,6 @@ We have two functions:
   | continuous_var    | Continuous variable name interested for interpretation | character |
 
 
-
 ## Example: Using `logiSense` with Stroke Prediction Dataset
 
 - Used a Kaggle dataset on stroke prediction as a demo.
@@ -280,6 +270,10 @@ We have two functions:
 # How to Use `logiSense`: Sample Data 
 
 ```{r}
+#install.packages("devtools")
+#library(devtools)
+#devtools::install_github("belinajang/logiSense")
+#library(logiSense)
 ```
 
 
@@ -321,7 +315,6 @@ We have two functions:
 - Bridges the gap between technical output and research insights.
 
 
-
 ## Comparison Table
 
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -353,7 +346,6 @@ We have two functions:
 - Complete the documentation.
 
 
-
 # Future Directions
 
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -366,15 +358,11 @@ We have two functions:
 | **Beyond Logistic Regression**| Only logistic regression                                 | Extend to Poisson regression and multinomial logistic regression|
 
 
-
-
 ## Beyond Logistic Regression
 
 - Potential extensions:  
   - **poisson regression** for count data 
   - **logistic regression** for multinomial response variables
-
-
 
 ## References
   
@@ -407,4 +395,4 @@ Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://
   
   
 # Thank you page
-  
+
