@@ -39,8 +39,8 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   
   interpretation <- ""
 
-  # check if formula contains *
-  if (grepl("*", formula)) {
+  # check if formula contains any *
+  if (grepl("\\*", variable_interest)) {
     # Split the interaction term into component variables
     var_list <- unlist(strsplit(variable_interest, "\\*"))
     
@@ -119,10 +119,10 @@ ilr <- function(formula, variable_interest, variable_type, data) {
       }
     }
   }
-  }
+  
   
   # Continue with the rest of the function for main effects
-  else if (variable_type == "continuous") {
+  } else if (variable_type == "continuous") {
     vi_result <- result[result$term == variable_interest, ]
     if (nrow(vi_result) == 0) {
       stop("Variable of interest not found in the model.")
