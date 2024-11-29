@@ -133,6 +133,9 @@ logis <- function(formula, variable_interest, variable_type, data) {
     ci_upper <- vi_result$conf.high
     p_value <- vi_result$p.value
     
+    ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, 4))
+    ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, 4))
+    
     p_interpretation <- if (p_value < 0.05) {
       paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
     } else {
