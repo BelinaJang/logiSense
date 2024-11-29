@@ -2,3 +2,4 @@
 
 export(logint)
 export(logis)
+importFrom(broom,tidy)

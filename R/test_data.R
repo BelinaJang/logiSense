@@ -19,4 +19,4 @@
 #' \item{stroke}{1 if the patient had a stroke or 0 if not}
 #' }
 #' @source https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset
-"exampledata"
+"test_data"

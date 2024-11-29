@@ -5,7 +5,7 @@
 #' @param categorical_var name of the categorical variable in the interaction of interest
 #' @param data The name of the dataset
 #' @return string object delineating interpretation of interaction effects
-#' @importFrom broom
+#' @importFrom broom tidy
 #' @examples
 #' logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
 #' @export

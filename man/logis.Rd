@@ -17,6 +17,9 @@ Acceptable values are "continuous" for numeric variables or "categorical" for fa
 
 \item{data}{an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.}
 }
+\value{
+a string object delineating interpretation of the logistic regression results
+}
 \description{
 a function that returns the interpretation of logistic regression results
 }
