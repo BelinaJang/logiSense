@@ -1,31 +1,34 @@
-#' @title Logistic Regression Interpretation Without Interaction
-#' @description a function that returns the interpretation of logistic regression results
-#' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
-#' @param variable_interest a character string specifying the variable of interest in the model.
-#' It must match one of the predictor variables used in the formula.
-#' @param variable_type a character string specifying the type of the variable of interest.
-#' Acceptable values are "continuous" for numeric variables or "categorical" for factor variables.
-#' @param data an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.
-#' @return
-#' @importFrom broom
-#' @examples
-#' formula <- stroke~gender+age+hypertension
-#' variable_interest <- "age"
-#' variable_type <- "continuous"
-#' data <- test_data
-#' @export
+---
+title: "logis_example"
+format: html
+editor: visual
+---
 
+# same input for both functions
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(broom)
+library(here)
+```
+
+```{r}
+# new function: belina
+# Revised to handle interaction terms
 logis <- function(formula, variable_interest, variable_type, data) {
-
+  
   model <- glm(formula, data = data, family = binomial)
-
+  
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
   outcome <- as.character(variables_list[[1]])
   cat("Outcome variable: ", outcome, "\n")
-
+  
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
   result_terms <- result$term
-
+  
   interpretation <- ""
 
   if (variable_type == "continuous") {
@@ -33,21 +36,21 @@ logis <- function(formula, variable_interest, variable_type, data) {
     if (nrow(vi_result) == 0) {
       stop("Variable of interest not found in the model.")
     }
-
+    
     estimate <- vi_result$estimate
     ci_lower <- vi_result$conf.low
     ci_upper <- vi_result$conf.high
     p_value <- vi_result$p.value
-
+    
     ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, 4))
     ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, 4))
-
+    
     p_interpretation <- if (p_value < 0.05) {
       paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
     } else {
       paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
     }
-
+    
     interpretation <- paste0(
       interpretation,
       "For each one-unit increase in '", variable_interest, ",' the odds of '", outcome,
@@ -60,7 +63,7 @@ logis <- function(formula, variable_interest, variable_type, data) {
     levels <- levels(data[[variable_interest]])
     reference_level <- levels[1]
     cat("Reference level: ", reference_level, "\n")
-
+    
     for (comparison_level in levels[-1]) {
       term_name <- paste0(variable_interest, comparison_level)
       vi_result <- result[result$term == term_name, ]
@@ -69,21 +72,21 @@ logis <- function(formula, variable_interest, variable_type, data) {
         ci_lower <- vi_result$conf.low
         ci_upper <- vi_result$conf.high
         p_value <- vi_result$p.value
-
+        
         ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, 4))
         ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, 4))
-
+        
         p_interpretation <- if (p_value < 0.05) {
           paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
         } else {
           paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
         }
-
+        
         interpretation <- paste0(
           interpretation,
           "Compared to the reference level '", reference_level, "' of '",
-          variable_interest,
-          ",' the odds of '", outcome, "' for the level '", comparison_level,
+          variable_interest, 
+          ",' the odds of '", outcome, "' for the level '", comparison_level, 
           "' are multiplied by ", signif(estimate, 4),
           " (95% CI: ", ci_lower, " - ", ci_upper, "). ",
           p_interpretation, "\n"
@@ -93,5 +96,26 @@ logis <- function(formula, variable_interest, variable_type, data) {
   } else {
     stop("Variable type must be either 'continuous' or 'categorical.'")
   }
+  
   return(cat(interpretation))
 }
+
+```
+
+```{r}
+test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
+
+glm_model <- glm(stroke ~ gender + age + hypertension + heart_disease +
+                   avg_glucose_level + smoking_status, family = binomial, data = test_data)
+summary(glm_model)
+```
+
+```{r warning=FALSE}
+# categorical test
+result <- logis(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="gender", variable_type="categorical")
+```
+
+```{r warning=FALSE}
+# continuous test
+result <- logis(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,data=test_data, variable_interest="age", variable_type="continuous")
+```
