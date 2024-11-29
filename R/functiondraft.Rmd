@@ -38,8 +38,9 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   result_terms <- result$term
   
   interpretation <- ""
-  
-  if (grepl("\\*", variable_interest)) {
+
+  # check if formula contains *
+  if (grepl("*", formula)) {
     # Split the interaction term into component variables
     var_list <- unlist(strsplit(variable_interest, "\\*"))
     
