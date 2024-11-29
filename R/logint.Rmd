@@ -26,6 +26,11 @@ logint <- function(formula, continuous_var, categorical_var, data) {
   
   coefficients <- coef(model)
   
+  # if any coefficeitns is NA, return warning message
+  if (any(is.na(coefficients))) {
+    warning(paste0("Some variables or interaction terms have NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
+  }
+  
   # Get the base odds ratio for the continuous variable
   base_effect <- coefficients[continuous_var]
   
