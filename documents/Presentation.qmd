@@ -43,14 +43,14 @@ execute:
 </h3>
 
 
-![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/logiSense-logo.png){.absolute top=600 left=1150 width="500"}
+![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png){.absolute top=550 left=1150 width="500"}
 
 # Introduction
 
 - Essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
 
 
-![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/introduction.png){style="display: block; margin: 0 auto; width: 800px; height: auto;"}
+![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/introduction.png){fig-align="center" height="800"}
 
 
 ##  Logistic Regression Formula
