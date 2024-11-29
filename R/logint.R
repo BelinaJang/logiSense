@@ -1,11 +1,11 @@
 #' @title Logistic Regression Interpretation for One Two-Way Interaction
-#' @description A function that returns an interpretation
+#' @description a function that returns an interpretation for a logistic regression model with one two-way interaction.
 #' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
 #' @param continuous_var name of the continuous variable in the interaction of interest
 #' @param categorical_var name of the categorical variable in the interaction of interest
 #' @param data The name of the dataset
 #' @return string object delineating interpretation of interaction effects
-#' @importFrom tidy
+#' @importFrom broom
 #' @examples
 #' logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
 #' @export

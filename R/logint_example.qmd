@@ -86,7 +86,6 @@ logint <- function(formula, continuous_var, categorical_var, data) {
 }
 ```
 
-
 ```{r}
 model <- glm(stroke ~ work_type*age, family = binomial, data = test_data)
 summary(model)
@@ -95,4 +94,3 @@ summary(model)
 ```{r}
 logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
 ```
-

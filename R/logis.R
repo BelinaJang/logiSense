@@ -1,4 +1,4 @@
-#' @title logistic regression interpretation function without interaction
+#' @title Logistic Regression Interpretation Without Interaction
 #' @description a function that returns the interpretation of logistic regression results
 #' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.
 #' @param variable_interest a character string specifying the variable of interest in the model.
@@ -7,7 +7,7 @@
 #' Acceptable values are "continuous" for numeric variables or "categorical" for factor variables.
 #' @param data an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.
 #' @return
-#' @importFrom tidy
+#' @importFrom broom
 #' @examples
 #' formula <- stroke~gender+age+hypertension
 #' variable_interest <- "age"
