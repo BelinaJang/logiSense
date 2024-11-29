@@ -93,5 +93,5 @@ logis <- function(formula, variable_interest, variable_type, data) {
   } else {
     stop("Variable type must be either 'continuous' or 'categorical.'")
   }
-  return(interpretation)
+  return(cat(interpretation))
 }
