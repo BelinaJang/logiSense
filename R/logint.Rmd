@@ -28,7 +28,8 @@ logint <- function(formula, continuous_var, categorical_var, data) {
   
   # if any coefficeitns is NA, return warning message
   if (any(is.na(coefficients))) {
-    warning(paste0("Some variables or interaction terms have NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
+    na_variables <- names(coefficients)[is.na(coefficients)]
+    warning(paste0(na_variables," has(have) NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
   }
   
   # Get the base odds ratio for the continuous variable
@@ -85,6 +86,15 @@ logint <- function(formula, continuous_var, categorical_var, data) {
 }
 ```
 
+```{r}
+#warning exaple - don't put it in the slide
+model <- glm(stroke ~ gender*age, family = binomial, data = test_data)
+summary(model)
+
+logint(stroke ~ gender*age, continuous_var = "age", categorical_var = "gender", data=test_data)
+
+```
+
 
 ```{r}
 model <- glm(stroke ~ work_type*age, family = binomial, data = test_data)
@@ -92,6 +102,6 @@ summary(model)
 ```
 
 ```{r}
-output <- logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
+logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
 ```
 
