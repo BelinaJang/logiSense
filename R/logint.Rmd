@@ -1,5 +1,5 @@
 ---
-title: "interaction"
+title: "logit function"
 author: "Jingxuan He"
 date: "2024-11-29"
 output: pdf_document
@@ -15,6 +15,7 @@ library(here)
 test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
 ```
 
+# for continuous and categorical comparison
 
 ```{r}
 logint <- function(formula, continuous_var, categorical_var, data) {
