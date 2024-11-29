@@ -27,7 +27,6 @@ summary(glm_model)
 # new function: belina
 # Revised to handle interaction terms
 ilr <- function(formula, variable_interest, variable_type, data) {
-  library(broom)
   
   model <- glm(formula, data = data, family = binomial)
   
@@ -43,6 +42,9 @@ ilr <- function(formula, variable_interest, variable_type, data) {
   if (grepl("\\*", variable_interest)) {
     # Split the interaction term into component variables
     var_list <- unlist(strsplit(variable_interest, "\\*"))
+    
+    # Split the variable types
+    var_type_list <- unlist(strsplit(variable_type, "\\*"))
     
     # Find terms that include all variables in var_list
     result_term_interest <- result_terms[sapply(result_terms, function(term) {
@@ -75,19 +77,47 @@ ilr <- function(formula, variable_interest, variable_type, data) {
             paste0("This interaction is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
         }
           
-        interpretation <- paste0(
-          interpretation,
-          "The interaction term '", interaction_term, 
-          "' modifies the effect of '",var_list , "' on '", outcome, 
-          ".' The odds are multiplied by ", signif(estimate, 4), 
-          " (95% CI: ", ci_lower, " - ", ci_upper, "). ",
-          p_interpretation, "\n"
-        )
+        #interpretation <- paste0(
+        #  interpretation,
+        #  "The interaction term '", interaction_term, 
+        #  "' modifies the effect of '",var_list , "' on '", outcome, 
+        #  ".' The odds are multiplied by ", signif(estimate, 4), 
+        #  " (95% CI: ", ci_lower, " - ", ci_upper, "). ",
+        #  p_interpretation, "\n"
+        #)
+        
+        # loop it thru var_list
+        for (i in 1:length(var_list)) {
+          if (var_type_list[i] == "categorical") {
+            data[[var_list[i]]] <- factor(data[[var_list[i]]])
+            levels <- levels(data[[var_list[i]]])
+            reference_level <- levels[1]
+            # drop all var names in var_list and ":" from interaction_term
+            comparison_level <- gsub(paste(var_list, collapse = "|"), "", gsub(":", "", interaction_term))
+            
+            interpretation <- paste0(
+              interpretation,"\n",
+              "The interaction term: ", interaction_term, "\n",
+              "var_list[i]: ", var_list[i], "\n",
+              "  reference_level: ", reference_level, "\n",
+              "  comparison_level: ", comparison_level, "\n",
+              "  var_type_list[i]", var_type_list[i]
+            )
+            
+          } else if (var_type_list[i] == "continuous") {
+            interpretation <- paste0(
+              interpretation, "\n",
+              "The interaction term: ", interaction_term, "\n",
+              "var_list[i]: ", var_list[i], "\n",
+              "  var_type_list[i]", var_type_list[i]
+            )
+          } else {
+            stop("Variable type must be either 'continuous' or 'categorical.'")
+          }
         }
       }
-    } else {
-      cat("No interaction terms found involving: ", variable_interest, "\n")
     }
+  }
   }
   
   # Continue with the rest of the function for main effects
@@ -182,7 +212,11 @@ glm(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_statu
 #interaction test
 #ilr(formula=stroke~gender*age,data=test_data, variable_interest="gender", variable_type="categorical")
 #ilr(formula=stroke~gender*age,data=test_data, variable_interest="age", variable_type="continuous")
-ilr(formula=stroke~gender*age,data=test_data, variable_interest="gender*age", variable_type="categorical")
+ilr(formula=stroke~gender*age,data=test_data, variable_interest="gender*age", variable_type="categorical*continuous")
+
+formula=stroke~gender*age
+data=test_data
+variable_interest="gender*age"
 ```
 NEED updates to extract reference level like this <- check categorical part for reference
 Interaction Effects:
