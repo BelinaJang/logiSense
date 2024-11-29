@@ -13,8 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(broom)
 library(here)
 test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
-# convert the type of bmi to numeric
-test_data$bmi <- as.numeric(test_data$bmi)
 ```
 
 
