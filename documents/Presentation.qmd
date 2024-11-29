@@ -68,7 +68,7 @@ For two-way interaction:
 - $X_i, X_j$ are the predictor variables $(i \neq j)$  
 - $\beta_{ij}$ is the coefficient for the interaction term between $X_i$ and $X_j$  
 - $X_i \cdot X_j$ is the interaction term of predictors $X_i$ and $X_j$  
-  </div>
+</div>
   
 
 
