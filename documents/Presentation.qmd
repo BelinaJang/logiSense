@@ -39,7 +39,7 @@ execute:
 <h3>
   <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
        style="width: 60px; vertical-align: middle; margin-right: 5px;">
-  <a href="https://github.com/BelinaJang/lrfd">github.com/BelinaJang/lrfd</a>
+  <a href="https://github.com/BelinaJang/logiSense">github.com/BelinaJang/logiSense</a>
 </h3>
 
 
@@ -50,8 +50,7 @@ execute:
 - Essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
 
 
-
- ADD AN IMAGE!!!!
+![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/introduction.png){style="display: block; margin: 0 auto; width: 800px; height: auto;"}
 
 
 ##  Logistic Regression Formula
