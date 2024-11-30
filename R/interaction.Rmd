@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(broom)
 library(here)
-test_data <- read.csv(here("data", "healthcare-dataset-stroke-data.csv"))
+test_data <- read.csv(here("data", "test_data.csv"))
 ```
 
 
