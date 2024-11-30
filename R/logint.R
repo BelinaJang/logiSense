@@ -1,5 +1,5 @@
 #' @title Logistic Regression Interpretation for One Two-Way Interaction
-#' @description a function that returns an interpretation for a logistic regression model with one two-way interaction.
+#' @description a function that returns the interpretation for a logistic regression model with one two-way interaction.
 #' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
 #' @param continuous_var name of the continuous variable in the interaction of interest
 #' @param categorical_var name of the categorical variable in the interaction of interest
