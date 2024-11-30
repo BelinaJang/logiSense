@@ -558,7 +558,7 @@ Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://
 
   **Tina:**
   
-  - 
+  - Slides for arguments, existing packages, strengths, tables, challenges, remaining work, future directions
   
 </div>
 
