@@ -74,7 +74,7 @@ execute:
   
 
 $$
-\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{k} \beta_i X_i 
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{I} \beta_i X_i 
 $$
 Where:
 
@@ -82,7 +82,7 @@ Where:
 - $p$ is the probability of the outcome occurring  
 - $\beta_0$ is the intercept
 - $\beta_i$ is the coefficient of the predictors
-- $X_i$ is the predictor variable $(i = 1, 2, \dots, k)$
+- $X_i$ is the predictor variable $(i = 1, 2, \dots, I)$
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -90,7 +90,7 @@ Where:
 ## Logistic Regression Formula (with One Two-Way Interaction)
   
 $$
-\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{k} \beta_i X_i \color{magenta}{+ \beta_{ij}(X_i \cdot X_j)}
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{I} \beta_i X_i \color{magenta}{+ \beta_{ij}(X_i \cdot X_j)}
 $$
 Where:
 
@@ -98,7 +98,7 @@ Where:
 - $p$ is the probability of the outcome occurring  
 - $\beta_0$ is the intercept
 - $\beta_i$ is the coefficient of the predictors
-- $X_i$ is the predictor variable $(i = 1, 2, \dots, k)$
+- $X_i$ is the predictor variable $(i = 1, 2, \dots, I)$
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -127,10 +127,7 @@ For two-way interaction:
 <div style="height: 40px;"></div>
 
 
-
 <span style="font-size: 45px;">Several occurrences of the misinterpretation of odds ratios (OR)</span>
-
-
 
 <ul style="list-style-type: none; padding-left: 40px; font-size: 45px;">
   <li style="text-indent: -15px; margin-bottom: 40px;">
@@ -140,10 +137,6 @@ For two-way interaction:
     &#8594; Can lead to exaggerated conclusions about the strength of associations
   </li>
 </ul>
-
-
-
-
 
 . . .
 
@@ -161,7 +154,6 @@ For two-way interaction:
 <div style="border: 2px solid black; background-color: #ffe7e6; padding: 15px; font-size: 50px; border-radius: 5px;">
   "People with a high level of craving have 1.8 times the chance of relapse compared to low craving."
 </div>
-
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -203,7 +195,6 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 “The odds of having anxiety disorder are twice as high for females compared to males.”
 </div>
 
-
 # 
 
 <span style="font-size: 80px; font-weight: bold;">Key Takeaway: Misinterpretation of Log Odds is More Pervasive than Expected</span>
@@ -218,7 +209,6 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 
 ![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/confused-bg.png){style="display: block; margin: 0 auto; width: 800px; height: auto;"}
 
-
 # Purpose
 
 <div style="font-size: 45px;">  
@@ -226,13 +216,11 @@ To address this, we developed an R package designed to help non-statisticians ac
 
 <br><br>
 
-
 Our package is called...
 
 </div>
 
 <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-
 
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; text-align: center;">
   <dotlottie-player src="https://lottie.host/408dcc76-1281-4528-92bb-62f292cd31b9/lyAwiMogLs.lottie" 
@@ -250,6 +238,12 @@ loop autoplay>
 
 > `logiSense` is an R package for making sense of logistic regression results and helping users interpret results 
 
+<div style="position: absolute; bottom: 20px; right: -50px;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 350px; height: auto;" alt="logiSense Logo">
+</div>
+
+. . .
+
 <br><br>
 
 <div style="font-size: 45px;">  
@@ -266,6 +260,7 @@ We have two functions:
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
+. . .
 
 <span style="font-size: 50px;">Function 2: `logint`</span>
 
@@ -274,9 +269,7 @@ We have two functions:
 </div>
 
 
-<div style="position: absolute; bottom: 20px; right: -50px;">
-  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 350px; height: auto;" alt="logiSense Logo">
-</div>
+
 
 
 # Arguments
@@ -292,6 +285,9 @@ We have two functions:
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
+. . .
+
+
 <span style="font-size: 60px;">`logint`:</span>
 
   |  **Parameter**    | **Definition**                           | **Type** |
@@ -302,7 +298,10 @@ We have two functions:
   | continuous_var    | Continuous variable name interested for interpretation | character |
 
 
-## Example: Using `logiSense` with Stroke Prediction Dataset
+# 
+
+<span style="font-size: 80px;"><b>Using `logiSense` with Stroke Prediction Dataset</b></span>
+
 
 <div style="font-size: 45px;">
 
@@ -356,6 +355,8 @@ result_con <- logis(stroke~gender+age+hypertension+heart_disease+avg_glucose_lev
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;
 
+. . .
+
 <span style="font-size: 40px;"><b>Categorical variable:</b></span>
 ```{r}
 result_cat <- logis(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,
@@ -389,15 +390,22 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 - Presents coefficients in human-readable formats.  
 - Directly interprets logistic regression outputs, including odds ratios.
 
+. . .
+
 <span style="font-size: 40px;">`sjPlot`:</span>
 
 - Displays odds ratios, significance stars, and confidence intervals.  
 - Outputs publication-ready tables and visualizations.
 
+. . .
+
 <span style="font-size: 40px;">`gtsummary`:</span>
+
 
 - Converts logistic regression coefficients to odds ratios.
 - Customizable labels, formats, and output styles.
+
+. . .
 
 <span style="font-size: 40px;">`performance`:</span>
 
@@ -413,6 +421,16 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 
 <div style="height: 40px;"></div>
 
+<div style="position: absolute; bottom: 20px; right: -50px;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 350px; height: auto;" alt="logiSense Logo">
+</div>
+
+
+</div>
+
+. . .
+
+<div style="font-size:50px;">
 - `logiSense` focuses on **direct interpretation** of regression results.
 - Simplifies statistical output for non-technical users.
 - Bridges the gap between technical outputs and research insights.
@@ -446,6 +464,8 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 - We originally underestimated the complexity associated with generating different interpretations for different variable types.
 </div>
 
+. . .
+
 <div style="height: 25px;"></div>
 
 <span style="font-size: 70px;"><b>Remaining Work:</b></span>
@@ -474,7 +494,7 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 
 
 
-## References
+# References
 
 <div style="font-size: 35px;">  
   
@@ -542,19 +562,17 @@ Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://
 </div>
 
 
-
 <div style="width: 48%;">
 
 <span style="font-size: 60px;"><b>Presentation & Research:</b></span>
 
   **Victoria:**
   
-  - Slides 1-13, 15-17, 23, 25
+  - Slides for title, introduction, logistic regression formula, motivation, two examples for odds ratios being misinterpreted as relative risk, key takeaway for misinterpretation, purpose, logiSense package, using logiSense with stroke prediction dataset, how to use logiSense with stroke prediction dataset, references (1-13, 15-17, 23, 25)
   - Logo for R package
-  - Overall formatting of Quarto presentation
+  - Overall formatting and slide transitions for the Quarto presentation
 
 <div style="height: 15px;"></div>
-
 
   **Tina:**
   
@@ -564,8 +582,9 @@ Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://
 
 </div>
 
-
-
+<div style="position: absolute; bottom: 20px; right: -50px;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 200px; height: auto;" alt="logiSense Logo">
+</div>
 
 # 
 
@@ -576,4 +595,6 @@ Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://
   <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/qa.png" style="width: 800px; height: auto;" alt="QA Image">
 </div>
 
-
+<div style="position: absolute; bottom: 20px; right: -50px;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 200px; height: auto;" alt="logiSense Logo">
+</div>
