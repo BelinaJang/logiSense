@@ -40,6 +40,23 @@ execute:
 </h3>
 
 
+# Table of Contents
+
+<div style="font-size: 45px;">
+
+1. Introduction
+2. Logistic Regression Review
+3. Motivation
+4. Purpose
+5. `logiSense` Overview & Example
+6. Existing Packages
+7. Strengths 
+8. Challenges & Remaining Work
+9. Future Directions 
+10. Contributions 
+
+</div>
+
 # Introduction
 
 - Essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
@@ -115,6 +132,8 @@ For two-way interaction:
 
 # Odds Ratio Misinterpreted as Relative Risk
 <span style="font-size: 70px;">Example 2: Rampure et al. (2019) </span>
+
+<br><br>
 
 ![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper1.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
@@ -202,9 +221,11 @@ loop autoplay>
 
 # `logiSense`
 
+&nbsp;&nbsp;&nbsp;&nbsp;
+
 > `logiSense` is an R package for making sense of logistic regression results and helping users interpret results 
 
-&nbsp;&nbsp;&nbsp;&nbsp;
+<br><br>
 
 
 We have two functions:
@@ -306,14 +327,16 @@ We have two functions:
 
 <span style="font-size: 70px;">Gap in the Existing Packages: </span>
 
+<div style="font-size:50px;">
 - While existing packages address **model performance** and **visualization**, **no existing package** is designed for comprehensive and direct interpretation of regression results.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 - `logiSense` focuses on **direct interpretation** of regression results.
 - Simplifies statistical output for non-technical users.
-- Bridges the gap between technical output and research insights.
+- Bridges the gap between technical outputs and research insights.
 
+</div>
 
 ## Comparison Table
 
@@ -330,20 +353,19 @@ We have two functions:
 | Direct interpretation tools  | ❌           | ❌      | ❌        | ❌          | ✅               |
 
 
-# Challenges
+# Challenges & Remaining Work
 
-- We originally underestimated the challenges associated with generating different interpretations for different variable types.
+- We originally underestimated the complexity associated with generating different interpretations for different variable types.
 
-
-# Remaining Work
+&nbsp;&nbsp;&nbsp;&nbsp;
 
 - Implementation of interaction interpretations:
-  - Currently limited to **continuous by categorical interactions**.
+  - Currently limited to **continuous by categorical interactions**
   - Need to add interpretations for:
     - **Continuous by continuous interactions.**
     - **Categorical by categorical interactions.**
-- Conduct more rigorous tests.
-- Complete the documentation.
+- Conduct more rigorous tests
+- Complete the documentation
 
 
 # Future Directions
@@ -358,35 +380,41 @@ We have two functions:
 | **Beyond Logistic Regression**| Only logistic regression                                 | Extend to Poisson regression and multinomial logistic regression|
 
 
-## Beyond Logistic Regression
 
-- Potential extensions:  
-  - **poisson regression** for count data 
-  - **logistic regression** for multinomial response variables
 
 ## References
+
+<div style="font-size: 35px;">  
   
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
-<em>Analytics Vidhya.</em> (n.d.) <em>McKinsey analytics online hackathon</em>. Retrieved November 29, 2024, from<a href="https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/">https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/</a>
+<em>Analytics Vidhya.</em> (n.d.) <em>McKinsey analytics online hackathon</em>. Retrieved November 29, 2024, from <a href="https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/">https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/</a>
 </div>
 
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
-Luo, S., & Ren, H. (2020). <em>A novel framework for ...</em>. In <em>Proceedings of the IEEE Conference on Machine Learning Applications</em> (pp. 1–7). IEEE. <a href="https://doi.org/10.1109/9264165">https://doi.org/10.1109/9264165</a>
+  Madasu, S., Malhotra, S., Kant, S., Sager, R., Mishra, A. K., Misra, P., & Ahamed, F. (2019, December, 17). Anxiety disorders among adolescents in a rural area of northern India using Screen for Child Anxiety-Related Emotional Disorders tool: A Community-based study <em>Indian Journal of Community Medicine, 44</em>(4), 317-321. <a href="https://doi.org/10.4103/ijcm.ijcm_359_18">https://doi.org/10.4103/ijcm.ijcm_359_18</a>
 </div>
 
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
-Putra, L. (n.d.). <em>Working during COVID-19 epidemic concept: Portrait of stressed man doctor cartoon character wearing working uniform feeling stressed with laptop and paper in front of him</em> Vecteezy. <a href="https://www.vecteezy.com/vector-art/15708435-working-during-covid-19-epidemic-concept-portrait-of-stressed-man-doctor-cartoon-character-wearing-working-uniform-feeling-stressed-with-laptop-and-paper-in-front-of-him">https://www.vecteezy.com/vector-art/15708435-working-during-covid-19-epidemic-concept-portrait-of-stressed-man-doctor-cartoon-character-wearing-working-uniform-feeling-stressed-with-laptop-and-paper-in-front-of-him</a>
+  Malhotra, R. K. (2020, October 28). Errors in the use of multivariable logistic regression analysis: An empirical analysis. <em>Indian Journal of Community Medicine, 45</em>(4), 560–562. <a href="https://doi.org/10.4103/ijcm.IJCM_16_20">https://doi.org/10.4103/ijcm.IJCM_16_20</a>
 </div>
-  
 
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
 Phil. (2021, October 27). <em>Logistic regression output advice</em>. Stack Overflow. <a href="https://stackoverflow.com/questions/69736261/logistic-regression-output-advice">https://stackoverflow.com/questions/69736261/logistic-regression-output-advice</a>
 </div>
 
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
+Putra, L. (n.d.). <em>Working during COVID-19 epidemic concept: Portrait of stressed man doctor cartoon character wearing working uniform feeling stressed with laptop and paper in front of him</em> Vecteezy. <a href="https://www.vecteezy.com/vector-art/15708435-working-during-covid-19-epidemic-concept-portrait-of-stressed-man-doctor-cartoon-character-wearing-working-uniform-feeling-stressed-with-laptop-and-paper-in-front-of-him">https://www.vecteezy.com/vector-art/15708435-working-during-covid-19-epidemic-concept-portrait-of-stressed-man-doctor-cartoon-character-wearing-working-uniform-feeling-stressed-with-laptop-and-paper-in-front-of-him</a>
+</div>
+
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
+Rampure, R., Inbaraj, L. R., Elizabeth, C. G., & Norman, G. (2019, August 5). Factors contributing to alcohol relapse in a rural population: Lessons from a camp-based de-addiction model from rural Karnataka.<em>Indian Journal of Community Medicine, 44</em>(4), 307-312. <a href="https://doi.org/10.4103/ijcm.IJCM_321_18"> https://doi.org/10.4103/ijcm.IJCM_321_18</a> 
+</div>
+
+<div style="text-indent: -0.5in; margin-left: 0.5in;">
 Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset/data">https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset/data</a>
 </div>
 
+</div>
 
 # Contributions
 
