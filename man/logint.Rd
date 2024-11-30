@@ -19,7 +19,7 @@ logint(formula, continuous_var, categorical_var, data)
 string object delineating interpretation of interaction effects
 }
 \description{
-a function that returns an interpretation for a logistic regression model with one two-way interaction.
+a function that returns the interpretation for a logistic regression model with one two-way interaction.
 }
 \examples{
 logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
