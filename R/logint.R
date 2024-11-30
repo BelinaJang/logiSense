@@ -45,7 +45,7 @@ logint <- function(formula, continuous_var, categorical_var, data) {
   # OR for increasing continuous var by 1, in categorical group
   odds_ratio_sentences <- c(
     paste0("The odds ratio of '", outcome,
-           "' for increasing ", continuous_var, " by one unit in ", categorical_levels[1], " = ", signif(odds_ratios[1], 4))
+           "' for increasing ", continuous_var, " by one unit in ", categorical_levels[1], " = ", signif(odds_ratios[1], 4),".")
   )
 
   for (i in seq_along(interaction_terms)) {
@@ -54,7 +54,8 @@ logint <- function(formula, continuous_var, categorical_var, data) {
       paste0(
         "The odds ratio of '", outcome,
         "' for increasing ", continuous_var, " by one unit in ",
-        categorical_levels[i + 1], " = ", signif(odds_ratios[i + 1], 4)
+        categorical_levels[i + 1], " = ", signif(odds_ratios[i + 1], 4),
+        "."
       )
     )
   }
@@ -66,14 +67,14 @@ logint <- function(formula, continuous_var, categorical_var, data) {
       relative_odds_sentences,
       paste0(
         "For an observation with ", continuous_var, "=value, the odds ratio of '", outcome, "' for ",
-        categorical_levels[i + 1], " vs Baseline is e^(", signif(categorical_effects[i], 4),
+        categorical_levels[i + 1], " vs ", categorical_levels[1]," (reference level) is e^(", signif(categorical_effects[i], 4),
         " + ", signif(interaction_terms[i], 4), "*(value)", ")."
       )
     )
   }
 
   # Combine outputs
-  full_output <- c(odds_ratio_sentences, relative_odds_sentences)
+  full_output <- c(odds_ratio_sentences, "\n", relative_odds_sentences)
 
   return(cat(full_output, sep = "\n"))
 }
