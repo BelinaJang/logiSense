@@ -40,6 +40,10 @@ execute:
 </h3>
 
 
+<div style="position: absolute; bottom: 10px; right: 50px;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 500px; height: auto;" alt="logiSense Logo">
+</div>
+
 # Table of Contents
 
 <div style="font-size: 45px;">
@@ -59,7 +63,10 @@ execute:
 
 # Introduction
 
-- Essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
+<div style="font-size: 50px;">  
+- Logistic regression is essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
+
+</div>
 
 ![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/introduction.png){fig-align="center" height="800"}
   
@@ -83,7 +90,7 @@ Where:
 ## Logistic Regression Formula (with One Two-Way Interaction)
   
 $$
-\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{k} \beta_i X_i + \color{magenta}{\beta_{ij}(X_i \cdot X_j)}
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \sum_{i=1}^{k} \beta_i X_i \color{magenta}{+ \beta_{ij}(X_i \cdot X_j)}
 $$
 Where:
 
@@ -107,35 +114,45 @@ For two-way interaction:
 
 # Motivation
 
-- Challenging to interpret because they are in the <b> log-odds </b> scale
 
-- Conducted a literature review and found a letter by Rajeev Kumar Malhotra that highlighted critical errors in interpreting the results of logistic regression
+<div style="font-size: 45px;">  
+- Challenging to interpret because the coefficients are in the <b> log-odds </b> scale
+
+- Conducted a literature review and found a paper by Rajeev Kumar Malhotra that highlighted critical errors in interpreting the results of logistic regression
+
+</div>
 
 . . .
 
 <div style="height: 40px;"></div>
 
 
-- Several occurrences of the misinterpretation of odds ratios (OR)
+
+<span style="font-size: 45px;">Several occurrences of the misinterpretation of odds ratios (OR)</span>
 
 
-<ul style="list-style-type: none; padding-left: 40px;">
+
+<ul style="list-style-type: none; padding-left: 40px; font-size: 45px;">
   <li style="text-indent: -15px; margin-bottom: 40px;">
     &#8594; Treated ORs as direct probabilities or relative risk (RR)
   </li>
   <li style="text-indent: -15px; margin-bottom: 40px;">
-    <li style="text-indent: -15px; margin-bottom: 40px;">
-    &#8594; Can lead to exaggerated conclusions about the strength of associations, particularly for common outcomes
+    &#8594; Can lead to exaggerated conclusions about the strength of associations
+  </li>
 </ul>
+
+
+
+
 
 . . .
 
 # Odds Ratio Misinterpreted as Relative Risk
-<span style="font-size: 70px;">Example 2: Rampure et al. (2019) </span>
+<span style="font-size: 70px;">Example 1: Rampure et al. (2019) </span>
 
 <br><br>
 
-![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper1.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
+![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/paper1.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
 #
 
@@ -157,7 +174,7 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 <span style="font-size: 90px;">Correct Interpretation: </span>
 
 <div style="border: 2px solid black; background-color: #e6ffee; padding: 15px; font-size: 50px; border-radius: 5px;">
-  “The odds of relapse among people with a high level of craving are 1.8 times greater than the odds of relapse among those with a low level of craving.”
+  “The odds of alcoholic relapse have a high level of craving is 1.8 times more than odds of alcoholic relapse having a low level of craving.”
 </div>
 
 
@@ -166,7 +183,7 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 
 <br><br>
 
-![](https://raw.githubusercontent.com/BelinaJang/lrfd/main/images/paper2.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
+![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/paper2.png){style="border: 5px solid black; display: block; margin: 0 auto; width: 1000px; height: auto"}
 
 #
 
@@ -187,24 +204,32 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 </div>
 
 
-# Key Takeaway: Misinterpretation of Log Odds is More Pervasive than Expected
+# 
 
+<span style="font-size: 80px; font-weight: bold;">Key Takeaway: Misinterpretation of Log Odds is More Pervasive than Expected</span>
+
+<div style="font-size: 45px;">  
 
 - Translating log odds into probabilities and risks can create confusion, often overestimating associations.
 
 - This misinterpretation leads readers to perceive the effect as stronger than it truly is.
 
+</div>
 
 ![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/confused-bg.png){style="display: block; margin: 0 auto; width: 800px; height: auto;"}
 
 
 # Purpose
+
+<div style="font-size: 45px;">  
 To address this, we developed an R package designed to help non-statisticians accurately interpret the logistic regression models they create, which will help to close the gap in understanding.
 
 <br><br>
 
 
 Our package is called...
+
+</div>
 
 <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 
@@ -227,22 +252,31 @@ loop autoplay>
 
 <br><br>
 
-
+<div style="font-size: 45px;">  
 We have two functions:
+</div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 <span style="font-size: 50px;">Function 1: `logis`</span>
 
+<div style="font-size: 45px;">  
 - Provides logistic regression interpretation for models **without** interaction terms
-
+</div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 
 <span style="font-size: 50px;">Function 2: `logint`</span>
 
-- Provides logistic regression interpretation for models with only **one** interaction term
+<div style="font-size: 45px;">  
+- Provides logistic regression interpretation for models with **one** interaction term
+</div>
+
+
+<div style="position: absolute; bottom: 20px; right: -50px;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 350px; height: auto;" alt="logiSense Logo">
+</div>
 
 
 # Arguments
@@ -270,37 +304,84 @@ We have two functions:
 
 ## Example: Using `logiSense` with Stroke Prediction Dataset
 
+<div style="font-size: 45px;">
+
 - Used a Kaggle dataset on stroke prediction as a demo.
 
-| **Variable Name**      | **Type**         |
-|-------------------------|------------------|
-| ID                     | Numeric/Integer  |
-| Gender                 | Categorical      |
-| Age                    | Numeric          |
-| Hypertension           | Binary           |
-| Heart Disease          | Binary           |
-| Ever Married           | Categorical      |
-| Work Type              | Categorical      |
-| Residence Type         | Categorical      |
-| Avg Glucose Level      | Numeric          |
-| BMI                    | Numeric          |
-| Smoking Status         | Categorical      |
-| Cancer                 | Binary           |
+</div>
 
 
-# How to Use `logiSense`: Sample Data 
+
+<div style="font-size: 35px;">
+
+| **Variable Name**      | **Description and Categories**                                                                                  | **Type**         |
+|-------------------------|-----------------------------------------------------------------------------------------------------------------|------------------|
+| ID                     | Unique identifier for each patient                                                                              | Numeric/Integer  |
+| Gender                 | Gender of the patient: "Male", "Female", or "Other"                                                             | Categorical      |
+| Age                    | Age of the patient                                                                                              | Numeric          |
+| Hypertension           | Whether the patient has hypertension: 0 = No, 1 = Yes                                                          | Binary           |
+| Heart Disease          | Whether the patient has any heart disease: 0 = No, 1 = Yes                                                     | Binary           |
+| Ever Married           | Marital status of the patient: "No" or "Yes"                                                                    | Categorical      |
+| Work Type              | Employment type of the patient: "Children", "Govt_job", "Never_worked", "Private", or "Self-employed"           | Categorical      |
+| Residence Type         | Type of residence: "Rural" or "Urban"                                                                           | Categorical      |
+| Avg Glucose Level      | Average glucose level in blood                                                                                  | Numeric          |
+| BMI                    | Body mass index                                                                                                | Numeric          |
+| Smoking Status         | Smoking status of the patient: "Formerly smoked", "Never smoked", "Smokes", or "Unknown"                        | Categorical      |
+| Cancer                 | Whether the patient has cancer: 0 = No, 1 = Yes                                                                | Binary           |
+
+</div>
+
+#
+
+<span style="font-size: 80px;"><b>How to Use `logiSense`: Stroke Prediction Dataset</b></span>
+
+
+
+<span style="font-size: 50px;"><b>For `logis` (no interaction term):</b></span>
+
+<span style="font-size: 40px;"><b>Continuous variable:</b></span>
+
 
 ```{r}
-#install.packages("devtools")
-#library(devtools)
-#devtools::install_github("belinajang/logiSense")
-#library(logiSense)
+library(logiSense)
+library(here)
+
+test_data <- read.csv(here("data/test_data.csv"))
+
+result_con <- logis(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,
+                    data=test_data,
+                    variable_interest="age",
+                    variable_type="continuous")
+
 ```
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="font-size: 40px;"><b>Categorical variable:</b></span>
+```{r}
+result_cat <- logis(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,
+                    data=test_data,
+                    variable_interest="gender",
+                    variable_type="categorical")
+```
+#
+
+<span style="font-size: 80px;"><b>How to Use `logiSense`: Stroke Prediction Dataset</b></span>
+
+<div style="height: 40px;"></div>
+
+<span style="font-size: 50px;"><b>For `logint` (two-way interaction):</b></span>
+
+<span style="font-size: 40px;"><b>Continuous $\times$ Categorical:</b></span>
+```{r}
+logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
+
+```
+
 
 
 # Existing Packages
 
-<span style="font-size: 70px;">Overview of Similar Packages</span>
+<span style="font-size: 60px;">Overview of Similar Packages</span>
 
 
 <span style="font-size: 40px;">`modelsummary`:</span>
@@ -325,12 +406,12 @@ We have two functions:
 
 # Strengths: What Sets Our Package Apart
 
-<span style="font-size: 70px;">Gap in the Existing Packages: </span>
+<span style="font-size: 65px;">Gap in the Existing Packages: </span>
 
 <div style="font-size:50px;">
 - While existing packages address **model performance** and **visualization**, **no existing package** is designed for comprehensive and direct interpretation of regression results.
 
-&nbsp;&nbsp;&nbsp;&nbsp;
+<div style="height: 40px;"></div>
 
 - `logiSense` focuses on **direct interpretation** of regression results.
 - Simplifies statistical output for non-technical users.
@@ -338,11 +419,13 @@ We have two functions:
 
 </div>
 
-## Comparison Table
+# Comparison Table
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
+<div style="font-size:50px;">
 **Table 1.** Comparison of existing packages with logiSense.
+</div>
 
 | Feature                      | `modelsummary` | `sjPlot`  | `gtsummary` | `performance` | `logiSense` |
 |------------------------------|--------------|---------|-----------|-------------|------------------|
@@ -353,20 +436,29 @@ We have two functions:
 | Direct interpretation tools  | ❌           | ❌      | ❌        | ❌          | ✅               |
 
 
-# Challenges & Remaining Work
+# 
 
+<span style="font-size: 70px;"><b>Challenges:</b></span>
+
+<div style="height: 10px;"></div>
+
+<div style="font-size:50px;">
 - We originally underestimated the complexity associated with generating different interpretations for different variable types.
+</div>
 
-&nbsp;&nbsp;&nbsp;&nbsp;
+<div style="height: 25px;"></div>
 
+<span style="font-size: 70px;"><b>Remaining Work:</b></span>
+
+<div style="font-size:50px;">
 - Implementation of interaction interpretations:
-  - Currently limited to **continuous by categorical interactions**
+  - Currently limited to **continuous $\times$ categorical interactions**
   - Need to add interpretations for:
-    - **Continuous by continuous interactions.**
-    - **Categorical by categorical interactions.**
-- Conduct more rigorous tests
+    - **Continuous $\times$ continuous interactions**
+    - **Categorical $\times$ categorical interactions**
+    
 - Complete the documentation
-
+</div>
 
 # Future Directions
 
@@ -387,7 +479,7 @@ We have two functions:
 <div style="font-size: 35px;">  
   
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
-<em>Analytics Vidhya.</em> (n.d.) <em>McKinsey analytics online hackathon</em>. Retrieved November 29, 2024, from <a href="https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/">https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/</a>
+Analytics Vidhya. (n.d.) <em>McKinsey analytics online hackathon</em>. Retrieved November 29, 2024, from <a href="https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/">https://www.analyticsvidhya.com/datahack/contest/mckinsey-analytics-online-hackathon/</a>
 </div>
 
 <div style="text-indent: -0.5in; margin-left: 0.5in;">
@@ -418,9 +510,70 @@ Soriano, F. (n.d.). <em>Stroke prediction dataset</em> Kaggle. <a href="https://
 
 # Contributions
 
+<div style="display: flex; justify-content: space-between; font-size: 30px;">
+
+<div style="width: 48%;">
 
 
+
+
+<span style="font-size: 60px;"><b>Code:</b></span>
+
+  **Anna:**
   
+  - Wrote the function for the interpretation of continuous variables
+  - Wrote the function for models with interaction term (continuous $\times$ categorical)
+  - Helped with categorical variable interpretation
+
+<div style="height: 15px;"></div>
+
+  **Belina:**
   
-# Thank you page
+  - Wrote function for the interpretation of categorical variables
+  - Helped with interaction term interpretation
+  - Set up the R-package (roxygen, description, etc.)
+
+<div style="height: 15px;"></div>
+
+  **Vanessa:**
+  
+  - Wrote draft of interaction function
+  - Helped setting up the R-package (roxygen, etc.)
+</div>
+
+
+
+<div style="width: 48%;">
+
+<span style="font-size: 60px;"><b>Presentation & Research:</b></span>
+
+  **Victoria:**
+  
+  - Slides 1-13, 15-17, 23, 25
+  - Logo for R package
+  - Overall formatting of Quarto presentation
+
+<div style="height: 15px;"></div>
+
+
+  **Tina:**
+  
+  - 
+  
+</div>
+
+</div>
+
+
+
+
+# 
+
+<div style="margin-top: 10vh; text-align: center; font-size: 100px;">
+  Thank you!
+</div>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/qa.png" style="width: 800px; height: auto;" alt="QA Image">
+</div>
+
 
