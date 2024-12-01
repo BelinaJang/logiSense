@@ -200,7 +200,7 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 
 <div style="font-size: 45px;">  
 
-- Translating log odds into probabilities and risks can create confusion, often overestimating associations.
+- Interpreting log odds as probabilities or risks can lead to confusion and may overestimate the strength of associations.
 
 - This misinterpretation leads readers to perceive the effect as stronger than it truly is.
 
