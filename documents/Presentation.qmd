@@ -325,7 +325,7 @@ We have two functions:
 | Avg Glucose Level      | Average glucose level in blood                                                                                  | Numeric          |
 | BMI                    | Body mass index                                                                                                | Numeric          |
 | Smoking Status         | Smoking status of the patient: "Formerly smoked", "Never smoked", "Smokes", or "Unknown"                        | Categorical      |
-| Cancer                 | Whether the patient has cancer: 0 = No, 1 = Yes                                                                | Binary           |
+| Stroke                 | Whether the patient had a stroke: 0 = No, 1 = Yes                                                                | Binary           |
 
 </div>
 
