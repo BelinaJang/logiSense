@@ -63,7 +63,7 @@ execute:
 # Introduction
 
 <div style="font-size: 50px;">  
-- Logistic regression is essential for evaluating the strength of associations between binary outcomes and independent variables (categorical, continuous)
+- Logistic regression is essential for evaluating the strength of the associations between binary outcomes and independent variables (categorical, continuous).
 
 </div>
 
@@ -115,9 +115,9 @@ For two-way interaction:
 
 
 <div style="font-size: 45px;">  
-- Challenging to interpret because the coefficients are in the <b> log-odds </b> scale
+- Challenging to interpret because the coefficients are in the <b> log-odds </b> scale.
 
-- Conducted a literature review and found a paper by Rajeev Kumar Malhotra that highlighted critical errors in interpreting the results of logistic regression
+- Conducted a literature review and found a paper by Rajeev Kumar Malhotra that highlighted critical errors in interpreting the results of logistic regression.
 
 </div>
 
@@ -126,7 +126,7 @@ For two-way interaction:
 <div style="height: 40px;"></div>
 
 
-<span style="font-size: 45px;">Several occurrences of the misinterpretation of odds ratios (OR)</span>
+<span style="font-size: 45px;">Several occurrences of the misinterpretation of odds ratios (OR):</span>
 
 <ul style="list-style-type: none; padding-left: 40px; font-size: 45px;">
   <li style="text-indent: -15px; margin-bottom: 40px;">
@@ -210,7 +210,7 @@ The statement misinterpreted the OR (1.78, 95% CI: 1.25-2.54) as the RR.
 
 # Purpose
 
-<div style="font-size: 45px;">  
+<div style="font-size: 50px;">  
 To address this, we developed an R package designed to help non-statisticians accurately interpret the logistic regression models they create, which will help to close the gap in understanding.
 
 <br><br>
@@ -235,7 +235,10 @@ loop autoplay>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
-> `logiSense` is an R package for making sense of logistic regression results and helping users interpret results 
+<div style="font-size: 45px;">
+> `logiSense` is an R package for making sense of logistic regression results and helping users interpret results.
+
+</div>
 
 <div style="position: absolute; bottom: 20px; right: -50px;">
   <img src="https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/logiSense-logo.png" style="width: 350px; height: auto;" alt="logiSense Logo">
@@ -254,7 +257,7 @@ We have two functions:
 <span style="font-size: 50px;">Function 1: `logis`</span>
 
 <div style="font-size: 45px;">  
-- Provides logistic regression interpretation for models **without** interaction terms
+- Provides logistic regression interpretation for models **without** interaction terms.
 </div>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -264,7 +267,7 @@ We have two functions:
 <span style="font-size: 50px;">Function 2: `logint`</span>
 
 <div style="font-size: 45px;">  
-- Provides logistic regression interpretation for models with **one** interaction term
+- Provides logistic regression interpretation for models with **one** interaction term.
 </div>
 
 
@@ -273,21 +276,24 @@ We have two functions:
 
 # Arguments
 
-<span style="font-size: 60px;">`logis`:</span>
+<div style="font-size:50px;">
+**Table 1.** Description of parameters for `logis`.
+</div>
 
   |  **Parameter**    | **Definition**                           | **Type** |
   |-------------------|------------------------------------------|----------|
   | formula           | Description of the model to be fitted    | formula  |
   | data              | Name of the data                         | data frame |
   | variable_interest | Variable name interested for interpretation | character |
-  | variable_type     | Variable type interested for interpretation | character |
+  | variable_type     | Type of variable of interest             | character |
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 . . .
 
-
-<span style="font-size: 60px;">`logint`:</span>
+<div style="font-size:50px;">
+**Table 2.** Description of parameters for `logint`.
+</div>
 
   |  **Parameter**    | **Definition**                           | **Type** |
   |-------------------|------------------------------------------|----------|
@@ -304,14 +310,16 @@ We have two functions:
 
 <div style="font-size: 45px;">
 
-- Used a Kaggle dataset on stroke prediction as a demo.
+- Used a dataset from Kaggle (McKinsey & Company's healthcare hackathon).
+</div>
+- 
 
+
+<div style="font-size:40px;">
+**Table 3.** Description of variables from the stroke prediction dataset.
 </div>
 
-
-
-<div style="font-size: 35px;">
-
+<div style="font-size: 30px;">
 | **Variable Name**      | **Description and Categories**                                                                                  | **Type**         |
 |-------------------------|-----------------------------------------------------------------------------------------------------------------|------------------|
 | ID                     | Unique identifier for each patient                                                                              | Numeric/Integer  |
@@ -346,22 +354,23 @@ library(here)
 
 test_data <- read.csv(here("data/test_data.csv"))
 
-result_con <- logis(stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,
-                    data=test_data,
-                    variable_interest="age",
-                    variable_type="continuous")
+result_con <- logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
+                    data = test_data,
+                    variable_interest = "age",
+                    variable_type = "continuous")
 
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;
+
+<div style="height: 20px;"></div>
 
 . . .
 
 <span style="font-size: 40px;"><b>Categorical variable:</b></span>
 ```{r}
-result_cat <- logis(formula=stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status,
-                    data=test_data,
-                    variable_interest="gender",
-                    variable_type="categorical")
+result_cat <- logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
+                    data = test_data,
+                    variable_interest = "smoking_status",
+                    variable_type = "categorical")
 ```
 #
 
@@ -373,7 +382,10 @@ result_cat <- logis(formula=stroke~gender+age+hypertension+heart_disease+avg_glu
 
 <span style="font-size: 40px;"><b>Continuous $\times$ Categorical:</b></span>
 ```{r}
-logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
+logint(formula = stroke ~ work_type * age,
+       data = test_data,
+       continuous_var = "age",
+       categorical_var = "work_type")
 
 ```
 
@@ -389,22 +401,16 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 - Presents coefficients in human-readable formats.  
 - Directly interprets logistic regression outputs, including odds ratios.
 
-. . .
-
 <span style="font-size: 40px;">`sjPlot`:</span>
 
 - Displays odds ratios, significance stars, and confidence intervals.  
 - Outputs publication-ready tables and visualizations.
-
-. . .
 
 <span style="font-size: 40px;">`gtsummary`:</span>
 
 
 - Converts logistic regression coefficients to odds ratios.
 - Customizable labels, formats, and output styles.
-
-. . .
 
 <span style="font-size: 40px;">`performance`:</span>
 
@@ -413,7 +419,7 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 
 # Strengths: What Sets Our Package Apart
 
-<span style="font-size: 65px;">Gap in the Existing Packages: </span>
+<span style="font-size: 65px;">Gap in Existing Packages: </span>
 
 <div style="font-size:50px;">
 - While existing packages address **model performance** and **visualization**, **no existing package** is designed for comprehensive and direct interpretation of regression results.
@@ -438,10 +444,10 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 
 # Comparison Table
 
-&nbsp;&nbsp;&nbsp;&nbsp;
+<div style="height: 40px;"></div>
 
 <div style="font-size:50px;">
-**Table 1.** Comparison of existing packages with logiSense.
+**Table 4.** Comparison of existing packages with `logiSense`.
 </div>
 
 | Feature                      | `modelsummary` | `sjPlot`  | `gtsummary` | `performance` | `logiSense` |
@@ -455,7 +461,7 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 
 # 
 
-<span style="font-size: 70px;"><b>Challenges:</b></span>
+<span style="font-size: 75px;"><b>Challenges</b></span>
 
 <div style="height: 10px;"></div>
 
@@ -463,11 +469,10 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 - We originally underestimated the complexity associated with generating different interpretations for different variable types.
 </div>
 
-. . .
 
 <div style="height: 25px;"></div>
 
-<span style="font-size: 70px;"><b>Remaining Work:</b></span>
+<span style="font-size: 70px;"><b>Remaining Work</b></span>
 
 <div style="font-size:50px;">
 - Implementation of interaction interpretations:
@@ -483,12 +488,15 @@ logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_t
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
+<div style="font-size:50px;">
+**Table 5.** Current features and future goals.
+</div>
+
 | **Feature**                  | **Currently Supports**                                     | **Future Goals**                                                |
 |-------------------------------|----------------------------------------------------------|-----------------------------------------------------------------|
-| **Enhanced Functionality**   | Models with overall effects and one two-way interaction   | Extend to handle a broader range of models                     |
-| **Automatic Variable Type Detection** | Manual input of variable types                        | Implement automatic detection for improved usability           |
-| **More Complex Interactions**| Logistic regression with two-way interaction             | Support for higher-order interactions between variables         |
-| **Beyond Logistic Regression**| Only logistic regression                                 | Extend to Poisson regression and multinomial logistic regression|
+| **Automatic Variable Type Detection** | Manual input of variable types                        | Automatic detection for improved usability           |
+| **Model Complexity**| Logistic regression with one two-way interaction             | Higher-order interactions between variables         |
+| **Type of Regression Model**| Only logistic regression                                 | Poisson regression and multinomial logistic regression|
 
 
 
