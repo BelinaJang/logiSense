@@ -65,6 +65,7 @@ execute:
 <div style="font-size: 50px;">  
 - Logistic regression is essential for evaluating the strength of the associations between binary outcomes and independent variables (categorical, continuous).
 
+- Logistic regression models can be extended to include interaction terms.
 </div>
 
 ![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/introduction.png){fig-align="center" height="800"}
@@ -219,16 +220,7 @@ Our package is called...
 
 </div>
 
-<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-
-<div style="display: flex; justify-content: center; align-items: center; width: 100%; text-align: center;">
-  <dotlottie-player src="https://lottie.host/408dcc76-1281-4528-92bb-62f292cd31b9/lyAwiMogLs.lottie" 
-background="transparent" 
-speed="1.3" 
-style="width: 500px; height: 500px;" 
-loop autoplay>
-  </dotlottie-player>
-</div>
+![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/drum.png){style="display: block; margin: 0 auto; width: 500px; height: auto;"}
 
 
 # `logiSense`
@@ -246,7 +238,9 @@ loop autoplay>
 
 . . .
 
-<br><br>
+
+<div style="height: 40px;"></div>
+
 
 <div style="font-size: 45px;">  
 We have two functions:
@@ -269,8 +263,6 @@ We have two functions:
 <div style="font-size: 45px;">  
 - Provides logistic regression interpretation for models with **one** interaction term.
 </div>
-
-
 
 
 
@@ -312,8 +304,6 @@ We have two functions:
 
 - Used a dataset from Kaggle (McKinsey & Company's healthcare hackathon).
 </div>
-- 
-
 
 <div style="font-size:40px;">
 **Table 3.** Description of variables from the stroke prediction dataset.
