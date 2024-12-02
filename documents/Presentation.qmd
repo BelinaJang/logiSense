@@ -62,10 +62,12 @@ execute:
 
 # Introduction
 
-<div style="font-size: 50px;">  
+<div style="font-size: 50px;"> 
+
 - Logistic regression is essential for evaluating the strength of the associations between binary outcomes and independent variables (categorical, continuous).
 
 - Logistic regression models can be extended to include interaction terms.
+
 </div>
 
 ![](https://raw.githubusercontent.com/BelinaJang/logiSense/main/images/introduction.png){fig-align="center" height="800"}
