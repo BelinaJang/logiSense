@@ -89,7 +89,7 @@ logint <- function(formula, continuous_var, categorical_var, data) {
         " + ", signif(interaction_terms[i], 4), "*(value)) ± (1.96)*sqrt(",
         signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],4), " + ",
         signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value) ",
-        signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), "))."
+        signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), ")). \n"
       )
     )
   }
