@@ -14,6 +14,10 @@ library(here)
 test_data <- read.csv(here("data", "test_data.csv"))
 ```
 
+```{r}
+model <- glm(stroke ~ age*avg_glucose_level, family = binomial, data = test_data)
+summary(model)
+```
 
 ```{r}
 # continuous x continuous
@@ -57,12 +61,71 @@ logint_con <- function(formula, continuous_var1, continuous_var2, data) {
 
 
 ```{r}
-model <- glm(stroke ~ age*avg_glucose_level, family = binomial, data = test_data)
-summary(model)
+# continuous x continuous part for logint
+
+logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data) {
+  
+  # assigning variable1 to appropriate type variable
+  if (variable1_type=="continuous"){
+    continuous_var <- variable1
+  } else if (variable1_type=="categorical"){
+    categorical_var <- variable1
+  }
+  
+  # assigning variable2 to appropriate type variable
+  if (variable2_type=="continuous"){
+    continuous_var <- variable2
+  } else if (variable2_type=="categorical"){
+    categorical_var <- variable2
+  }
+  
+  # run below if both variables are categorical
+  if (variable1_type=="continuous" & variable2_type=="continuous"){
+  
+  model <- glm(formula, data = data, family = binomial)
+  
+  variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+  outcome <- as.character(variables_list[[1]])
+  coefficients <- coef(model)
+  
+  var1_effect <- coefficients[continuous_var1]
+  var2_effect <- coefficients[continuous_var2]
+  interaction_effect <- coefficients[grep(":", names(coefficients))]
+  
+  
+  # if any coefficients is NA, return warning message
+  if (any(is.na(coefficients))) {
+    na_variables <- names(coefficients)[is.na(coefficients)]
+    warning(paste0(na_variables," has(have) NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
+  }
+  
+  interaction_effect_name <- names(interaction_effect)
+  
+  vcov_m <- vcov(model)
+  
+  sentences <- c(
+    paste0(
+      "For an observation with ", continuous_var2, "=value, the odds ratio of '", outcome, "' for increasing ", continuous_var1, " by one unit is e^(", signif(var1_effect, 4), " + ", signif(interaction_effect, 4), "*(value)", ")."
+    ),
+    paste0("The 95% CI: e^((", signif(var1_effect, 4), " + ", signif(interaction_effect, 4), "*(value)) ± (1.96)*sqrt(", signif(vcov_m[continuous_var1, continuous_var1],4), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],4), " + 2*(value) ", signif(vcov_m[continuous_var1, interaction_effect_name],4), ")). \n"
+    ),
+    paste0("For an observation with ", continuous_var1, "=value, the odds ratio of '", outcome, "' for increasing ", continuous_var2, " by one unit is e^(", signif(var2_effect, 4), " + ", signif(interaction_effect, 4), "*(value)", ")."
+    ),
+    paste0("The 95% CI: e^((", signif(var2_effect, 4), " + ", signif(interaction_effect, 4), "*(value)) ± (1.96)*sqrt(", signif(vcov_m[continuous_var2, continuous_var2],4), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],4), " + 2*(value) ", signif(vcov_m[continuous_var2, interaction_effect_name],4), ")). \n"
+    )
+  )
+  return(cat(sentences, sep = "\n"))
+  }
+}
 ```
 
 ```{r}
 logint_con(formula=stroke ~ age*avg_glucose_level, continuous_var1 = "age", 
            continuous_var2 = "avg_glucose_level", data = test_data)
+```
+
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
 ```
 
