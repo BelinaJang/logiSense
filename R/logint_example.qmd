@@ -14,7 +14,7 @@ library(here)
 test_data <- read.csv(here("data", "test_data.csv"))
 ```
 
-# for continuous and categorical comparison
+# for continuous and categorical comparison - CI added
 
 ```{r}
 logint <- function(formula, continuous_var, categorical_var, data) {
@@ -50,23 +50,31 @@ logint <- function(formula, continuous_var, categorical_var, data) {
   odds_ratios <- c(exp(base_effect), exp(base_effect + interaction_terms))
   
   # OR for increasing continuous var by 1, in categorical group
-  odds_ratio_sentences <- c(
-    paste0("The odds ratio of '", outcome, 
-        "' for increasing ", continuous_var, " by one unit in ", categorical_levels[1], " = ", signif(odds_ratios[1], 4),".")
-  )
+  odds_ratio_sentences <- c()
   
-  for (i in seq_along(interaction_terms)) {
+  #using vcov add CI
+  vcov_m <- vcov(model)
+  odds_ratios_names <- names(odds_ratios)
+  for (i in 1:(length(interaction_terms)+1)) {
+    CI <- exp(base_effect +c(-1,1)* 1.96 * sqrt(vcov_m[odds_ratios_names[1], odds_ratios_names[1]] + vcov_m[odds_ratios_names[i], odds_ratios_names[i]] + 2*vcov_m[odds_ratios_names[1], odds_ratios_names[i]]))
     odds_ratio_sentences <- c(
       odds_ratio_sentences,
       paste0(
         "The odds ratio of '", outcome, 
         "' for increasing ", continuous_var, " by one unit in ", 
-        categorical_levels[i + 1], " = ", signif(odds_ratios[i + 1], 4),
+        categorical_levels[i], " = ", signif(odds_ratios[i], 4),
         "."
+      ), paste0(
+          "The 95% CI: e^(", base_effect, " ± (1.96)*(",
+          vcov_m[odds_ratios_names[1], odds_ratios_names[1]], " + ",
+          vcov_m[odds_ratios_names[i], odds_ratios_names[i]], " + ",
+          vcov_m[odds_ratios_names[1], odds_ratios_names[i]], ")) = (", CI[1], ", ", CI[2], ").\n"
       )
-    )
+      )
   }
   
+  categorical_effects_names <- names(categorical_effects)
+  interaction_terms_names <- names(interaction_terms)
   # OR for categorical groups relative to baseline, for continuous var
   relative_odds_sentences <- c()
   for (i in seq_along(interaction_terms)) {
@@ -76,6 +84,13 @@ logint <- function(formula, continuous_var, categorical_var, data) {
         "For an observation with ", continuous_var, "=value, the odds ratio of '", outcome, "' for ", 
         categorical_levels[i + 1], " vs ", categorical_levels[1]," (reference level) is e^(", signif(categorical_effects[i], 4), 
         " + ", signif(interaction_terms[i], 4), "*(value)", ")."
+      ),
+      paste0(
+        "The 95% CI: e^((", signif(categorical_effects[i], 4), 
+        " + ", signif(interaction_terms[i], 4), "*(value)) ± (1.96)*sqrt(",
+        vcov_m[categorical_effects_names[i], categorical_effects_names[i]], " + ",
+        vcov_m[interaction_terms_names[i], interaction_terms_names[i]], " + 2*(value) ",
+        vcov_m[categorical_effects_names[i], interaction_terms_names[i]], "))."
       )
     )
   }
