@@ -60,9 +60,7 @@ logint <- function(formula, continuous_var, categorical_var, data) {
     odds_ratio_sentences <- c(
       odds_ratio_sentences,
       paste0(
-        "The odds ratio of '", outcome, 
-        "' for increasing ", continuous_var, " by one unit in ", 
-        categorical_levels[i], " = ", signif(odds_ratios[i], 4),
+        "The odds ratio of '", outcome, "' for increasing ", continuous_var, " by one unit in ", categorical_var, " group ",categorical_levels[i]," = ", signif(odds_ratios[i], 4),
         "."
       ), paste0(
           "The 95% CI: e^(", base_effect, " ± (1.96)*(",
@@ -81,8 +79,9 @@ logint <- function(formula, continuous_var, categorical_var, data) {
     relative_odds_sentences <- c(
       relative_odds_sentences,
       paste0(
-        "For an observation with ", continuous_var, "=value, the odds ratio of '", outcome, "' for ", 
-        categorical_levels[i + 1], " vs ", categorical_levels[1]," (reference level) is e^(", signif(categorical_effects[i], 4), 
+        "For an observation with ", continuous_var, "=value, the odds ratio of '", outcome, "' for ",
+        categorical_var, " group ", categorical_levels[i + 1], " vs ", 
+        categorical_var, " group ", categorical_levels[1]," (reference level) is e^(", signif(categorical_effects[i], 4), 
         " + ", signif(interaction_terms[i], 4), "*(value)", ")."
       ),
       paste0(
