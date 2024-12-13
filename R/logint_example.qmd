@@ -109,6 +109,7 @@ summary(model)
 ```{r}
 logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
 ```
+
 ```{r}
 #warning example
 model <- glm(stroke ~ gender*age, family = binomial, data = test_data)
