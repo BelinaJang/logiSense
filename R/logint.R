@@ -10,8 +10,23 @@
 #' @return string object delineating interpretation of interaction effects
 #' @importFrom broom tidy
 #' @examples
-#' logint(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data)
-#' logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
+#' ## Example 1: Interaction between a continuous and a categorical variable
+#' formula <- stroke ~ work_type*age
+#' variable1 <- "age"
+#' variable2 <- "work_type"
+#' variable1_type <- "continuous"
+#' variable2_type <- "categorical"
+#' data <- test_data
+#' sigfig <- 4
+#' logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+#' ## Example 2: Interaction between two continuous variables
+#' formula <- stroke ~ age*avg_glucose_level
+#' variable1 <- "age"
+#' variable2 <- "avg_glucose_level"
+#' variable1_type <- "continuous"
+#' variable2_type <- "continuous"
+#' data <- test_data
+#' sigfig <- 4
 #' @export
 
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {

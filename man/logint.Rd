@@ -4,16 +4,30 @@
 \alias{logint}
 \title{Logistic Regression Interpretation for One Two-Way Interaction}
 \usage{
-logint(formula, continuous_var, categorical_var, data)
+logint(
+  formula,
+  variable1,
+  variable2,
+  variable1_type,
+  variable2_type,
+  data,
+  sigfig = 4
+)
 }
 \arguments{
 \item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.}
 
-\item{continuous_var}{name of the continuous variable in the interaction of interest}
+\item{variable1}{name of the first variable in the interaction of interest}
 
-\item{categorical_var}{name of the categorical variable in the interaction of interest}
+\item{variable2}{name of the second variable in the interaction of interest}
+
+\item{variable1_type}{type of the first variable in the interaction of interest (either "continuous" or "categorical")}
+
+\item{variable2_type}{type of the second variable in the interaction of interest (either "continuous" or "categorical")}
 
 \item{data}{The name of the dataset}
+
+\item{sigfig}{number of significant figures to round to}
 }
 \value{
 string object delineating interpretation of interaction effects
@@ -22,5 +36,21 @@ string object delineating interpretation of interaction effects
 a function that returns the interpretation for a logistic regression model with one two-way interaction.
 }
 \examples{
-logint(stroke ~ work_type*age, continuous_var = "age", categorical_var = "work_type", data=test_data)
+## Example 1: Interaction between a continuous and a categorical variable
+formula <- stroke ~ work_type*age
+variable1 <- "age"
+variable2 <- "work_type"
+variable1_type <- "continuous"
+variable2_type <- "categorical"
+data <- test_data
+sigfig <- 4
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+## Example 2: Interaction between two continuous variables
+formula <- stroke ~ age*avg_glucose_level
+variable1 <- "age"
+variable2 <- "avg_glucose_level"
+variable1_type <- "continuous"
+variable2_type <- "continuous"
+data <- test_data
+sigfig <- 4
 }

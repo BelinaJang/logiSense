@@ -4,7 +4,7 @@
 \alias{logis}
 \title{Logistic Regression Interpretation Without Interaction}
 \usage{
-logis(formula, variable_interest, variable_type, data)
+logis(formula, variable_interest, variable_type, data, sigfig = 4)
 }
 \arguments{
 \item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted. The details of model specification are given under ‘Details’.}
@@ -16,6 +16,8 @@ It must match one of the predictor variables used in the formula.}
 Acceptable values are "continuous" for numeric variables or "categorical" for factor variables.}
 
 \item{data}{an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.}
+
+\item{sigfig}{number of significant figures to round to}
 }
 \value{
 a string object delineating interpretation of the logistic regression results
@@ -28,4 +30,5 @@ formula <- stroke~gender+age+hypertension
 variable_interest <- "age"
 variable_type <- "continuous"
 data <- test_data
+sigfig <- 4
 }
