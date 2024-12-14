@@ -6,6 +6,7 @@
 #' @param variable_type a character string specifying the type of the variable of interest.
 #' Acceptable values are "continuous" for numeric variables or "categorical" for factor variables.
 #' @param data an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.
+#' @param sigfig number of significant figures to round to
 #' @return a string object delineating interpretation of the logistic regression results
 #' @importFrom broom tidy
 #' @examples
@@ -15,7 +16,7 @@
 #' data <- test_data
 #' @export
 
-logis <- function(formula, variable_interest, variable_type, data) {
+logis <- function(formula, variable_interest, variable_type, data, sigfig=4) {
 
   model <- glm(formula, data = data, family = binomial)
 
@@ -39,20 +40,20 @@ logis <- function(formula, variable_interest, variable_type, data) {
     ci_upper <- vi_result$conf.high
     p_value <- vi_result$p.value
 
-    ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, 4))
-    ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, 4))
+    ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, sigfig))
+    ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, sigfig))
 
     p_interpretation <- if (p_value < 0.05) {
-      paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
+      paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, sigfig), ").")
     } else {
-      paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), ").")
+      paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, sigfig), ").")
     }
 
     interpretation <- paste0(
       interpretation,
       "For each one-unit increase in '", variable_interest, ",' the odds of '", outcome,
-      "' are multiplied by ", signif(estimate, 4),
-      " (95% CI: ", signif(ci_lower, 4), " - ", signif(ci_upper, 4), "). ",
+      "' are multiplied by ", signif(estimate, sigfig),
+      " (95% CI: ", signif(ci_lower, sigfig), " - ", signif(ci_upper, sigfig), "). ",
       p_interpretation, "\n"
     )
   } else if (variable_type == "categorical") {
@@ -70,13 +71,13 @@ logis <- function(formula, variable_interest, variable_type, data) {
         ci_upper <- vi_result$conf.high
         p_value <- vi_result$p.value
 
-        ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, 4))
-        ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, 4))
+        ci_lower <- ifelse(is.na(ci_lower) | is.infinite(ci_lower), "NA", signif(ci_lower, sigfig))
+        ci_upper <- ifelse(is.na(ci_upper) | is.infinite(ci_upper), "NA", signif(ci_upper, sigfig))
 
         p_interpretation <- if (p_value < 0.05) {
-          paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
+          paste0("This result is statistically significant at 5% significance level (p-value: ", signif(p_value, sigfig), "). ")
         } else {
-          paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, 4), "). ")
+          paste0("This result is not statistically significant at 5% significance level (p-value: ", signif(p_value, sigfig), "). ")
         }
 
         interpretation <- paste0(
@@ -84,7 +85,7 @@ logis <- function(formula, variable_interest, variable_type, data) {
           "Compared to the reference level '", reference_level, "' of '",
           variable_interest,
           ",' the odds of '", outcome, "' for the level '", comparison_level,
-          "' are multiplied by ", signif(estimate, 4),
+          "' are multiplied by ", signif(estimate, sigfig),
           " (95% CI: ", ci_lower, " - ", ci_upper, "). ",
           p_interpretation, "\n"
         )
