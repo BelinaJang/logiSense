@@ -82,14 +82,14 @@ logint <- function(formula, continuous_var, categorical_var, data) {
         "For an observation with ", continuous_var, "=value, the odds ratio of '", outcome, "' for ",
         categorical_var, " group ", categorical_levels[i + 1], " vs ", 
         categorical_var, " group ", categorical_levels[1]," (reference level) is e^(", signif(categorical_effects[i], 4), 
-        " + ", signif(interaction_terms[i], 4), "*(value)", ")."
+        " + (", signif(interaction_terms[i], 4), ")*(value)", ")."
       ),
       paste0(
         "The 95% CI: e^((", signif(categorical_effects[i], 4), 
-        " + ", signif(interaction_terms[i], 4), "*(value)) ± (1.96)*sqrt(",
+        " + (", signif(interaction_terms[i], 4), ")*(value)) ± (1.96)*sqrt(",
         signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],4), " + ",
-        signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value) ",
-        signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), ")). \n"
+        signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value)*(",
+        signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), "))). \n"
       )
     )
   }
@@ -202,14 +202,14 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
         "For an observation with ", continuous_var, "=value, the odds ratio of '", outcome, "' for ",
         categorical_var, " group ", categorical_levels[i + 1], " vs ", 
         categorical_var, " group ", categorical_levels[1]," (reference level) is e^(", signif(categorical_effects[i], 4), 
-        " + ", signif(interaction_terms[i], 4), "*(value)", ")."
+        " + (", signif(interaction_terms[i], 4), ")*(value)", ")."
       ),
       paste0(
         "The 95% CI: e^((", signif(categorical_effects[i], 4), 
-        " + ", signif(interaction_terms[i], 4), "*(value)) ± (1.96)*sqrt(",
+        " + (", signif(interaction_terms[i], 4), ")*(value)) ± (1.96)*sqrt(",
         signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],4), " + ",
-        signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value) ",
-        signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), ")). \n"
+        signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value)*(",
+        signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), "))). \n"
       )
     )
   }
