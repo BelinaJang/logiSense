@@ -66,18 +66,32 @@ logint_con <- function(formula, continuous_var1, continuous_var2, data) {
 
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
   
-  # assigning variable1 to appropriate type variable
-  if (variable1_type=="continuous"){
-    continuous_var <- variable1
-  } else if (variable1_type=="categorical"){
-    categorical_var <- variable1
-  }
-  
-  # assigning variable2 to appropriate type variable
-  if (variable2_type=="continuous"){
-    continuous_var <- variable2
-  } else if (variable2_type=="categorical"){
-    categorical_var <- variable2
+  if (variable1_type == "continuous" & variable2_type == "continuous"){
+    #both continuous
+    continuous_var1 <- variable1
+    continuous_var2 <- variable2
+  } else if (variable1_type == "categorical" & variable2_type == "categorical"){
+    #both categorical
+    categorical_var1 <- variable1
+    categorical_var2 <- variable2
+  } else if (variable1_type != variable2_type){
+    # when two variables are different types, assign each variable to appropriate type variable
+    if (variable1_type == "continuous"){
+      continuous_var <- variable1
+      } else if (variable1_type == "categorical"){
+        categorical_var <- variable1
+      } else {
+        warning("variable1_type should be either 'continuous' or 'categorical'.")
+      }
+    else if (variable2_type == "continuous"){
+      continuous_var <- variable2
+      } else if (variable2_type == "categorical"){
+        categorical_var <- variable2
+      } else {
+        warning("variable2_type should be either 'continuous' or 'categorical'.")
+      }
+  } else {
+    warning("Please check both variable types")
   }
   
   # run below if both variables are categorical
