@@ -82,7 +82,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
     
   } else if (variable1_type != variable2_type){
     # when two variables are different types, assign each variable to appropriate type variable
-    cat("Both variables are different types. \n")
+    cat("Both variables are of different types. \n")
     
     if (variable1_type == "continuous"){
       continuous_var <- variable1
@@ -148,9 +148,32 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
 }
 ```
 
+# some tests
 
+## example: both variables are continuous
 ```{r}
 logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
            variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
 ```
+## example: both variables are categorical
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "hypertension", 
+           variable2 = "heart_disease", variable1_type = "categorical", variable2_type = "categorical", data = test_data)
+```
 
+## example: both variables are of different types
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "work_type", 
+           variable2 = "age", variable1_type = "categorical", variable2_type = "continuous", data = test_data)
+```
+
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical", data = test_data)
+```
+
+## typo example
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "work_type", variable1_type = "continuous", variable2_type = "categoricall", data = test_data)
+```
