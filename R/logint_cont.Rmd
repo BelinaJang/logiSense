@@ -80,6 +80,7 @@ logint_con(formula=stroke ~ age*avg_glucose_level, variable1 = "age", variable2 
 
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
   
+  #####################################################
   if (variable1_type == "continuous" & variable2_type == "continuous"){
     #both continuous
     continuous_var1 <- variable1
@@ -121,6 +122,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
         stop("variable2_type should be either 'continuous' or 'categorical'.")
     }
  }
+  #####################################################
   
   # run below if both variables are categorical
   if (variable1_type=="continuous" & variable2_type=="continuous"){
