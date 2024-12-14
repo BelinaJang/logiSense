@@ -15,7 +15,6 @@ test_data <- read.csv(here("data", "test_data.csv"))
 ```
 
 # for continuous and categorical comparison - CI added
-## not fully updated yet
 
 ```{r}
 logint_contbycat <- function(formula, continuous_var, categorical_var, data, sigfig) {
