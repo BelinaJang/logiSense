@@ -75,7 +75,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
           "The odds ratio of '", outcome, "' for increasing ", continuous_var, " by one unit in ", categorical_var, " group ",categorical_levels[i]," = ", signif(odds_ratios[i], 4),
           "."
         ), paste0(
-          "The 95% CI: e^(", signif(base_effect,4), " ± (1.96)*(",
+          "The 95% CI: e^(", signif(base_effect,4), " \u00b1 (1.96)*(",
           signif(vcov_m[odds_ratios_names[1], odds_ratios_names[1]],4), " + ",
           signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],4), " + ",
           signif(vcov_m[odds_ratios_names[1], odds_ratios_names[i]],4), ")) = (", signif(CI[1],4), ", ", signif(CI[2],4), ").\n"
@@ -98,7 +98,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
         ),
         paste0(
           "The 95% CI: e^((", signif(categorical_effects[i], 4),
-          " + (", signif(interaction_terms[i], 4), ")*(value)) ± (1.96)*sqrt(",
+          " + (", signif(interaction_terms[i], 4), ")*(value)) \u00b1 (1.96)*sqrt(",
           signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],4), " + ",
           signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value)*(",
           signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), "))). \n"
@@ -138,11 +138,11 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
       paste0(
         "For an observation with ", continuous_var2, "=value, the odds ratio of '", outcome, "' for increasing ", continuous_var1, " by one unit is e^(", signif(var1_effect, 4), " + (", signif(interaction_effect, 4), ")*(value)", ")."
       ),
-      paste0("The 95% CI: e^((", signif(var1_effect, 4), " + (", signif(interaction_effect, 4), ")*(value)) ± (1.96)*sqrt(", signif(vcov_m[continuous_var1, continuous_var1],4), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],4), " + 2*(value)*(", signif(vcov_m[continuous_var1, interaction_effect_name],4), "))). \n"
+      paste0("The 95% CI: e^((", signif(var1_effect, 4), " + (", signif(interaction_effect, 4), ")*(value)) \u00b1 (1.96)*sqrt(", signif(vcov_m[continuous_var1, continuous_var1],4), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],4), " + 2*(value)*(", signif(vcov_m[continuous_var1, interaction_effect_name],4), "))). \n"
       ),
       paste0("For an observation with ", continuous_var1, "=value, the odds ratio of '", outcome, "' for increasing ", continuous_var2, " by one unit is e^(", signif(var2_effect, 4), " + (", signif(interaction_effect, 4), ")*(value)", ")."
       ),
-      paste0("The 95% CI: e^((", signif(var2_effect, 4), " + (", signif(interaction_effect, 4), ")*(value)) ± (1.96)*sqrt(", signif(vcov_m[continuous_var2, continuous_var2],4), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],4), " + 2*(value)*(", signif(vcov_m[continuous_var2, interaction_effect_name],4), "))). \n"
+      paste0("The 95% CI: e^((", signif(var2_effect, 4), " + (", signif(interaction_effect, 4), ")*(value)) \u00b1 (1.96)*sqrt(", signif(vcov_m[continuous_var2, continuous_var2],4), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],4), " + 2*(value)*(", signif(vcov_m[continuous_var2, interaction_effect_name],4), "))). \n"
       )
     )
     return(cat(sentences, sep = "\n"))
