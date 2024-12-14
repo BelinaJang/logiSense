@@ -95,20 +95,18 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
       } else {
         warning("variable1_type should be either 'continuous' or 'categorical'.")
       }
-    else if (variable2_type == "continuous"){
+    if (variable2_type == "continuous"){
       continuous_var <- variable2
       cat("Variable 2 is continuous. \n")
       cat("continuous_var:", continuous_var, "\n")
-      } else if (variable2_type == "categorical"){
+    } else if (variable2_type == "categorical"){
         categorical_var <- variable2
         cat("Variable 2 is categorical. \n")
         cat("categorical_var:", categorical_var, "\n")
-      } else {
+    } else {
         warning("variable2_type should be either 'continuous' or 'categorical'.")
-      }
-  } else {
-    warning("Please check both variable types")
-  }
+    }
+ }
   
   # run below if both variables are categorical
   if (variable1_type=="continuous" & variable2_type=="continuous"){
