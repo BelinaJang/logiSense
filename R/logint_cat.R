@@ -16,7 +16,7 @@ logint_catbycat <- function(formula, variable1, variable2, variable1_type, varia
   }
 
 
-  # # assigning variable1 to appropriate type variable
+# # assigning variable1 to appropriate type variable
   # if (variable1_type=="continuous"){
   #   continuous_var1 <- variable1
   # } else if (variable1_type=="categorical"){
@@ -31,8 +31,7 @@ logint_catbycat <- function(formula, variable1, variable2, variable1_type, varia
   # }
 
 
-
-  ################### fcn below ############# (args: variables list, outcome, coefficients, catvar1, catvar2)
+################### fcn below ############# (args: variables list, outcome, coefficients, catvar1, catvar2)
   if (variable1_type == 'categorical' & variable2_type == "categorical") {
     var1_effect <- coefficients[categorical_var1]
     var2_effect <- coefficients[categorical_var2]
@@ -46,7 +45,6 @@ logint_catbycat <- function(formula, variable1, variable2, variable1_type, varia
 
     cat_levels1 <- levels(as.factor(model$model[[categorical_var1]]))
     cat_levels2 <- levels(as.factor(model$model[[categorical_var2]]))
-
 
   }
 }
