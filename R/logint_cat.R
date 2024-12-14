@@ -1,20 +1,37 @@
 library(tidyverse)
 test_data <- read.csv(here("data", "test_data.csv"))
 
-logint_catbycat <- function(formula, var1, var2) {
-
+logint_catbycat <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig = 4) {
+  # init -- go in wrapper
   model <- glm(formula, data = data, family = binomial)
 
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
   outcome <- as.character(variables_list[[1]])
-
   coefficients <- coef(model)
 
-  # warning msg
-  if (any(is.na(coefficients))) {
-    na_variables <- names(coefficients)[is.na(coefficients)]
-    warning(paste0(na_variables," has(have) NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
+
+  interaction_effect <- coefficients[grep(":", names(coefficients))]
+
+  # assigning variable1 to appropriate type variable
+  if (variable1_type=="continuous"){
+    continuous_var1 <- variable1
+  } else if (variable1_type=="categorical"){
+    categorical_var1 <- variable1
   }
 
+  # assigning variable2 to appropriate type variable
+  if (variable2_type=="continuous"){
+    continuous_var2 <- variable2
+  } else if (variable2_type=="categorical"){
+    categorical_var2 <- variable2
+  }
 
+  var1_effect <- coefficients[categorical_var1]
+  var2_effect <- coefficients[categorical_var2]
+  interaction_effect <- coefficients[grep(":", names(coefficients))]
+
+  ###### run below #############
+  if (variable1_type == 'categorical' & variable2_type == "categorical") {
+
+  }
 }
