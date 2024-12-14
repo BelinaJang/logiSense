@@ -63,7 +63,7 @@ logint <- function(formula, continuous_var, categorical_var, data) {
         "The odds ratio of '", outcome, "' for increasing ", continuous_var, " by one unit in ", categorical_var, " group ",categorical_levels[i]," = ", signif(odds_ratios[i], 4),
         "."
       ), paste0(
-          "The 95% CI: e^(", signif(base_effect,4), " ± (1.96)*(",
+          "The 95% CI: e^(", signif(base_effect,4), " \u00b1 (1.96)*(",
           signif(vcov_m[odds_ratios_names[1], odds_ratios_names[1]],4), " + ",
           signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],4), " + ",
           signif(vcov_m[odds_ratios_names[1], odds_ratios_names[i]],4), ")) = (", signif(CI[1],4), ", ", signif(CI[2],4), ").\n"
@@ -86,7 +86,7 @@ logint <- function(formula, continuous_var, categorical_var, data) {
       ),
       paste0(
         "The 95% CI: e^((", signif(categorical_effects[i], 4), 
-        " + (", signif(interaction_terms[i], 4), ")*(value)) ± (1.96)*sqrt(",
+        " + (", signif(interaction_terms[i], 4), ")*(value)) \u00b1 (1.96)*sqrt(",
         signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],4), " + ",
         signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value)*(",
         signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), "))). \n"
@@ -119,7 +119,9 @@ logint(stroke ~ gender*age, continuous_var = "age", categorical_var = "gender", 
 ```
 
 # update input format
+
 logint(formula, variable1, variable2, variable1_type = continuous, variable2_type=categorical, data)
+
 ```{r}
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data) {
   
@@ -183,7 +185,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
         "The odds ratio of '", outcome, "' for increasing ", continuous_var, " by one unit in ", categorical_var, " group ",categorical_levels[i]," = ", signif(odds_ratios[i], 4),
         "."
       ), paste0(
-          "The 95% CI: e^(", signif(base_effect,4), " ± (1.96)*(",
+          "The 95% CI: e^(", signif(base_effect,4), " \u00b1 (1.96)*(",
           signif(vcov_m[odds_ratios_names[1], odds_ratios_names[1]],4), " + ",
           signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],4), " + ",
           signif(vcov_m[odds_ratios_names[1], odds_ratios_names[i]],4), ")) = (", signif(CI[1],4), ", ", signif(CI[2],4), ").\n"
@@ -206,7 +208,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
       ),
       paste0(
         "The 95% CI: e^((", signif(categorical_effects[i], 4), 
-        " + (", signif(interaction_terms[i], 4), ")*(value)) ± (1.96)*sqrt(",
+        " + (", signif(interaction_terms[i], 4), ")*(value)) \u00b1 (1.96)*sqrt(",
         signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],4), " + ",
         signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],4), " + 2*(value)*(",
         signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],4), "))). \n"
@@ -225,6 +227,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
 ```{r}
 logint(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data)
 ```
+
 ```{r}
 logint(stroke ~ work_type*age, variable1 = "work_type", variable2 = "age", variable1_type = "categorical", variable2_type = "continuous",data=test_data)
 ```
