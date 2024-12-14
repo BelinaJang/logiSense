@@ -9,6 +9,8 @@ logint_catbycat <- function(formula, variable1, variable2, variable1_type, varia
   outcome <- as.character(variables_list[[1]])
   coefficients <- coef(model)
 
+  interaction_effect <- coefficients[grep(":", names(coefficients))]
+
   # NA msg
   if (any(is.na(coefficients))) {
     na_variables <- names(coefficients)[is.na(coefficients)]
@@ -17,6 +19,17 @@ logint_catbycat <- function(formula, variable1, variable2, variable1_type, varia
 
 
 # # assigning variable1 to appropriate type variable
+  }
+
+
+  # assigning variable1 to appropriate type variable
+  if (variable1_type=="continuous"){
+    continuous_var1 <- variable1
+  } else if (variable1_type=="categorical"){
+    categorical_var1 <- variable1
+  }
+
+
   # if (variable1_type=="continuous"){
   #   continuous_var1 <- variable1
   # } else if (variable1_type=="categorical"){
@@ -32,12 +45,13 @@ logint_catbycat <- function(formula, variable1, variable2, variable1_type, varia
 
 
 ################### fcn below ############# (args: variables list, outcome, coefficients, catvar1, catvar2)
+
   if (variable1_type == 'categorical' & variable2_type == "categorical") {
     var1_effect <- coefficients[categorical_var1]
     var2_effect <- coefficients[categorical_var2]
     interaction_effect <- coefficients[grep(":", names(coefficients))]
 
-    result <- tidy(model)
+        result <- tidy(model)
     interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
 
     cat_effects1 <- coefficients[grep(paste0("^", categorical_var1), names(coefficients))]
