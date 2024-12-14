@@ -31,19 +31,49 @@
 
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
 
-  # assigning variable1 to appropriate type variable
-  if (variable1_type=="continuous"){
-    continuous_var <- variable1
-  } else if (variable1_type=="categorical"){
-    categorical_var <- variable1
-  }
+  #####################################################
+  if (variable1_type == "continuous" & variable2_type == "continuous"){
+    #both continuous
+    continuous_var1 <- variable1
+    continuous_var2 <- variable2
+    message("Both variables are continuous. \n")
+    message("continuous_var1: ", continuous_var1, ", continuous_var2: ", continuous_var2, "\n")
 
-  # assigning variable2 to appropriate type variable
-  if (variable2_type=="continuous"){
-    continuous_var <- variable2
-  } else if (variable2_type=="categorical"){
-    categorical_var <- variable2
+  } else if (variable1_type == "categorical" & variable2_type == "categorical"){
+    #both categorical
+    categorical_var1 <- variable1
+    categorical_var2 <- variable2
+    message("Both variables are categorical. \n")
+    message("categorical_var1: ", categorical_var1, ", categorical_var2: ", categorical_var2, "\n")
+
+  } else if (variable1_type != variable2_type){
+    # when two variables are different types, assign each variable to appropriate type variable
+    message("Both variables are of different types. \n")
+
+    if (variable1_type == "continuous"){
+      continuous_var <- variable1
+      message("Variable 1 is continuous. \n")
+      message("continuous_var: ", continuous_var, "\n")
+    } else if (variable1_type == "categorical"){
+      categorical_var <- variable1
+      message("Variable 1 is categorical. \n")
+      message("categorical_var: ", categorical_var, "\n")
+    } else {
+      stop("variable1_type should be either 'continuous' or 'categorical'.")
+    }
+    if (variable2_type == "continuous"){
+      continuous_var <- variable2
+      message("Variable 2 is continuous. \n")
+      message("continuous_var: ", continuous_var, "\n")
+    } else if (variable2_type == "categorical"){
+      categorical_var <- variable2
+      message("Variable 2 is categorical. \n")
+      message("categorical_var: ", categorical_var, "\n")
+    } else {
+      stop("variable2_type should be either 'continuous' or 'categorical'.")
+    }
   }
+  #####################################################
 
   # run below if one of the types are continuous and the other one is categorical
   if ( (variable1_type=="continuous" & variable2_type=="categorical") | (variable1_type=="categorical" & variable2_type=="continuous")){
@@ -126,6 +156,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
     full_output <- c(odds_ratio_sentences, "\n", relative_odds_sentences)
 
     return(cat(full_output, sep = "\n"))
+
   } else if (variable1_type=="continuous" & variable2_type=="continuous"){
     # run below if both variables are categorical
 
@@ -162,5 +193,8 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
       )
     )
     return(cat(sentences, sep = "\n"))
+  } else if (variable1_type=="categorical" & variable2_type=="categorical"){
+    warning("Both variables are categorical. This is currently under development. Please check back later. \n")
+    # Placeholder for future logic
   }
 }

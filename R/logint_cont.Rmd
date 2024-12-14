@@ -11,7 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(here)
-library(futile.logger)
 test_data <- read.csv(here("data", "test_data.csv"))
 ```
 
@@ -179,12 +178,12 @@ logint(formula=stroke ~ age*avg_glucose_level, variable1 = "hypertension",
 
 ## example: both variables are of different types
 ```{r}
-logint(formula=stroke ~ age*avg_glucose_level, variable1 = "work_type", 
+logint(formula=stroke ~ age*work_type, variable1 = "work_type", 
            variable2 = "age", variable1_type = "categorical", variable2_type = "continuous", data = test_data)
 ```
 
 ```{r}
-logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+logint(formula=stroke ~ age*work_type, variable1 = "age", 
            variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical", data = test_data)
 ```
 
