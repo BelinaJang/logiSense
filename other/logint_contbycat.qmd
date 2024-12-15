@@ -190,7 +190,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
   
   # Extract interaction terms
   result <- tidy(model)
-  #interaction_terms <- coefficients[result[grep(":", result$term), ]$term] - wrong
+  #interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
   
   # error handling added
   result_terms <- result$term
