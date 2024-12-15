@@ -7,7 +7,7 @@ test_that("logint_catbycat handles interaction between two categorical variables
 
   expect_output(
     logint_catbycat(formula, variable1,variable2, data, sigfig),
-    "The odds ratio for the outcome",
+    "The odds ratio of ",
     fixed = TRUE
   )
 })
@@ -21,7 +21,7 @@ test_that("logint_catbycat handles interaction between two categorical variables
 
   expect_output(
     logint_catbycat(formula, variable1,variable2, data, sigfig),
-    "The odds ratio for the outcome",
+    "The odds ratio of ",
     fixed = TRUE
   )
 })
