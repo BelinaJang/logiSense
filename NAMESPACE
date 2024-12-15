@@ -2,6 +2,7 @@
 
 export(logint)
 export(logint2)
+export(logint_catbycat)
 export(logint_contbycat)
 export(logint_contbycont)
 export(logis)
