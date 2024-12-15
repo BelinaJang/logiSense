@@ -20,7 +20,6 @@ logint_contbycont <- function(formula, variable1, variable2, data, sigfig=4) {
   continuous_var1 <- variable1
   continuous_var2 <- variable2
 
-  cat("continuous_var1:", continuous_var1, "continuous_var2:", continuous_var2, "\n")
   model <- glm(formula, data = data, family = binomial)
 
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
