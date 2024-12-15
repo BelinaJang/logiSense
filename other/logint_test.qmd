@@ -40,6 +40,14 @@ logint(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", varia
 ```{r}
 logint2(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
 ```
+## logint
+```{r}
+logint(stroke ~ work_type*age, variable1 = "work_type", variable2 = "age", variable1_type = "categorical", variable2_type = "continuous",data=test_data, sigfig=4)
+```
+```{r}
+logint2(stroke ~ work_type*age, variable1 = "work_type", variable2 = "age", variable1_type = "categorical", variable2_type = "continuous",data=test_data, sigfig=4)
+```
+
 
 # case 3: categorical by categorical interaction
 
