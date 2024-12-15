@@ -123,7 +123,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
  }
   #####################################################
   
-  # run below if both variables are categorical
+  # run below if both variables are continuous
   if (variable1_type=="continuous" & variable2_type=="continuous"){
   
   model <- glm(formula, data = data, family = binomial)
