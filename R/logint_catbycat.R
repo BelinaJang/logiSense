@@ -26,7 +26,7 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
   result <- tidy(model)
   result_terms <- result$term
 
-  # find terms that include both continuous and categorical variables from result_terms
+  # find terms that include both categorical and categorical variables from result_terms
   interaction_terms_check <- coefficients[result_terms[sapply(result_terms, function(term) {
     all(sapply(c(variable1,variable2), function(var) grepl(var, term)))
   })]]
@@ -103,14 +103,15 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
     }
   }
 
-  #given variable 1
-  for (i in levels2[-1]) {
-    for (j in levels1) {
-      main1 <- paste0(variable1, j)
-      main2 <- paste0(variable2, i)
-      interaction_term <- paste0(variable1, j, ":", variable2, i)
+  # Given variable 1 - anna
+  for (j in levels2[-1]) {
+    for (i in levels1) {
+      main1 <- paste0(variable1, i)
+      main2 <- paste0(variable2, j)
+      interaction_term <- paste0(variable1, i, ":", variable2, j)
 
-      message(paste0("interaction: ", interaction_term))
+      message(paste0("main1:", main1, " main2:", main2, " interaction:", interaction_term))
+
 
       beta_main1 <- ifelse(main1 %in% rownames(coef_model), coef_model[main1, "Estimate"], 0)
       beta_main2 <- ifelse(main2 %in% rownames(coef_model), coef_model[main2, "Estimate"], 0)
@@ -120,22 +121,16 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
       log_odds <- beta_main2 + beta_interaction
       odds_ratio <- exp(log_odds)
 
-      message(paste0("(i,j): (", i,',', j, "), beta_main1:", beta_main1, ", beta_main2:", beta_main2,
-                   ", beta_interaction:", beta_interaction, ", log_odds:", log_odds))
+      message(paste0("(i,j): ", i, j, ", beta_main1:", beta_main1, ", beta_main2:", beta_main2,
+                     ", beta_interaction:", beta_interaction, ", log_odds:", log_odds))
 
       vcov_m <- vcov(model)
 
       sentences <- c(
         sentences,
-        #paste0(
-        #  "The odds ratio for the outcome '", outcome, "' when comparing the group ",
-        #  variable2," level '", i, "' with the reference level, (",
-        #  ref_level2, ") in the context of ", variable1, " level '",
-        #  j,"' is ", signif(odds_ratio, sigfig), "."
-        #)
         paste0(
           "The odds ratio of '", outcome, "' for the ",
-          variable2," group ", i, " vs ",variable2," group ", ref_level2," (reference level) in the context of ",variable1, " group ", j," is ",signif(odds_ratio, sigfig), "."
+          variable2," group ", j, " vs ",variable2," group ", ref_level2," (reference level) in the context of ",variable1, " group ", i," is ",signif(odds_ratio, sigfig), "."
         )
       )
     }
