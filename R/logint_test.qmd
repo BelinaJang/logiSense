@@ -1,0 +1,52 @@
+---
+title: "logint_test"
+format: pdf
+---
+
+```{r}
+library(devtools)
+devtools::install_github(
+"BelinaJang/logiSense",force = TRUE
+)
+library(logiSense)
+```
+
+# load data
+```{r}
+data("test_data")
+```
+
+# case 1: continuous by continuous interaction
+## logint1
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
+```
+
+## logint2
+```{r}
+logint2(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
+```
+
+# case 2: continuous by categorical interaction
+
+## logint
+```{r}
+logint(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+## logint2
+```{r}
+logint2(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+# case 3: categorical by categorical interaction
+
+## logint
+```{r}
+```
+
+## logint2
+```{r}
+```
