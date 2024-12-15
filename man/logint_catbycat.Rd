@@ -25,8 +25,8 @@ a function that returns the interpretation for a logistic regression model with 
 }
 \examples{
 formula <- stroke ~ work_type*Residence_type
-variable1 <- "Residence_type"
-variable2 <- "work_type"
+variable1 <- "work_type"
+variable2 <- "Residence_type"
 data <- test_data
 sigfig <- 4
 logint_catbycat(formula, variable1, variable2, data, sigfig)
