@@ -98,12 +98,15 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
         paste0(
           "The odds ratio of '", outcome, "' for the ",
           variable1," group ", i, " vs ",variable1," group ", ref_level1," (reference level) in the context of ",variable2, " group ", j," is ",signif(odds_ratio, sigfig), "."
+        ),
+        paste0(
+          "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main1, main1] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main1,interaction_term]))
         )
       )
     }
   }
 
-  # Given variable 1 - anna
+  # Given variable 1
   for (j in levels2[-1]) {
     for (i in levels1) {
       main1 <- paste0(variable1, i)
@@ -131,7 +134,10 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
         paste0(
           "The odds ratio of '", outcome, "' for the ",
           variable2," group ", j, " vs ",variable2," group ", ref_level2," (reference level) in the context of ",variable1, " group ", i," is ",signif(odds_ratio, sigfig), "."
-        )
+        ),
+        paste0(
+          "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main2, main2] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main2,interaction_term]))
+      )
       )
     }
   }
