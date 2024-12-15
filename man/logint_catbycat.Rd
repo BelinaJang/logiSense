@@ -29,5 +29,5 @@ variable1 <- "Residence_type"
 variable2 <- "work_type"
 data <- test_data
 sigfig <- 4
-logint_contbycat(formula, continuous_var, categorical_var, data, sigfig)
+logint_catbycat(formula, variable1, variable2, data, sigfig)
 }
