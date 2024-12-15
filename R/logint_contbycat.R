@@ -8,7 +8,12 @@
 #' @return string object delineating interpretation of interaction effects
 #' @importFrom broom tidy
 #' @examples
-#' logint(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", data=test_data, sigfig=4)
+#' formula <- stroke ~ work_type*age
+#' continuous_var <- "age"
+#' categorical_var <- "work_type"
+#' data <- test_data
+#' sigfig <- 4
+#' logint_contbycat(formula, continuous_var, categorical_var, data, sigfig)
 #' @export
 
 logint_contbycat <- function(formula, continuous_var, categorical_var, data, sigfig) {

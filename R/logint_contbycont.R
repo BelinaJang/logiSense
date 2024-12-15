@@ -8,7 +8,12 @@
 #' @return string object delineating interpretation of interaction effects
 #' @importFrom broom tidy
 #' @examples
-#' logint_contbycont(formula=stroke ~ age*avg_glucose_level, variable1 = "age", variable2 = "avg_glucose_level", data = test_data, sigfig=4)
+#' formula <- stroke ~ age*avg_glucose_level
+#' variable1 <- "age"
+#' variable2 <- "avg_glucose_level"
+#' data <- test_data
+#' sigfig <- 4
+#' logint_contbycont(formula, variable1, variable2, data, sigfig)
 #' @export
 
 logint_contbycont <- function(formula, variable1, variable2, data, sigfig=4) {
@@ -41,11 +46,11 @@ logint_contbycont <- function(formula, variable1, variable2, data, sigfig=4) {
     paste0(
       "For an observation with ", continuous_var2, "=value, the odds ratio of '", outcome, "' for increasing ", continuous_var1, " by one unit is e^(", signif(var1_effect, sigfig), " + (", signif(interaction_effect, sigfig), ")*(value)", ")."
     ),
-    paste0("The 95% CI: e^((", signif(var1_effect, sigfig), " + (", signif(interaction_effect, sigfig), ")*(value)) ± (1.96)*sqrt(", signif(vcov_m[continuous_var1, continuous_var1],sigfig), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],sigfig), " + 2*(value)*(", signif(vcov_m[continuous_var1, interaction_effect_name],sigfig), "))). \n"
+    paste0("The 95% CI: e^((", signif(var1_effect, sigfig), " + (", signif(interaction_effect, sigfig), ")*(value)) \u00b1 (1.96)*sqrt(", signif(vcov_m[continuous_var1, continuous_var1],sigfig), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],sigfig), " + 2*(value)*(", signif(vcov_m[continuous_var1, interaction_effect_name],sigfig), "))). \n"
     ),
     paste0("For an observation with ", continuous_var1, "=value, the odds ratio of '", outcome, "' for increasing ", continuous_var2, " by one unit is e^(", signif(var2_effect, sigfig), " + (", signif(interaction_effect, sigfig), ")*(value)", ")."
     ),
-    paste0("The 95% CI: e^((", signif(var2_effect, sigfig), " + (", signif(interaction_effect, sigfig), ")*(value)) ± (1.96)*sqrt(", signif(vcov_m[continuous_var2, continuous_var2],sigfig), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],sigfig), " + 2*(value)*(", signif(vcov_m[continuous_var2, interaction_effect_name],sigfig), "))). \n"
+    paste0("The 95% CI: e^((", signif(var2_effect, sigfig), " + (", signif(interaction_effect, sigfig), ")*(value)) \u00b1 (1.96)*sqrt(", signif(vcov_m[continuous_var2, continuous_var2],sigfig), " + ", signif(vcov_m[interaction_effect_name, interaction_effect_name],sigfig), " + 2*(value)*(", signif(vcov_m[continuous_var2, interaction_effect_name],sigfig), "))). \n"
     )
   )
   return(cat(sentences, sep = "\n"))

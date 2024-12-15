@@ -1,10 +1,10 @@
 Package: logiSense
 Type: Package
 Title: Logistic Regression Interpretation
-Version: 0.1.0
+Version: 0.1.1
 Author: Anna (Jingxuan) He, Belina Jang, Vanessa Liao, Tina (Zhaoyu) Tan, & Victoria Truong
 Maintainer: The package maintainer <jangbelina@gmail.com>
-Description: The package includes a function that returns the interpretation of logistic regression results
+Description: The package includes a function that returns the interpretation for a logistic regression model without any interaction
     and a function that returns an interpretation for a logistic regression model with one two-way interaction.
 License: MIT + file LICENSE
 Encoding: UTF-8
