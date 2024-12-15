@@ -22,7 +22,7 @@ summary(model)
 ## should only be run when we know both variables are continuous
 ```{r}
 # continuous x continuous
-logint_con <- function(formula, variable1, variable2, data, sigfig=4) {
+logint_contbycont <- function(formula, variable1, variable2, data, sigfig=4) {
   continuous_var1 <- variable1
   continuous_var2 <- variable2
   
@@ -68,7 +68,7 @@ logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age",
 
 above will call below function when both variables are continuous (when using multiple r files)
 ```{r}
-logint_con(formula=stroke ~ age*avg_glucose_level, variable1 = "age", variable2 = "avg_glucose_level", data = test_data, sigfig=4)
+logint_contbycont(formula=stroke ~ age*avg_glucose_level, variable1 = "age", variable2 = "avg_glucose_level", data = test_data, sigfig=4)
 ```
 
 
