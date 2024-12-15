@@ -84,8 +84,6 @@ logint2 <- function(formula, variable1, variable2, variable1_type, variable2_typ
     logint_contbycont(formula, variable1, variable2, data, sigfig)
   } else if (variable1_type=="categorical" & variable2_type=="categorical"){
     # run below if both variables are categorical
-    warning("Both variables are categorical. This is currently under development. Please check back later. \n")
-    # Placeholder for future logic
-    # logint_catbycat(formula, variable1, variable2, data, sigfig)
+    logint_catbycat(formula, variable1, variable2, data, sigfig)
   }
 }
