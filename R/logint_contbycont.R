@@ -1,11 +1,11 @@
-#' @title Logistic Regression Interpretation for One Two-Way Interaction
+#' @title Logistic Regression Interpretation for Continuous by Continuous Interaction
 #' @description a function that returns the interpretation for a logistic regression model with one two-way interaction of two continuous variables.
 #' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
-#' @param variable1 The name of first continuous variable
-#' @param variable2 The name of second continuous variable
+#' @param variable1 The name of first continuous variable in the interaction
+#' @param variable2 The name of second continuous variable in the interaction
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
-#' @return string object delineating interpretation of interaction effects
+#' @return `logint_contbycont` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @examples
 #' formula <- stroke ~ age*avg_glucose_level
@@ -23,13 +23,24 @@ logint_contbycont <- function(formula, variable1, variable2, data, sigfig=4) {
   model <- glm(formula, data = data, family = binomial)
 
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+
   outcome <- as.character(variables_list[[1]])
   coefficients <- coef(model)
 
   var1_effect <- coefficients[continuous_var1]
   var2_effect <- coefficients[continuous_var2]
-  interaction_effect <- coefficients[grep(":", names(coefficients))]
+  #interaction_effect <- coefficients[grep(":", names(coefficients))] - wrong
 
+  # error handling added
+  result <- tidy(model)
+  result_terms <- result$term
+
+  # find terms that include both continuous and categorical variables from result_terms
+  interaction_effect <- coefficients[result_terms[sapply(result_terms, function(term) {all(sapply(c(continuous_var1,continuous_var2), function(var) grepl(var, term)))})]]
+
+  if (length(interaction_effect) == 0){
+    stop("No interaction terms between ", continuous_var1, " and ", continuous_var2, " found in the model.")
+  }
 
   # if any coefficients is NA, return warning message
   if (any(is.na(coefficients))) {
