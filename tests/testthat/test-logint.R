@@ -59,3 +59,18 @@ test_that("logint throws an error for missing interaction term", {
     "No interaction terms between age and gender found in the model."
   )
 })
+
+test_that("logint throws an error for missing interaction term", {
+  formula <- stroke ~ age*gender + avg_glucose_level
+  variable1 <- "age"
+  variable2 <- "avg_glucose_level"
+  variable1_type <- "continuous"
+  variable2_type <- "continuous"
+  data <- test_data
+  sigfig <- 4
+
+  expect_error(
+    logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig),
+    "No interaction terms between age and avg_glucose_level found in the model."
+  )
+})
