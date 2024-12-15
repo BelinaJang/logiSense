@@ -53,6 +53,16 @@ logint2(stroke ~ work_type*age, variable1 = "work_type", variable2 = "age", vari
 
 # case 3: categorical by categorical interaction
 
+## logint_catbycat
+```{r}
+formula <- stroke ~ work_type*Residence_type
+variable1 <- "work_type"
+variable2 <- "Residence_type"
+data <- test_data
+sigfig <- 4
+logint_catbycat(formula, variable1, variable2, data, sigfig)
+```
+
 ## logint
 ```{r}
 logint(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
