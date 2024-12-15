@@ -22,6 +22,20 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
   outcome <- as.character(attr(model$terms, "variables")[-c(1)][1])
   coefficients <- coef(model)
 
+  #### error handling added ####
+  result <- tidy(model)
+  result_terms <- result$term
+
+  # find terms that include both continuous and categorical variables from result_terms
+  interaction_terms_check <- coefficients[result_terms[sapply(result_terms, function(term) {
+    all(sapply(c(variable1,variable2), function(var) grepl(var, term)))
+  })]]
+
+  if (length(interaction_terms_check) == 0){
+    stop("No interaction terms between ", variable1, " and ", variable2, " found in the model.")
+  }
+  #############################
+
   if (any(is.na(coefficients))) {
     na_variables <- names(coefficients)[is.na(coefficients)]
     warning(paste0(na_variables," has(have) NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
