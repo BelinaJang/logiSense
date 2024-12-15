@@ -105,14 +105,15 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
         sentences <- c(
           sentences,
           paste0(
-            "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main1, main1]))
+            "The 95% CI: (",signif(exp(log_odds + (-1.96) * sqrt(vcov_m[main1, main1])),sigfig),", ",signif(exp(log_odds + 1.96 * sqrt(vcov_m[main1, main1])),sigfig),")"
           )
         )
       } else {
         sentences <- c(
           sentences,
           paste0(
-            "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main1, main1] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main1,interaction_term]))
+            "The 95% CI: (", signif(exp(log_odds + (-1.96) * sqrt(vcov_m[main1, main1] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main1,interaction_term])),sigfig),
+            ", ", signif(exp(log_odds + 1.96 * sqrt(vcov_m[main1, main1] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main1,interaction_term])),sigfig),")"
           )
         )
       }
@@ -154,7 +155,7 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
         sentences <- c(
           sentences,
           paste0(
-            "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main2, main2]))
+            "The 95% CI: (",signif(exp(log_odds + (-1.96) * sqrt(vcov_m[main2, main2])),sigfig), ", ", signif(exp(log_odds + 1.96 * sqrt(vcov_m[main2, main2])),sigfig),")"
           )
         )
       } else {
@@ -162,7 +163,8 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
           sentences,
           paste0(
             "The 95% CI:", paste0(
-              "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main2, main2] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main2,interaction_term]))
+              "The 95% CI: (",signif(exp(log_odds + (-1.96) * sqrt(vcov_m[main2, main2] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main2,interaction_term])),sigfig),
+              ", ", signif(exp(log_odds + 1.96 * sqrt(vcov_m[main2, main2] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main2,interaction_term])),sigfig),")"
             )
           )
         )
