@@ -8,7 +8,7 @@
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
 #' @return `logint2` prints the interpretation of interaction effects directly to the console using "cat()"
-#' @importFrom broom
+#' @importFrom broom tidy
 #' @examples
 #' ## Example 1: Interaction between a continuous and a categorical variable
 #' formula <- stroke ~ work_type*age

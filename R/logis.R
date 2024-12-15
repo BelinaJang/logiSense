@@ -8,7 +8,7 @@
 #' @param data an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.
 #' @param sigfig number of significant figures to round to
 #' @return a string object delineating interpretation of the logistic regression results
-#' @importFrom broom
+#' @importFrom broom tidy
 #' @examples
 #' ## Example 1: Continuous variable
 #' formula <- stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status
