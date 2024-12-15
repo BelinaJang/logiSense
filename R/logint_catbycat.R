@@ -98,11 +98,24 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
         paste0(
           "The odds ratio of '", outcome, "' for the ",
           variable1," group ", i, " vs ",variable1," group ", ref_level1," (reference level) in the context of ",variable2, " group ", j," is ",signif(odds_ratio, sigfig), "."
-        ),
-        paste0(
-          "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main1, main1] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main1,interaction_term]))
         )
       )
+
+      if(j==ref_level2){
+        sentences <- c(
+          sentences,
+          paste0(
+            "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main1, main1]))
+          )
+        )
+      } else {
+        sentences <- c(
+          sentences,
+          paste0(
+            "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main1, main1] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main1,interaction_term]))
+          )
+        )
+      }
     }
   }
 
@@ -134,11 +147,26 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
         paste0(
           "The odds ratio of '", outcome, "' for the ",
           variable2," group ", j, " vs ",variable2," group ", ref_level2," (reference level) in the context of ",variable1, " group ", i," is ",signif(odds_ratio, sigfig), "."
-        ),
-        paste0(
-          "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main2, main2] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main2,interaction_term]))
+        )
       )
-      )
+
+      if(i==ref_level1){
+        sentences <- c(
+          sentences,
+          paste0(
+            "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main2, main2]))
+          )
+        )
+      } else {
+        sentences <- c(
+          sentences,
+          paste0(
+            "The 95% CI:", paste0(
+              "The 95% CI:", exp(log_odds +c(-1,1)* 1.96 * sqrt(vcov_m[main2, main2] + vcov_m[interaction_term, interaction_term] + 2*vcov_m[main2,interaction_term]))
+            )
+          )
+        )
+      }
     }
   }
 
