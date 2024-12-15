@@ -8,6 +8,7 @@ library(devtools)
 devtools::install_github(
 "BelinaJang/logiSense",force = TRUE
 )
+#devtools::install(build_vignettes = TRUE)
 library(logiSense)
 ```
 
@@ -60,4 +61,14 @@ logint(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "
 ## logint2
 ```{r}
 logint2(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+# error/warning examples
+## invalid variable1_type
+```{r}
+logint2(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categoricals", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+## NA in estimate
+```{r}
+logint(stroke ~ gender*age, variable1 = "age", variable2 = "gender", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
+```
 ```
