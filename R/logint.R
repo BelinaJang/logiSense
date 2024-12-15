@@ -8,7 +8,7 @@
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
 #' @return `logint` prints the interpretation of the result directly to the console using "cat()"
-#' @importFrom broom tidy
+#' @importFrom broom
 #' @examples
 #' ## Example 1: Interaction between a continuous and a categorical variable
 #' formula <- stroke ~ work_type*age
