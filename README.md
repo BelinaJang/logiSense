@@ -86,7 +86,15 @@ logint(formula = stroke ~ work_type * age,
                   data = test_data,
                   sigfig=4)
 ```
-
+#### Continuous &times; Continuous:
+```
+logint(formula=stroke ~ age*avg_glucose_level,
+                  variable1 = "age",
+                  variable2 = "avg_glucose_level",
+                  variable1_type = "continuous",
+                  variable2_type = "continuous",
+                  data = test_data)
+```
 
 ## Comparison with Existing Packages
 While existing R packages focus on model performance and visualization, `logiSense` uniquely addresses the gap in direct and comprehensive interpretation of logistic regression results, as summarized in the comparison below.
