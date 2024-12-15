@@ -44,8 +44,10 @@ The `logis` and `logint` functions in `logiSense` require specific arguments, in
 |--------------------|------------------------------------------|------------|
 | `formula`          | Description of the model to be fitted    | formula    |
 | `data`             | Name of the data                        | data frame |
-| `categorical_var`  | Categorical variable name interested for interpretation | character |
-| `continuous_var`   | Continuous variable name interested for interpretation  | character |
+| `variable1`  | Name of the first variable in the interaction of interest | character |
+| `vairiable2`   | Name of the second variable in the interaction of interest | character |
+| `vairiable1_type`   | Type of the first variable in the interaction of interest | character |
+| `vairiable2_type`   | Type of the second variable in the interaction of interest | character |
 
 
 ## Example 
@@ -60,14 +62,14 @@ library(here)
 
 test_data <- read.csv(here("data/test_data.csv"))
 
-result_con <- logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
+logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
                     data = test_data,
                     variable_interest = "age",
                     variable_type = "continuous")
 ```
 #### Categorical variable:
 ```
-result_cat <- logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
+logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
                     data = test_data,
                     variable_interest = "smoking_status",
                     variable_type = "categorical")
@@ -77,9 +79,12 @@ result_cat <- logis(formula = stroke ~ gender + age + hypertension + heart_disea
 #### Continuous &times; Categorical:
 ```
 logint(formula = stroke ~ work_type * age,
-       data = test_data,
-       continuous_var = "age",
-       categorical_var = "work_type")
+                  variable1 = "age",
+                  variable2 = "work_type",
+                  variable1_type = "continuous",
+                  variable2_type = "categorical",
+                  data = test_data,
+                  sigfig=4)
 ```
 
 
