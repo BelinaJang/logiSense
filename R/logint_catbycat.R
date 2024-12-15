@@ -89,11 +89,15 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
 
       sentences <- c(
         sentences,
+        #paste0(
+        #  "The odds ratio for the outcome '", outcome, "' when comparing the group ",
+        #  variable1," level '", i, "' with the reference level, (",
+        #  ref_level1, ") in the context of ", variable2, " level '",
+        #  j,"' is ", signif(odds_ratio, sigfig), "."
+        #)
         paste0(
-          "The odds ratio for the outcome '", outcome, "' when comparing the group ",
-          variable1," level '", i, "' with the reference level, (",
-          ref_level1, ") in the context of ", variable2, " level '",
-          j,"' is ", signif(odds_ratio, sigfig), "."
+          "The odds ratio of '", outcome, "' for the ",
+          variable1," group ", i, " vs ",variable1," group ", ref_level1," (reference level) in the context of ",variable2, " group ", j," is ",signif(odds_ratio, sigfig), "."
         )
       )
     }
