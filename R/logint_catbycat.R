@@ -34,6 +34,19 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
   if (length(interaction_terms_check) == 0){
     stop("No interaction terms between ", variable1, " and ", variable2, " found in the model.")
   }
+
+  ######switch variable 1 and variable 2 if variable 2 appears before variable 1######
+  term_order <- attr(model$terms, "term.labels")
+  interaction_term <- paste0(variable1, ":", variable2)
+  reverse_interaction_term <- paste0(variable2, ":", variable1)
+
+  if (reverse_interaction_term %in% term_order && !(interaction_term %in% term_order)) {
+    message("Switching variable1 and variable2 for consistent interpretation.")
+    temp <- variable1
+    variable1 <- variable2
+    variable2 <- temp
+  }
+
   #############################
 
   if (any(is.na(coefficients))) {
