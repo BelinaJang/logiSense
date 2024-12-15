@@ -7,7 +7,7 @@
 #' @param variable2_type type of the second variable in the interaction of interest (either "continuous" or "categorical")
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
-#' @return string object delineating interpretation of interaction effects
+#' @return `logint2` prints the interpretation of interaction effects directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @examples
 #' ## Example 1: Interaction between a continuous and a categorical variable
