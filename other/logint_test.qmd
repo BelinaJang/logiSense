@@ -72,3 +72,30 @@ logint2(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = 
 logint(stroke ~ gender*age, variable1 = "age", variable2 = "gender", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
 ```
 ## interaction term invalid (doesn't exist)
+```{r}
+formula <- stroke ~ age*work_type + gender
+variable1 <- "age"
+variable2 <- "gender"
+variable1_type <- "continuous"
+variable2_type <- "categorical"
+data <- test_data
+sigfig <- 4
+
+
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+logint2(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+```
+
+```{r}
+formula <- stroke ~ age*gender + avg_glucose_level
+variable1 <- "age"
+variable2 <- "avg_glucose_level"
+variable1_type <- "continuous"
+variable2_type <- "continuous"
+data <- test_data
+sigfig <- 4
+
+
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+logint2(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+```
