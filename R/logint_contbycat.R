@@ -7,6 +7,7 @@
 #' @param sigfig number of significant figures to round to
 #' @return `logint_contbycat` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
+#' @importFrom stats glm binomial coef vcov
 #' @examples
 #' formula <- stroke ~ work_type*age
 #' continuous_var <- "age"

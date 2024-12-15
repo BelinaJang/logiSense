@@ -9,6 +9,7 @@
 #' @param sigfig number of significant figures to round to
 #' @return a string object delineating interpretation of the logistic regression results
 #' @importFrom broom tidy
+#' @importFrom stats glm binomial coef vcov
 #' @examples
 #' ## Example 1: Continuous variable
 #' formula <- stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status
