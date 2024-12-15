@@ -7,7 +7,7 @@
 #' @param variable2_type type of the second variable in the interaction of interest (either "continuous" or "categorical")
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
-#' @return `logint` prints the interpretation of the result directly to the console using "cat()"
+#' @return `logint3` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @importFrom stats glm binomial coef vcov
 #' @examples
@@ -19,7 +19,7 @@
 #' variable2_type <- "categorical"
 #' data <- test_data
 #' sigfig <- 4
-#' logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+#' logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
 #' ## Example 2: Interaction between two continuous variables
 #' formula <- stroke ~ age*avg_glucose_level
 #' variable1 <- "age"
@@ -28,10 +28,10 @@
 #' variable2_type <- "continuous"
 #' data <- test_data
 #' sigfig <- 4
-#' logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+#' logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
 #' @export
 
-logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
+logint3 <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
 
   #####################################################
   if (variable1_type == "continuous" & variable2_type == "continuous"){
