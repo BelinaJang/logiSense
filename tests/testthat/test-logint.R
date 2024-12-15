@@ -30,6 +30,38 @@ test_that("logint handles interaction between two continuous variables correctly
   )
 })
 
+test_that("logint handles interaction between two categorical variables correctly", {
+  formula <- stroke ~ work_type * Residence_type
+  variable1 <- "work_type"
+  variable2 <- "Residence_type"
+  variable1_type <- "categorical"
+  variable2_type <- "categorical"
+  data <- test_data
+  sigfig <- 4
+
+  expect_output(
+    logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig),
+    "The odds ratio of ",
+    fixed = TRUE
+  )
+})
+
+test_that("logint handles interaction between two categorical variables correctly even when the two variables are not in the right order", {
+  formula <- stroke ~ work_type * Residence_type
+  variable1 <- "Residence_type"
+  variable2 <- "work_type"
+  variable1_type <- "categorical"
+  variable2_type <- "categorical"
+  data <- test_data
+  sigfig <- 4
+
+  expect_output(
+    logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig),
+    "The odds ratio of ",
+    fixed = TRUE
+  )
+})
+
 test_that("logint handles invalid variable types", {
   formula <- stroke ~ age * work_type
   variable1 <- "age"
@@ -74,4 +106,3 @@ test_that("logint throws an error for missing interaction term", {
     "No interaction terms between age and avg_glucose_level found in the model."
   )
 })
-

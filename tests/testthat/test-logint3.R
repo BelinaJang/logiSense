@@ -30,6 +30,38 @@ test_that("logint3 handles interaction between two continuous variables correctl
   )
 })
 
+test_that("logint3 handles interaction between two categorical variables correctly", {
+  formula <- stroke ~ work_type * Residence_type
+  variable1 <- "work_type"
+  variable2 <- "Residence_type"
+  variable1_type <- "categorical"
+  variable2_type <- "categorical"
+  data <- test_data
+  sigfig <- 4
+
+  expect_output(
+    logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig),
+    "The odds ratio of ",
+    fixed = TRUE
+  )
+})
+
+test_that("logint3 handles interaction between two categorical variables correctly even when the two variables are not in the right order", {
+  formula <- stroke ~ work_type * Residence_type
+  variable1 <- "Residence_type"
+  variable2 <- "work_type"
+  variable1_type <- "categorical"
+  variable2_type <- "categorical"
+  data <- test_data
+  sigfig <- 4
+
+  expect_output(
+    logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig),
+    "The odds ratio of ",
+    fixed = TRUE
+  )
+})
+
 test_that("logint3 handles invalid variable types", {
   formula <- stroke ~ age * work_type
   variable1 <- "age"
