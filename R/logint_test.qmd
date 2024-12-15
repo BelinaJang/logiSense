@@ -45,8 +45,10 @@ logint2(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", vari
 
 ## logint
 ```{r}
+logint(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
 ```
 
 ## logint2
 ```{r}
+logint2(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
 ```
