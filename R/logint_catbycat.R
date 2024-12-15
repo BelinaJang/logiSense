@@ -1,4 +1,20 @@
-
+#' @title Logistic Regression Interpretation for Categorical by Categorical Interaction
+#' @description a function that returns the interpretation for a logistic regression model with one two-way interaction of a categorical and a categorical variable.
+#' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
+#' @param variable1 The name of the first variable (str)
+#' @param variable2 The name of the second variable (str)
+#' @param data The name of the dataset
+#' @param sigfig number of significant figures to round to
+#' @return string object delineating interpretation of interaction effects
+#' @importFrom broom tidy
+#' @examples
+#' formula <- stroke ~ work_type*age
+#' variable1 <- "age"
+#' variable2 <- "work_type"
+#' data <- test_data
+#' sigfig <- 4
+#' logint_contbycat(formula, continuous_var, categorical_var, data, sigfig)
+#' @export
 
 logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
 
