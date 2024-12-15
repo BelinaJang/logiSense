@@ -189,9 +189,21 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
   base_effect <- coefficients[continuous_var]
   
   # Extract interaction terms
-  #interaction_terms <- coefficients[grep(paste0(continuous_var, ":"), names(coefficients))]
   result <- tidy(model)
-  interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
+  #interaction_terms <- coefficients[result[grep(":", result$term), ]$term] - wrong
+  
+  # error handling added
+  result_terms <- result$term
+  
+  # find terms that include both continuous and categorical variables from result_terms
+  interaction_terms <- coefficients[result_terms[sapply(result_terms, function(term) {
+      all(sapply(c(continuous_var,categorical_var), function(var) grepl(var, term)))
+    })]]
+  
+  if (length(interaction_terms) == 0){
+    stop("No interaction terms between ", continuous_var, " and ", categorical_var, " found in the model.")
+  }
+  
   
   # Extract main effects for the categorical variable (excluding baseline)
   categorical_effects <- coefficients[grep(paste0("^", categorical_var), names(coefficients))]

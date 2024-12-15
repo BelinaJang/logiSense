@@ -34,9 +34,9 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
 
   # Get the base odds ratio for the continuous variable
   base_effect <- coefficients[continuous_var]
+  #interaction_terms <- coefficients[grep(paste0(continuous_var, ":"), names(coefficients))]
 
   # Extract interaction terms
-  #interaction_terms <- coefficients[grep(paste0(continuous_var, ":"), names(coefficients))]
   result <- tidy(model)
   #interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
 
