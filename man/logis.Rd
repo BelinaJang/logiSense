@@ -31,4 +31,5 @@ variable_interest <- "age"
 variable_type <- "continuous"
 data <- test_data
 sigfig <- 4
+logis(formula, variable_interest, variable_type, data, sigfig)
 }
