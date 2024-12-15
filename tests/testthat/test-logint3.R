@@ -1,4 +1,4 @@
-test_that("logint handles interaction between a continuous and a categorical variable correctly", {
+test_that("logint3 handles interaction between a continuous and a categorical variable correctly", {
   formula <- stroke ~ age * work_type
   variable1 <- "age"
   variable2 <- "work_type"
@@ -14,7 +14,7 @@ test_that("logint handles interaction between a continuous and a categorical var
   )
 })
 
-test_that("logint handles interaction between two continuous variables correctly", {
+test_that("logint3 handles interaction between two continuous variables correctly", {
   formula <- stroke ~ age * avg_glucose_level
   variable1 <- "age"
   variable2 <- "avg_glucose_level"
@@ -30,7 +30,7 @@ test_that("logint handles interaction between two continuous variables correctly
   )
 })
 
-test_that("logint handles invalid variable types", {
+test_that("logint3 handles invalid variable types", {
   formula <- stroke ~ age * work_type
   variable1 <- "age"
   variable2 <- "work_type"
@@ -45,7 +45,7 @@ test_that("logint handles invalid variable types", {
   )
 })
 
-test_that("logint throws an error for missing interaction term", {
+test_that("logint3 throws an error for missing interaction term", {
   formula <- stroke ~ age*work_type + gender
   variable1 <- "age"
   variable2 <- "gender"
@@ -60,7 +60,7 @@ test_that("logint throws an error for missing interaction term", {
   )
 })
 
-test_that("logint throws an error for missing interaction term", {
+test_that("logint3 throws an error for missing interaction term", {
   formula <- stroke ~ age*gender + avg_glucose_level
   variable1 <- "age"
   variable2 <- "avg_glucose_level"
