@@ -30,7 +30,7 @@ logint(
 \item{sigfig}{number of significant figures to round to}
 }
 \value{
-`logint` prints the interpretation of interaction effects directly to the console using "cat()"
+`logint` prints the interpretation of the result directly to the console using "cat()"
 }
 \description{
 a function that returns the interpretation for a logistic regression model with one two-way interaction.

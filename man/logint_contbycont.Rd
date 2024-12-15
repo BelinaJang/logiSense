@@ -2,23 +2,23 @@
 % Please edit documentation in R/logint_contbycont.R
 \name{logint_contbycont}
 \alias{logint_contbycont}
-\title{Logistic Regression Interpretation for One Two-Way Interaction}
+\title{Logistic Regression Interpretation for Continuous by Continuous Interaction}
 \usage{
 logint_contbycont(formula, variable1, variable2, data, sigfig = 4)
 }
 \arguments{
 \item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.}
 
-\item{variable1}{The name of first continuous variable}
+\item{variable1}{The name of first continuous variable in the interaction}
 
-\item{variable2}{The name of second continuous variable}
+\item{variable2}{The name of second continuous variable in the interaction}
 
 \item{data}{The name of the dataset}
 
 \item{sigfig}{number of significant figures to round to}
 }
 \value{
-string object delineating interpretation of interaction effects
+`logint_contbycont` prints the interpretation of the result directly to the console using "cat()"
 }
 \description{
 a function that returns the interpretation for a logistic regression model with one two-way interaction of two continuous variables.

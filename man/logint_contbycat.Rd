@@ -2,23 +2,23 @@
 % Please edit documentation in R/logint_contbycat.R
 \name{logint_contbycat}
 \alias{logint_contbycat}
-\title{Logistic Regression Interpretation for One Two-Way Interaction}
+\title{Logistic Regression Interpretation for Continuous by Categorical Interaction}
 \usage{
 logint_contbycat(formula, continuous_var, categorical_var, data, sigfig)
 }
 \arguments{
 \item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.}
 
-\item{continuous_var}{The name of the continuous variable}
+\item{continuous_var}{The name of the continuous variable in the interaction}
 
-\item{categorical_var}{The name of the categorical variable}
+\item{categorical_var}{The name of the categorical variable in the interaction}
 
 \item{data}{The name of the dataset}
 
 \item{sigfig}{number of significant figures to round to}
 }
 \value{
-string object delineating interpretation of interaction effects
+`logint_contbycat` prints the interpretation of the result directly to the console using "cat()"
 }
 \description{
 a function that returns the interpretation for a logistic regression model with one two-way interaction of a continuous and a categorical variable.

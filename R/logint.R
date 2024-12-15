@@ -7,7 +7,7 @@
 #' @param variable2_type type of the second variable in the interaction of interest (either "continuous" or "categorical")
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
-#' @return `logint` prints the interpretation of interaction effects directly to the console using "cat()"
+#' @return `logint` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @examples
 #' ## Example 1: Interaction between a continuous and a categorical variable
@@ -81,6 +81,7 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
     model <- glm(formula, data = data, family = binomial)
 
     variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+
     outcome <- as.character(variables_list[[1]])
 
     coefficients <- coef(model)
@@ -95,9 +96,20 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
     base_effect <- coefficients[continuous_var]
 
     # Extract interaction terms
-    #interaction_terms <- coefficients[grep(paste0(continuous_var, ":"), names(coefficients))]
     result <- tidy(model)
-    interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
+    #interaction_terms <- coefficients[result[grep(":", result$term), ]$term] - wrong
+
+    # error handling added
+    result_terms <- result$term
+
+    # find terms that include both continuous and categorical variables from result_terms
+    interaction_terms <- coefficients[result_terms[sapply(result_terms, function(term) {
+      all(sapply(c(continuous_var,categorical_var), function(var) grepl(var, term)))
+    })]]
+
+    if (length(interaction_terms) == 0){
+      stop("No interaction terms between ", continuous_var, " and ", categorical_var, " found in the model.")
+    }
 
     # Extract main effects for the categorical variable (excluding baseline)
     categorical_effects <- coefficients[grep(paste0("^", categorical_var), names(coefficients))]
@@ -164,13 +176,24 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
     model <- glm(formula, data = data, family = binomial)
 
     variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+
     outcome <- as.character(variables_list[[1]])
     coefficients <- coef(model)
 
     var1_effect <- coefficients[continuous_var1]
     var2_effect <- coefficients[continuous_var2]
-    interaction_effect <- coefficients[grep(":", names(coefficients))]
+    #interaction_effect <- coefficients[grep(":", names(coefficients))] - wrong
 
+    # error handling added
+    result <- tidy(model)
+    result_terms <- result$term
+
+    # find terms that include both continuous and categorical variables from result_terms
+    interaction_effect <- coefficients[result_terms[sapply(result_terms, function(term) {all(sapply(c(continuous_var1,continuous_var2), function(var) grepl(var, term)))})]]
+
+    if (length(interaction_effect) == 0){
+      stop("No interaction terms between ", continuous_var1, " and ", continuous_var2, " found in the model.")
+    }
 
     # if any coefficients is NA, return warning message
     if (any(is.na(coefficients))) {
@@ -195,7 +218,6 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
     )
     return(cat(sentences, sep = "\n"))
   } else if (variable1_type=="categorical" & variable2_type=="categorical"){
-    warning("Both variables are categorical. This is currently under development. Please check back later. \n")
-    # Placeholder for future logic
+    logint_catbycat(formula, variable1, variable2, data, sigfig)
   }
 }
