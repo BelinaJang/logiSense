@@ -71,4 +71,3 @@ logint2(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = 
 ```{r}
 logint(stroke ~ gender*age, variable1 = "age", variable2 = "gender", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
 ```
-```
