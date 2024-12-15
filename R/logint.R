@@ -27,6 +27,7 @@
 #' variable2_type <- "continuous"
 #' data <- test_data
 #' sigfig <- 4
+#' logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
 #' @export
 
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {

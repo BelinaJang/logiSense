@@ -1,6 +1,6 @@
 ---
 title: "logint_test"
-format: pdf
+format: html
 ---
 
 ```{r}
