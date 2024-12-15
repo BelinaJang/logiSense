@@ -1,11 +1,11 @@
-#' @title Logistic Regression Interpretation for One Two-Way Interaction
+#' @title Logistic Regression Interpretation for Continuous by Categorical Interaction
 #' @description a function that returns the interpretation for a logistic regression model with one two-way interaction of a continuous and a categorical variable.
 #' @param formula an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.
-#' @param continuous_var The name of the continuous variable
-#' @param categorical_var The name of the categorical variable
+#' @param continuous_var The name of the continuous variable in the interaction
+#' @param categorical_var The name of the categorical variable in the interaction
 #' @param data The name of the dataset
 #' @param sigfig number of significant figures to round to
-#' @return string object delineating interpretation of interaction effects
+#' @return `logint_contbycat` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @examples
 #' formula <- stroke ~ work_type*age
@@ -21,6 +21,7 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
   model <- glm(formula, data = data, family = binomial)
 
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+
   outcome <- as.character(variables_list[[1]])
 
   coefficients <- coef(model)
@@ -37,7 +38,20 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
   # Extract interaction terms
   #interaction_terms <- coefficients[grep(paste0(continuous_var, ":"), names(coefficients))]
   result <- tidy(model)
-  interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
+  #interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
+
+  # error handling added
+  result_terms <- result$term
+
+  # find terms that include both continuous and categorical variables from result_terms
+  #interaction_terms <- coefficients[result[grep(":", result$term), ]$term]
+  interaction_terms <- coefficients[result_terms[sapply(result_terms, function(term) {
+    all(sapply(c(continuous_var,categorical_var), function(var) grepl(var, term)))
+  })]]
+
+  if (length(interaction_terms) == 0){
+    stop("No interaction terms between ", continuous_var, " and ", categorical_var, " found in the model.")
+  }
 
   # Extract main effects for the categorical variable (excluding baseline)
   categorical_effects <- coefficients[grep(paste0("^", categorical_var), names(coefficients))]
