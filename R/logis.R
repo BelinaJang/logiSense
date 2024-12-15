@@ -24,7 +24,7 @@ logis <- function(formula, variable_interest, variable_type, data, sigfig=4) {
 
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
   outcome <- as.character(variables_list[[1]])
-  cat("Outcome variable: ", outcome, "\n")
+  message("Outcome variable: ", outcome, "\n")
 
   result <- tidy(model, conf.int = TRUE, exponentiate = TRUE)
   result_terms <- result$term
@@ -62,7 +62,7 @@ logis <- function(formula, variable_interest, variable_type, data, sigfig=4) {
     data[[variable_interest]] <- factor(data[[variable_interest]])
     levels <- levels(data[[variable_interest]])
     reference_level <- levels[1]
-    cat("Reference level: ", reference_level, "\n")
+    message("Reference level: ", reference_level, "\n")
 
     for (comparison_level in levels[-1]) {
       term_name <- paste0(variable_interest, comparison_level)
