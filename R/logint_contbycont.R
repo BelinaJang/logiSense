@@ -15,7 +15,6 @@
 #' data <- test_data
 #' sigfig <- 4
 #' logint_contbycont(formula, variable1, variable2, data, sigfig)
-#' @export
 
 logint_contbycont <- function(formula, variable1, variable2, data, sigfig=4) {
   continuous_var1 <- variable1

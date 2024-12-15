@@ -15,7 +15,6 @@
 #' data <- test_data
 #' sigfig <- 4
 #' logint_catbycat(formula, variable1, variable2, data, sigfig)
-#' @export
 
 logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
 
