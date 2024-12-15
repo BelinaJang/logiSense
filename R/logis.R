@@ -10,9 +10,17 @@
 #' @return a string object delineating interpretation of the logistic regression results
 #' @importFrom broom tidy
 #' @examples
-#' formula <- stroke~gender+age+hypertension
+#' ## Example 1: Continuous variable
+#' formula <- stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status
 #' variable_interest <- "age"
 #' variable_type <- "continuous"
+#' data <- test_data
+#' sigfig <- 4
+#' logis(formula, variable_interest, variable_type, data, sigfig)
+#' ## Example 2: Categorical variable
+#' formula <- stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status
+#' variable_interest <- "smoking_status"
+#' variable_type <- "categorical"
 #' data <- test_data
 #' sigfig <- 4
 #' logis(formula, variable_interest, variable_type, data, sigfig)
@@ -23,6 +31,13 @@ logis <- function(formula, variable_interest, variable_type, data, sigfig=4) {
   model <- glm(formula, data = data, family = binomial)
 
   variables_list <- as.list(attr(model$terms, "variables"))[-c(1)]
+
+  if (variable_interest %in% variables_list) {
+    # do nothing
+  } else {
+    stop("Variable of interest not found in the model.")
+  }
+
   outcome <- as.character(variables_list[[1]])
   message("Outcome variable: ", outcome, "\n")
 

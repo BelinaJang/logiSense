@@ -26,9 +26,17 @@ a string object delineating interpretation of the logistic regression results
 a function that returns the interpretation of logistic regression results
 }
 \examples{
-formula <- stroke~gender+age+hypertension
+## Example 1: Continuous variable
+formula <- stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status
 variable_interest <- "age"
 variable_type <- "continuous"
+data <- test_data
+sigfig <- 4
+logis(formula, variable_interest, variable_type, data, sigfig)
+## Example 2: Categorical variable
+formula <- stroke~gender+age+hypertension+heart_disease+avg_glucose_level+smoking_status
+variable_interest <- "smoking_status"
+variable_type <- "categorical"
 data <- test_data
 sigfig <- 4
 logis(formula, variable_interest, variable_type, data, sigfig)
