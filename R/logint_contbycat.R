@@ -100,8 +100,8 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
       paste0(
         "The 95% CI: e^((", signif(categorical_effects[i], sigfig),
         " + (", signif(interaction_terms[i], sigfig), ")*(value)) \u00b1 (1.96)*sqrt(",
-        signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],sigfig), " + ",
-        signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],sigfig), " + 2*(value)*(",
+        signif(vcov_m[categorical_effects_names[i], categorical_effects_names[i]],sigfig), " + ((value)^2)*(",
+        signif(vcov_m[interaction_terms_names[i], interaction_terms_names[i]],sigfig), ") + 2*(value)*(",
         signif(vcov_m[categorical_effects_names[i], interaction_terms_names[i]],sigfig), "))). \n"
       )
     )
