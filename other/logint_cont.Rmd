@@ -134,8 +134,19 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
   
   var1_effect <- coefficients[continuous_var1]
   var2_effect <- coefficients[continuous_var2]
-  interaction_effect <- coefficients[grep(":", names(coefficients))]
+  #interaction_effect <- coefficients[grep(":", names(coefficients))] - wrong
   
+    result <- tidy(model)
+    
+    # error handling added
+    result_terms <- result$term
+
+    # find terms that include both continuous and categorical variables from result_terms
+    interaction_terms <- coefficients[result_terms[sapply(result_terms, function(term) {all(sapply(c(continuous_var1,continuous_var2), function(var) grepl(var, term)))})]]
+
+    if (length(interaction_terms) == 0){
+      stop("No interaction terms between ", continuous_var1, " and ", continuous_var2, " found in the model.")
+    }
   
   # if any coefficients is NA, return warning message
   if (any(is.na(coefficients))) {
