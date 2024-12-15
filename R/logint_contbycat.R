@@ -15,7 +15,7 @@
 #' data <- test_data
 #' sigfig <- 4
 #' logint_contbycat(formula, continuous_var, categorical_var, data, sigfig)
-
+#' @export
 logint_contbycat <- function(formula, continuous_var, categorical_var, data, sigfig) {
 
   model <- glm(formula, data = data, family = binomial)
