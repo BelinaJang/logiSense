@@ -53,22 +53,22 @@ logint2 <- function(formula, variable1, variable2, variable1_type, variable2_typ
 
     if (variable1_type == "continuous"){
       continuous_var <- variable1
-      message("Variable 1 is continuous. \n")
+      #message("Variable 1 is continuous. \n")
       message("continuous_var: ", continuous_var, "\n")
     } else if (variable1_type == "categorical"){
       categorical_var <- variable1
-      message("Variable 1 is categorical. \n")
+      #message("Variable 1 is categorical. \n")
       message("categorical_var: ", categorical_var, "\n")
     } else {
       stop("variable1_type should be either 'continuous' or 'categorical'.")
     }
     if (variable2_type == "continuous"){
       continuous_var <- variable2
-      message("Variable 2 is continuous. \n")
+      #message("Variable 2 is continuous. \n")
       message("continuous_var: ", continuous_var, "\n")
     } else if (variable2_type == "categorical"){
       categorical_var <- variable2
-      message("Variable 2 is categorical. \n")
+      #message("Variable 2 is categorical. \n")
       message("categorical_var: ", categorical_var, "\n")
     } else {
       stop("variable2_type should be either 'continuous' or 'categorical'.")
