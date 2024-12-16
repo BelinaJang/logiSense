@@ -23,7 +23,7 @@ data("test_data")
 summary(glm(stroke ~ age*avg_glucose_level, data = test_data, family = "binomial"))
 ```
 
-## logint1
+## logint
 ```{r}
 logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
            variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
@@ -141,4 +141,9 @@ sigfig <- 4
 
 logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
 logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+```
+
+## sigfig invalid
+```{r}
+logint(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig="3")
 ```
