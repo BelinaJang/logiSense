@@ -1,5 +1,12 @@
 # logiSense
+
 `logiSense` is an R package designed to simplify and make sense of logistic regression results.  It provides concise and human-readable outputs for both continuous and categorical variables, making it easier to derive insights from your logistic regression models.
+
+<div align="center">
+  <img src="https://github.com/BelinaJang/logiSense/blob/main/images/logiSense-logo.png" alt="Logo" width="250">
+</div>
+
+
 
 
 ## Motivation
