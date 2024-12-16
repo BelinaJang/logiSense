@@ -26,7 +26,7 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
 
   coefficients <- coef(model)
 
-  # if any coefficeitns is NA, return warning message
+  # if any coefficient is NA, return warning message
   if (any(is.na(coefficients))) {
     na_variables <- names(coefficients)[is.na(coefficients)]
     warning(paste0(na_variables," has(have) NA estimates. \n Action Required: Consider re-specifying the model or re-examining interaction terms for meaningfulness. \n"))
