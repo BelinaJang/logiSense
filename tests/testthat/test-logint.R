@@ -106,3 +106,18 @@ test_that("logint throws an error for missing interaction term", {
     "No interaction terms between age and avg_glucose_level found in the model."
   )
 })
+
+test_that("logint throws an error when sigfig is not numeric", {
+  formula <- stroke ~ age * work_type
+  variable1 <- "age"
+  variable2 <- "work_type"
+  variable1_type <- "continuous"
+  variable2_type <- "categorical"
+  data <- test_data
+  sigfig <- "3"
+
+  expect_error(
+    logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig),
+    "sigfig should be numeric."
+  )
+})
