@@ -72,14 +72,16 @@ test_data <- read.csv(here("data/test_data.csv"))
 logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
                     data = test_data,
                     variable_interest = "age",
-                    variable_type = "continuous")
+                    variable_type = "continuous",
+                    sigfig=4)
 ```
 #### Categorical variable:
 ```
 logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
                     data = test_data,
                     variable_interest = "smoking_status",
-                    variable_type = "categorical")
+                    variable_type = "categorical",
+                    sigfig = 4)
 ```
 
 ### `logint` (two-way interaction):
@@ -95,12 +97,23 @@ logint(formula = stroke ~ work_type * age,
 ```
 #### Continuous &times; Continuous:
 ```
-logint(formula=stroke ~ age * avg_glucose_level,
+logint(formula = stroke ~ age * avg_glucose_level,
                   variable1 = "age",
                   variable2 = "avg_glucose_level",
                   variable1_type = "continuous",
                   variable2_type = "continuous",
-                  data = test_data)
+                  data = test_data,
+                  sigfig = 4)
+```
+#### Categorical &times; Categorical:
+```
+logint(formula = stroke ~ work_type * Residence_type,
+                  variable1 = "work_type",
+                  variable2 = "Residence_type",
+                  variable1_type = "categorical",
+                  variable2_type = "categorical",
+                  data = test_data,
+                  sigfig = 4)
 ```
 
 ## Comparison with Existing Packages
