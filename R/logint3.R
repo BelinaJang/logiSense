@@ -6,7 +6,7 @@
 #' @param variable1_type type of the first variable in the interaction of interest (either "continuous" or "categorical")
 #' @param variable2_type type of the second variable in the interaction of interest (either "continuous" or "categorical")
 #' @param data The name of the dataset
-#' @param sigfig number of significant figures to round to
+#' @param sigfig integer indicating the number of significant digits to be used.
 #' @return `logint3` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @importFrom stats glm binomial coef vcov

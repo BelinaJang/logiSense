@@ -4,7 +4,7 @@
 #' @param variable1 The name of the first categorical variable in the interaction
 #' @param variable2 The name of the second categorical variable in the interaction
 #' @param data The name of the dataset
-#' @param sigfig number of significant figures to round to
+#' @param sigfig integer indicating the number of significant digits to be used.
 #' @return `logint_catbycat` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @importFrom stats glm binomial coef vcov

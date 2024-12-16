@@ -27,7 +27,7 @@ logint(
 
 \item{data}{The name of the dataset}
 
-\item{sigfig}{number of significant figures to round to}
+\item{sigfig}{integer indicating the number of significant digits to be used.}
 }
 \value{
 `logint` prints the interpretation of interaction effects directly to the console using "cat()"

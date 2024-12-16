@@ -4,7 +4,7 @@
 #' @param continuous_var The name of the continuous variable in the interaction
 #' @param categorical_var The name of the categorical variable in the interaction
 #' @param data The name of the dataset
-#' @param sigfig number of significant figures to round to
+#' @param sigfig integer indicating the number of significant digits to be used.
 #' @return `logint_contbycat` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @importFrom stats glm binomial coef vcov

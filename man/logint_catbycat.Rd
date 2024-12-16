@@ -15,7 +15,7 @@ logint_catbycat(formula, variable1, variable2, data, sigfig = 4)
 
 \item{data}{The name of the dataset}
 
-\item{sigfig}{number of significant figures to round to}
+\item{sigfig}{integer indicating the number of significant digits to be used.}
 }
 \value{
 `logint_catbycat` prints the interpretation of the result directly to the console using "cat()"

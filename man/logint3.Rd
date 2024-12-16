@@ -27,7 +27,7 @@ logint3(
 
 \item{data}{The name of the dataset}
 
-\item{sigfig}{number of significant figures to round to}
+\item{sigfig}{integer indicating the number of significant digits to be used.}
 }
 \value{
 `logint3` prints the interpretation of the result directly to the console using "cat()"
