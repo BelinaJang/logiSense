@@ -69,17 +69,17 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
   vcov_m <- vcov(model)
   odds_ratios_names <- names(odds_ratios)
   for (i in 1:(length(interaction_terms)+1)) {
-    CI <- exp(base_effect +c(-1,1)* 1.96 * sqrt(vcov_m[odds_ratios_names[1], odds_ratios_names[1]] + vcov_m[odds_ratios_names[i], odds_ratios_names[i]] + 2*vcov_m[odds_ratios_names[1], odds_ratios_names[i]]))
+    CI <- exp(log(odds_ratios[i]) +c(-1,1)* 1.96 * sqrt(vcov_m[odds_ratios_names[1], odds_ratios_names[1]] + vcov_m[odds_ratios_names[i], odds_ratios_names[i]] + 2*vcov_m[odds_ratios_names[1], odds_ratios_names[i]]))
     odds_ratio_sentences <- c(
       odds_ratio_sentences,
       paste0(
         "The odds ratio of '", outcome, "' for increasing ", continuous_var, " by one unit in ", categorical_var, " group ",categorical_levels[i]," = ", signif(odds_ratios[i], sigfig),
         "."
       ), paste0(
-        "The 95% CI: e^(", signif(base_effect,sigfig), " \u00b1 (1.96)*(",
+        "The 95% CI: e^(", signif(log(odds_ratios[i]),sigfig), " \u00b1 (1.96)*(",
         signif(vcov_m[odds_ratios_names[1], odds_ratios_names[1]],sigfig), " + ",
-        signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],sigfig), " + 2*(",
-        signif(vcov_m[odds_ratios_names[1], odds_ratios_names[i]],sigfig), "))) = (", signif(CI[1],sigfig), ", ", signif(CI[2],sigfig), ").\n"
+        signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],sigfig), " + ",
+        signif(2*vcov_m[odds_ratios_names[1], odds_ratios_names[i]],sigfig), ")) = (", signif(CI[1],sigfig), ", ", signif(CI[2],sigfig), ").\n"
       )
     )
   }
