@@ -1,5 +1,12 @@
 # logiSense
+
 `logiSense` is an R package designed to simplify and make sense of logistic regression results.  It provides concise and human-readable outputs for both continuous and categorical variables, making it easier to derive insights from your logistic regression models.
+
+<div align="center">
+  <img src="https://github.com/BelinaJang/logiSense/blob/main/images/logiSense-logo.png" alt="Logo" width="250">
+</div>
+
+
 
 
 ## Motivation
@@ -37,6 +44,7 @@ The `logis` and `logint` functions in `logiSense` require specific arguments, in
 | `data`             | Name of the data                        | data frame |
 | `variable_interest`| Variable name interested for interpretation | character |
 | `variable_type`    | Type of variable of interest             | character  |
+| `sigfig`    | Number indicating the number of significant digits to be used | integer  |
 
 ### Description of Parameters for `logint`
 
@@ -48,6 +56,8 @@ The `logis` and `logint` functions in `logiSense` require specific arguments, in
 | `vairiable2`   | Name of the second variable in the interaction of interest | character |
 | `vairiable1_type`   | Type of the first variable in the interaction of interest | character |
 | `vairiable2_type`   | Type of the second variable in the interaction of interest | character |
+| `sigfig`    | Number indicating the number of significant digits to be used | integer  |
+
 
 
 ## Example 
@@ -65,14 +75,16 @@ test_data <- read.csv(here("data/test_data.csv"))
 logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
                     data = test_data,
                     variable_interest = "age",
-                    variable_type = "continuous")
+                    variable_type = "continuous",
+                    sigfig=4)
 ```
 #### Categorical variable:
 ```
 logis(formula = stroke ~ gender + age + hypertension + heart_disease + avg_glucose_level + smoking_status,
                     data = test_data,
                     variable_interest = "smoking_status",
-                    variable_type = "categorical")
+                    variable_type = "categorical",
+                    sigfig = 4)
 ```
 
 ### `logint` (two-way interaction):
@@ -84,16 +96,27 @@ logint(formula = stroke ~ work_type * age,
                   variable1_type = "continuous",
                   variable2_type = "categorical",
                   data = test_data,
-                  sigfig=4)
+                  sigfig = 4)
 ```
 #### Continuous &times; Continuous:
 ```
-logint(formula=stroke ~ age*avg_glucose_level,
+logint(formula = stroke ~ age * avg_glucose_level,
                   variable1 = "age",
                   variable2 = "avg_glucose_level",
                   variable1_type = "continuous",
                   variable2_type = "continuous",
-                  data = test_data)
+                  data = test_data,
+                  sigfig = 4)
+```
+#### Categorical &times; Categorical:
+```
+logint(formula = stroke ~ work_type * Residence_type,
+                  variable1 = "work_type",
+                  variable2 = "Residence_type",
+                  variable1_type = "categorical",
+                  variable2_type = "categorical",
+                  data = test_data,
+                  sigfig = 4)
 ```
 
 ## Comparison with Existing Packages
