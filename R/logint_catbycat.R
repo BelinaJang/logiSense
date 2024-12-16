@@ -72,7 +72,7 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
       main2 <- paste0(variable2, j)
       interaction_term <- paste0(variable1, i, ":", variable2, j)
 
-      message(paste0("interaction: ", interaction_term))
+      #message(paste0("interaction: ", interaction_term))
 
       beta_main1 <- ifelse(main1 %in% rownames(coef_model), coef_model[main1, "Estimate"], 0)
       beta_main2 <- ifelse(main2 %in% rownames(coef_model), coef_model[main2, "Estimate"], 0)
