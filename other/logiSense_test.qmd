@@ -1,0 +1,144 @@
+---
+title: "logiSense Test"
+format: html
+---
+
+```{r}
+library(devtools)
+devtools::install_github(
+"BelinaJang/logiSense",force = TRUE
+)
+#devtools::install(build_vignettes = TRUE)
+library(logiSense)
+```
+
+# load data
+```{r}
+data("test_data")
+```
+
+# case 1: continuous by continuous interaction
+
+```{r}
+summary(glm(stroke ~ age*avg_glucose_level, data = test_data, family = "binomial"))
+```
+
+## logint1
+```{r}
+logint(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
+```
+
+## logint3
+```{r}
+logint3(formula=stroke ~ age*avg_glucose_level, variable1 = "age", 
+           variable2 = "avg_glucose_level", variable1_type = "continuous", variable2_type = "continuous", data = test_data)
+```
+
+# case 2: continuous by categorical interaction
+
+```{r}
+summary(glm(stroke ~ work_type*age, data = test_data, family = "binomial"))
+```
+## example1: logint
+```{r}
+logint(stroke ~ work_type*age, variable1 = "work_type", variable2 = "age", variable1_type = "categorical", variable2_type = "continuous",data=test_data, sigfig=4)
+```
+## example1: logint3
+```{r}
+logint3(stroke ~ work_type*age, variable1 = "work_type", variable2 = "age", variable1_type = "categorical", variable2_type = "continuous",data=test_data, sigfig=4)
+```
+
+## example2: logint
+```{r}
+logint(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+## example2: logint3
+```{r}
+logint3(stroke ~ work_type*age, variable1 = "age", variable2 = "work_type", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+
+# case 3: categorical by categorical interaction
+
+```{r}
+summary(glm(stroke ~ work_type*Residence_type, data = test_data, family = "binomial"))
+```
+
+## example1: logint
+```{r}
+logint(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+## example1: logint3
+```{r}
+logint3(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+## example2: logint (not in the right order)
+```{r}
+logint(stroke ~ work_type*Residence_type, variable1 = "Residence_type", variable2 = "work_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+## example2: logint3 (not in the right order)
+```{r}
+logint3(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categorical", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+
+# error/warning examples
+## invalid variable1_type
+```{r}
+logint3(stroke ~ work_type*Residence_type, variable1 = "work_type", variable2 = "Residence_type", variable1_type = "categoricals", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+## NA in estimate
+```{r}
+logint(stroke ~ gender*age, variable1 = "age", variable2 = "gender", variable1_type = "continuous", variable2_type = "categorical",data=test_data, sigfig=4)
+```
+## interaction term invalid (doesn't exist)
+```{r}
+formula <- stroke ~ age*work_type + gender
+variable1 <- "age"
+variable2 <- "gender"
+variable1_type <- "continuous"
+variable2_type <- "categorical"
+data <- test_data
+sigfig <- 4
+
+
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+```
+
+```{r}
+library(tidyverse)
+
+test_data2 <- test_data
+test_data2$bmi <- as.numeric(test_data2$bmi)
+
+formula <- stroke ~ age*bmi + avg_glucose_level
+variable1 <- "age"
+variable2 <- "avg_glucose_level"
+variable1_type <- "continuous"
+variable2_type <- "continuous"
+data <- test_data2
+sigfig <- 4
+
+
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+```
+
+```{r}
+formula <- stroke ~ work_type*gender + avg_glucose_level
+variable1 <- "Residence_type"
+variable2 <- "gender"
+variable1_type <- "categorical"
+variable2_type <- "categorical"
+data <- test_data
+sigfig <- 4
+
+
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+```
