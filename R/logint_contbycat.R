@@ -76,7 +76,7 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
         "The odds ratio of '", outcome, "' for increasing ", continuous_var, " by one unit in ", categorical_var, " group ",categorical_levels[i]," = ", signif(odds_ratios[i], sigfig),
         "."
       ), paste0(
-        "The 95% CI: e^(", signif(log(odds_ratios[i]),sigfig), " \u00b1 (1.96)*(",
+        "The 95% CI: e^(", signif(log(odds_ratios[i]),sigfig), " \u00b1 (1.96)*sqrt(",
         signif(vcov_m[odds_ratios_names[1], odds_ratios_names[1]],sigfig), " + ",
         signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],sigfig), " + ",
         signif(2*vcov_m[odds_ratios_names[1], odds_ratios_names[i]],sigfig), ")) = (", signif(CI[1],sigfig), ", ", signif(CI[2],sigfig), ").\n"
