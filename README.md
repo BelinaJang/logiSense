@@ -56,7 +56,7 @@ The `logis` and `logint` functions in `logiSense` require specific arguments, in
 | `vairiable2`   | Name of the second variable in the interaction of interest | character |
 | `vairiable1_type`   | Type of the first variable in the interaction of interest | character |
 | `vairiable2_type`   | Type of the second variable in the interaction of interest | character |
-| `sigfig`    | Number indicating the number of significant digits to be used.| integer  |
+| `sigfig`    | Number indicating the number of significant digits to be used | integer  |
 
 
 
