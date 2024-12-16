@@ -91,11 +91,11 @@ logint(formula = stroke ~ work_type * age,
                   variable1_type = "continuous",
                   variable2_type = "categorical",
                   data = test_data,
-                  sigfig=4)
+                  sigfig = 4)
 ```
 #### Continuous &times; Continuous:
 ```
-logint(formula=stroke ~ age*avg_glucose_level,
+logint(formula=stroke ~ age * avg_glucose_level,
                   variable1 = "age",
                   variable2 = "avg_glucose_level",
                   variable1_type = "continuous",
