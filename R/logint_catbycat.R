@@ -82,8 +82,7 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
       log_odds <- beta_main1 + beta_interaction
       odds_ratio <- exp(log_odds)
 
-      message(paste0("(i,j): (", i,',', j, "), beta_main1:", beta_main1, ", beta_main2:", beta_main2,
-                   ", beta_interaction:", beta_interaction, ", log_odds:", log_odds))
+      #message(paste0("(i,j): (", i,',', j, "), beta_main1:", beta_main1, ", beta_main2:", beta_main2,", beta_interaction:", beta_interaction, ", log_odds:", log_odds))
 
       vcov_m <- vcov(model)
 
@@ -127,7 +126,7 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
       main2 <- paste0(variable2, j)
       interaction_term <- paste0(variable1, i, ":", variable2, j)
 
-      message(paste0("main1:", main1, " main2:", main2, " interaction:", interaction_term))
+      #message(paste0("main1:", main1, " main2:", main2, " interaction:", interaction_term))
 
 
       beta_main1 <- ifelse(main1 %in% rownames(coef_model), coef_model[main1, "Estimate"], 0)
@@ -138,8 +137,7 @@ logint_catbycat <- function(formula, variable1, variable2, data, sigfig = 4) {
       log_odds <- beta_main2 + beta_interaction
       odds_ratio <- exp(log_odds)
 
-      message(paste0("(i,j): ", i, j, ", beta_main1:", beta_main1, ", beta_main2:", beta_main2,
-                     ", beta_interaction:", beta_interaction, ", log_odds:", log_odds))
+      #message(paste0("(i,j): ", i, j, ", beta_main1:", beta_main1, ", beta_main2:", beta_main2,", beta_interaction:", beta_interaction, ", log_odds:", log_odds))
 
       vcov_m <- vcov(model)
 
