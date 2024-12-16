@@ -54,4 +54,13 @@ variable2_type <- "continuous"
 data <- test_data
 sigfig <- 4
 logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
+## Example 3: Interaction between two categorical variables
+formula <- stroke ~ work_type*Residence_type
+variable1 <- "work_type"
+variable2 <- "Residence_type"
+variable1_type <- "categorical"
+variable2_type <- "categorical"
+data <- test_data
+sigfig <- 4
+logint(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
 }
