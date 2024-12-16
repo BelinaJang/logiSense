@@ -6,7 +6,7 @@
 #' @param variable1_type type of the first variable in the interaction of interest (either "continuous" or "categorical")
 #' @param variable2_type type of the second variable in the interaction of interest (either "continuous" or "categorical")
 #' @param data The name of the dataset
-#' @param sigfig number of significant figures to round to
+#' @param sigfig integer indicating the number of significant digits to be used.
 #' @return `logint` prints the interpretation of interaction effects directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @importFrom stats glm binomial coef vcov
@@ -42,6 +42,11 @@
 
 logint <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
 
+  # check if sigfig is numeric
+  if (!is.numeric(sigfig)){
+    stop("sigfig should be numeric.")
+  }
+
   #####################################################
   if (variable1_type == "continuous" & variable2_type == "continuous"){
     #both continuous <- don't really need this part
@@ -63,23 +68,19 @@ logint <- function(formula, variable1, variable2, variable1_type, variable2_type
 
     if (variable1_type == "continuous"){
       continuous_var <- variable1
-      #message("Variable 1 is continuous. \n")
-      message("continuous_var: ", continuous_var, "\n")
+      message("continuous_var: ", continuous_var)
     } else if (variable1_type == "categorical"){
       categorical_var <- variable1
-      #message("Variable 1 is categorical. \n")
-      message("categorical_var: ", categorical_var, "\n")
+      message("categorical_var: ", categorical_var)
     } else {
       stop("variable1_type should be either 'continuous' or 'categorical'.")
     }
     if (variable2_type == "continuous"){
       continuous_var <- variable2
-      #message("Variable 2 is continuous. \n")
-      message("continuous_var: ", continuous_var, "\n")
+      message(", continuous_var: ", continuous_var, "\n")
     } else if (variable2_type == "categorical"){
       categorical_var <- variable2
-      #message("Variable 2 is categorical. \n")
-      message("categorical_var: ", categorical_var, "\n")
+      message(", categorical_var: ", categorical_var, "\n")
     } else {
       stop("variable2_type should be either 'continuous' or 'categorical'.")
     }
