@@ -78,8 +78,8 @@ logint_contbycat <- function(formula, continuous_var, categorical_var, data, sig
       ), paste0(
         "The 95% CI: e^(", signif(base_effect,sigfig), " \u00b1 (1.96)*(",
         signif(vcov_m[odds_ratios_names[1], odds_ratios_names[1]],sigfig), " + ",
-        signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],sigfig), " + ",
-        signif(vcov_m[odds_ratios_names[1], odds_ratios_names[i]],sigfig), ")) = (", signif(CI[1],sigfig), ", ", signif(CI[2],sigfig), ").\n"
+        signif(vcov_m[odds_ratios_names[i], odds_ratios_names[i]],sigfig), " + 2*(",
+        signif(vcov_m[odds_ratios_names[1], odds_ratios_names[i]],sigfig), "))) = (", signif(CI[1],sigfig), ", ", signif(CI[2],sigfig), ").\n"
       )
     )
   }
