@@ -20,7 +20,7 @@ Acceptable values are "continuous" for numeric variables or "categorical" for fa
 \item{sigfig}{number of significant figures to round to}
 }
 \value{
-a string object delineating interpretation of the logistic regression results
+`logis` prints the interpretation of the result directly to the console using "cat()"
 }
 \description{
 a function that returns the interpretation of logistic regression results

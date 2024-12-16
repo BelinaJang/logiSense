@@ -7,7 +7,7 @@
 #' Acceptable values are "continuous" for numeric variables or "categorical" for factor variables.
 #' @param data an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which glm is called.
 #' @param sigfig number of significant figures to round to
-#' @return a string object delineating interpretation of the logistic regression results
+#' @return `logis` prints the interpretation of the result directly to the console using "cat()"
 #' @importFrom broom tidy
 #' @importFrom stats glm binomial coef vcov
 #' @examples
