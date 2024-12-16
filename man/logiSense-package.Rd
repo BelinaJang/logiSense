@@ -6,6 +6,6 @@
 \alias{logiSense-package}
 \title{logiSense: Logistic Regression Interpretation}
 \description{
-The package includes a function that returns the interpretation for a logistic regression model without any interaction and a function that returns an interpretation for a logistic regression model with one two-way interaction.
+The package includes functions that return the interpretations for various logistic regression models.
 }
 \keyword{internal}

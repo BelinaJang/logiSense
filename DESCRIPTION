@@ -4,8 +4,7 @@ Title: Logistic Regression Interpretation
 Version: 0.1.1
 Author: Anna (Jingxuan) He [aut], Belina Jang [aut, cre], Vanessa Liao [ctb, prototype], Tina (Zhaoyu) Tan [ctb], & Victoria Truong [ctb]
 Maintainer: The package maintainer <jangbelina@gmail.com>
-Description: The package includes a function that returns the interpretation for a logistic regression model without any interaction
-    and a function that returns an interpretation for a logistic regression model with one two-way interaction.
+Description: The package includes functions that return the interpretations for various logistic regression models.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
