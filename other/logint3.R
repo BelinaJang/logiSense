@@ -38,7 +38,7 @@
 #' data <- test_data
 #' sigfig <- 4
 #' logint3(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig)
-#' @export
+
 logint3 <- function(formula, variable1, variable2, variable1_type, variable2_type, data, sigfig=4) {
 
   #####################################################
